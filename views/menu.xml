@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+    <data>
+    <!--MENU PARENT-->
+    <menuitem
+        id="menu_core_top"
+        name="Budgets"
+        sequence="3"/>
+    <!--END MENU PARENT-->
+
+    <!--MENU LEFT-->
+        <menuitem
+            id="menu_core_top_left"
+            name="Budget"
+            parent="menu_core_top"
+        />
+
+        <menuitem
+            id="menu_budget_left"
+            name="Budget"
+            sequence="1"
+            parent="menu_core_top_left"
+            action="action_budget"
+        />
+
+        <menuitem
+            id="menu_budget_inherit_project_left"
+            name="Project"
+            sequence="2"
+            parent="menu_core_top_left"
+            action="action_budget_inherit_project"
+        />
+    <!--END MENU LEFT-->
+
+    <!--MENU LEFT-CHILD-->
+    </data>
+</openerp>
