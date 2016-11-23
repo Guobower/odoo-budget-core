@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': "Budget Core",
-    'version': '0.1',
+    'version': '0.1b',
     'summary': 'Budget Core Module',
     'sequence': 1,
     'description': """
@@ -12,9 +12,14 @@ Specifically Designed for Etisalat-TBPC
 Budget Core
 ---------------------
 - Budget
-- Project
-- Cost Center - Account Code
+- Budget History
+- Project (Inherit to Budget)
+- Project History (Inherit to Budget History)
+- Cost Center - Account Code (Inherit to Budget)
+- Utilities
 
+Brief
+---------------------
     """,
     'author': "Marc Philippe de Villeres",
     'website': "https://github.com/mpdevilleres",

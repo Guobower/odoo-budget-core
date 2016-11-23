@@ -5,7 +5,7 @@ from odoo.exceptions import ValidationError
 
 from odoo.addons.my_utilities.models import choices_tuple
 
-# TODO REMOVE COMMITMENT IN THIS MODEL AND PLACE IT TO INHERITED HISTORY
+
 # ALSO CHECK THE LOGIC FOR TRANSFER
 class BudgetHistory(models.Model):
     _name = 'budget.core.budget.history'
@@ -13,16 +13,14 @@ class BudgetHistory(models.Model):
 
     # CHOICES
     # ----------------------------------------------------------
-    OPTIONS = choices_tuple(['add', 'subtract', 'transfer'], is_sorted=False)
-
+    OPTIONS = choices_tuple(['add', 'subtract', 'transfer from', 'transfer to'], is_sorted=False)
 
     # BASIC FIELDS
     # ----------------------------------------------------------
     option = fields.Selection(string='Option', selection=OPTIONS)
-    commitment_amount = fields.Monetary(currency_field='company_currency_id',
-                                        string='Commitment Amount')
+
     expenditure_amount = fields.Monetary(currency_field='company_currency_id',
-                                        string='Expenditure Amount')
+                                         string='Expenditure Amount')
     change_date = fields.Date(string="Change Date")
     remarks = fields.Text(string="Remarks")
 
@@ -33,9 +31,10 @@ class BudgetHistory(models.Model):
 
     budget_id = fields.Many2one('budget.core.budget')
     from_budget_id = fields.Many2one('budget.core.budget',
-                                      string="From Project No")
+                                     string="From Project No")
     to_budget_id = fields.Many2one('budget.core.budget',
-                                    string="To Project No")
+                                   string="To Project No")
+
     # # CONSTRAINS
     # # ----------------------------------------------------------
     # @api.one
@@ -48,19 +47,10 @@ class BudgetHistory(models.Model):
     #                                                                           self.to_budget_id.budget_no]:
     #         raise ValidationError(_("Transfer Option: Transfer is invalid %s must be in from or to" % self.budget_id.budget_no))
 
-    @api.onchange('option', 'budget_id', 'from_budget_id', 'to_budget_id', 'commitment_amount', 'expenditure_amount')
-    def onchange_option(self):
+    @api.onchange('option', 'expenditure_amount')
+    def onchange_expenditure_amount(self):
         if self.option == 'add':
-            self.commitment_amount *= -1 if self.commitment_amount < 0 else 1
             self.expenditure_amount *= -1 if self.expenditure_amount < 0 else 1
 
         elif self.option == 'subtract':
-            self.commitment_amount *= -1 if self.commitment_amount > 0 else 1
             self.expenditure_amount *= -1 if self.expenditure_amount > 0 else 1
-
-        elif self.option == 'transfer':
-            self.commitment_amount = abs(self.commitment_amount)
-            self.expenditure_amount = abs(self.expenditure_amount)
-
-            self.commitment_amount *= -1 if self.budget_id.budget_no == self.from_budget_id.budget_no else 1
-            self.expenditure_amount *= -1 if self.budget_id.budget_no == self.from_budget_id.budget_no else 1

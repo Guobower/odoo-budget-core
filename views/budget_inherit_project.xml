@@ -18,7 +18,17 @@
                            attrs="{'invisible': [('is_project', '!=', True)]}"/>
                 </xpath>
                 <xpath expr="//field[@name='expenditure_amount']" position="before">
-                    <field name="commitment_amount" attrs="{'invisible': [('is_project', '!=', True)]}"/>
+                    <!--write_date already exist in budget form view-->
+                    <field name="initial_commitment_amount"
+                           attrs="{'invisible': ['|', ('is_project', '!=', True), ('write_date', '!=', False)]}"/>
+                    <field name="commitment_amount"
+                           attrs="{'invisible': ['|', ('is_project', '!=', True), ('write_date', '==', False)]}"/>
+                </xpath>
+            <!--//field[@name='invoice_line_ids']/tree/field[@name='account_id']-->
+                <xpath expr="//field[@name='history_ids']/tree/field[@name='expenditure_amount']" position="before">
+                    <!--TODO FIND A WAY TO HIDE WHEN is_project is True-->
+                    <field name="commitment_amount" sum="true"/>
+                           <!--attrs="{'invisible': [('budget_id.is_project', '!=', True)]}"/>-->
                 </xpath>
             </field>
         </record>

@@ -4,7 +4,6 @@
     <data>
     <!--START VIEWS-->
         <!-- FORM VIEW-->
-        <!--TODO REMOVE COMMITMENT ALSO HERE AND MAKE AN INHERITED VIEW-->
         <record model="ir.ui.view" id="view_form_budget">
             <field name="name">Budget</field>
             <field name="model">budget.core.budget</field>
@@ -36,7 +35,9 @@
 
                             </group>
                             <group>
-                                <field name="expenditure_amount"/>
+                                <field name="write_date" attrs="{'invisible': True}"/>
+                                <field name="initial_expenditure_amount"  attrs="{'invisible': [('write_date', '!=', False)]}"/>
+                                <field name="expenditure_amount"  attrs="{'invisible': [('write_date', '==', False)]}"/>
                             </group>
                         </group>
                         <group>
@@ -47,10 +48,11 @@
                                 <field name="history_ids">
                                     <tree editable="bottom">
                                         <field name="option"/>
-                                        <field name="commitment_amount" sum="true"/>
                                         <field name="expenditure_amount" sum="true"/>
-                                        <field name="from_budget_id" attrs="{'readonly': [('option', 'in', ['add', 'subtract'])]}"/>
-                                        <field name="to_budget_id" attrs="{'readonly': [('option', 'in', ['add', 'subtract'])]}"/>
+                                        <field name="from_budget_id"
+                                               attrs="{'readonly': [('option', 'in', ['add', 'subtract', 'transfer to'])]}"/>
+                                        <field name="to_budget_id"
+                                               attrs="{'readonly': [('option', 'in', ['add', 'subtract', 'transfer from'])]}"/>
                                         <field name="change_date"/>
                                         <field name="remarks"/>
                                     </tree>
