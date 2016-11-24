@@ -11,6 +11,5 @@ class BudgetHistoryInherit(models.Model):
 
     # BASIC FIELDS
     # ----------------------------------------------------------
-    is_project_history = fields.Boolean(string='Is Project History')
-    commitment_amount = fields.Monetary(currency_field='company_currency_id',
-                                         string='Commitment Amount')
+    is_operation_history = fields.Boolean(string='Is Project History')
+

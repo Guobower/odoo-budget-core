@@ -12,9 +12,6 @@
                 <xpath expr="//field[@name='name']" position="before">
                     <field name="is_project" invisible="1"/>
                 </xpath>
-                <xpath expr="//field[@name='name']" position="attributes">
-                    <attribute name="attrs">{'invisible': [('is_project', '==', True)]}</attribute>
-                </xpath>
                 <xpath expr="//field[@name='name']" position="after">
                     <field name="project_no" default_focus="1" placeholder="Project No"
                            attrs="{'invisible': [('is_project', '!=', True)]}"/>
@@ -26,9 +23,9 @@
                     <field name="commitment_amount"
                            attrs="{'invisible': ['|', ('is_project', '!=', True), ('write_date', '==', False)]}"/>
                 </xpath>
-                <xpath expr="//field[@name='history_ids']" position="replace">
-                    <field name="history_ids"
-                           context="{'default_is_project_history': is_project}"/>
+                <xpath expr="//field[@name='history_ids']" position="attributes">
+                        <attribute name="context">{'default_is_project_history': is_project}</attribute>
+                        <attribute name="no_create">1</attribute>
                 </xpath>
             </field>
         </record>

@@ -33,7 +33,9 @@ Brief
 
        'views/budget.xml',
        'views/budget_history.xml',
-       'views/budget_inherit_project.xml',
+        'views/budget_inherit_operation.xml',
+        'views/budget_history_inherit_operation.xml',
+        'views/budget_inherit_project.xml',
        'views/budget_history_inherit_project.xml',
        'views/menu.xml'
     ],

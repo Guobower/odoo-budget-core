@@ -23,7 +23,9 @@
                         </div>
                         <div class="oe_title">
                             <h1>
-                                <field name="name" default_focus="1" placeholder="Name"/>
+                                <!--TODO FIND A WAY TO DISTRIBUTE THIS TO OTHER XML AND CONBIME ATTRS NOT OVERRIDE-->
+                                <field name="name" default_focus="1" placeholder="Name"
+                                       attrs="{'invisible': ['|', ('is_project', '==', True),('is_operation', '==', True)]}"/>
                             </h1>
                         </div>
                         <group>
@@ -74,7 +76,6 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,pivot,graph</field>
             <field name="view_id" ref="view_tree_budget"/>
-            <!--<field name="domain">[('is_project', '=', True)]</field>-->
             <field name="context">{'form_view_ref': 'budget_core.view_form_budget'}</field>
         </record>
         <!--END ACTIONS-->

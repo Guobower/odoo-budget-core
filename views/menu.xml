@@ -32,21 +32,36 @@
         />
 
         <menuitem
+            id="menu_budget_history_inherit_project_left"
+            name="Project History"
+            sequence="3"
+            parent="menu_core_top_left"
+            action="action_budget_history_inherit_project"
+        />
+        <menuitem
             id="menu_budget_inherit_project_left"
             name="Project"
-            sequence="3"
+            sequence="4"
             parent="menu_core_top_left"
             action="action_budget_inherit_project"
         />
+
         <menuitem
-            id="menu_budget_inherit_history_left"
-            name="Project History"
-            sequence="4"
+            id="menu_budget_history_inherit_operation_left"
+            name="Operation History"
+            sequence="5"
             parent="menu_core_top_left"
-            action="action_budget_inherit_history"
+            action="action_budget_history_inherit_operation"
         />
+        <menuitem
+            id="menu_budget_inherit_operation_left"
+            name="Operation"
+            sequence="6"
+            parent="menu_core_top_left"
+            action="action_budget_inherit_operation"
+        />
+
     <!--END MENU LEFT-->
 
-    <!--MENU LEFT-CHILD-->
     </data>
 </openerp>
