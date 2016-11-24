@@ -26,9 +26,9 @@
                     <field name="commitment_amount"
                            attrs="{'invisible': ['|', ('is_project', '!=', True), ('write_date', '==', False)]}"/>
                 </xpath>
-                <!--TODO FIND A BETTER WAY HIDE commitment_amount WHEN is_project IS True-->
-                <xpath expr="//field[@name='history_ids']/tree/field[@name='expenditure_amount']" position="before">
-                    <field name="commitment_amount"/>
+                <xpath expr="//field[@name='history_ids']" position="replace">
+                    <field name="history_ids"
+                           context="{'default_is_project_history': is_project}"/>
                 </xpath>
             </field>
         </record>
