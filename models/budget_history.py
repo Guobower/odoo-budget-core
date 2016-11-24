@@ -6,19 +6,21 @@ from odoo.exceptions import ValidationError
 from odoo.addons.my_utilities.models import choices_tuple
 
 
-# ALSO CHECK THE LOGIC FOR TRANSFER
 class BudgetHistory(models.Model):
     _name = 'budget.core.budget.history'
+    _rec_name = 'name'
     _description = 'Budget History'
 
     # CHOICES
     # ----------------------------------------------------------
-    OPTIONS = choices_tuple(['add', 'subtract', 'transfer from', 'transfer to'], is_sorted=False)
+    OPTIONS = choices_tuple(['add', 'subtract', 'transfer'], is_sorted=False)
 
     # BASIC FIELDS
     # ----------------------------------------------------------
-    option = fields.Selection(string='Option', selection=OPTIONS)
+    name = fields.Char(string='Name')
+    is_initial = fields.Boolean(string='Is Initial')
 
+    action_taken = fields.Selection(string='Action Taken', selection=OPTIONS, default='add')
     expenditure_amount = fields.Monetary(currency_field='company_currency_id',
                                          string='Expenditure Amount')
     change_date = fields.Date(string="Change Date")
@@ -29,28 +31,28 @@ class BudgetHistory(models.Model):
     company_currency_id = fields.Many2one('res.currency', readonly=True,
                                           default=lambda self: self.env.user.company_id.currency_id)
 
-    budget_id = fields.Many2one('budget.core.budget')
+    budget_ids = fields.Many2many('budget.core.budget', 'budget_core_budget_history_rel', 'history_id', 'budget_id')
     from_budget_id = fields.Many2one('budget.core.budget',
                                      string="From Project No")
     to_budget_id = fields.Many2one('budget.core.budget',
                                    string="To Project No")
 
-    # # CONSTRAINS
-    # # ----------------------------------------------------------
-    # @api.one
-    # @api.constrains('option', 'budget_id', 'from_budget_id', 'to_budget_id')
-    # def _check_option(self):
-    #     if self.option == 'transfer' and self.from_budget_id == self.to_budget_id:
-    #         raise ValidationError(_("Transfer Option: From and To Project should not be equal"))
-    #
-    #     elif self.option == 'transfer' and self.budget_id.budget_no not in [self.to_budget_id.budget_no,
-    #                                                                           self.to_budget_id.budget_no]:
-    #         raise ValidationError(_("Transfer Option: Transfer is invalid %s must be in from or to" % self.budget_id.budget_no))
+    # OVERRIDE METHODS
+    # ----------------------------------------------------------
+    @api.model
+    @api.returns('self', lambda rec: rec.id)
+    def create(self, values):
+        history = super(BudgetHistory, self).create(values)
+        budget_ids = history.to_budget_id + history.from_budget_id
+        history.budget_ids = budget_ids
+        return history
 
-    @api.onchange('option', 'expenditure_amount')
-    def onchange_expenditure_amount(self):
-        if self.option == 'add':
-            self.expenditure_amount *= -1 if self.expenditure_amount < 0 else 1
+    @api.onchange('action_taken', 'to_budget_id', 'from_budget_id')
+    def onchange_name(self):
+        if self.action_taken in ['add', 'subtract']:
+            self.name = '{}: {}'.format(self.action_taken.upper(), self.to_budget_id.name)
 
-        elif self.option == 'subtract':
-            self.expenditure_amount *= -1 if self.expenditure_amount > 0 else 1
+        elif self.action_taken == 'transfer':
+            self.name = '{}: {} > {}'.format(self.action_taken.upper() or '',
+                                             self.from_budget_id.name or '',
+                                             self.to_budget_id.name or '')

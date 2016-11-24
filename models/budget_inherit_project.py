@@ -49,7 +49,7 @@ class BudgetInheritProject(models.Model):
                 'remarks': 'initial amount',
                 'expenditure_amount': initial_expenditure_amount,
                 'commitment_amount': initial_commitment_amount,
-                'option': 'add',
+                'action_taken': 'add',
                 'change_date': start_date
             }
 

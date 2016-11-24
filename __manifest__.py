@@ -28,12 +28,12 @@ Brief
         'budget_enduser'
     ],
     'data': [
-#        'security/budget.xml',
-#        'security/ir.model.access.csv',
+       'security/budget.xml',
+       'security/ir.model.access.csv',
 
-#        'views/task.xml',
        'views/budget.xml',
-       'views/budget_inherit_project.xml',
+       'views/budget_history.xml',
+       # 'views/budget_inherit_project.xml',
        'views/menu.xml'
     ],
     'demo': [

@@ -15,11 +15,11 @@ class BudgetHistoryInherit(models.Model):
     commitment_amount = fields.Monetary(currency_field='company_currency_id',
                                         string='Commitment Amount')
 
-    # option exist in budget.history
-    @api.onchange('option', 'commitment_amount')
+    # action_taken exist in budget.history
+    @api.onchange('action_taken', 'commitment_amount')
     def onchange_commitment_amount(self):
-        if self.option == 'add':
+        if self.action_taken == 'add':
             self.commitment_amount *= -1 if self.commitment_amount < 0 else 1
 
-        elif self.option == 'subtract':
+        elif self.action_taken == 'subtract':
             self.commitment_amount *= -1 if self.commitment_amount > 0 else 1

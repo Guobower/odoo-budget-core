@@ -31,9 +31,7 @@ class Budget(models.Model):
                                  domain=[('is_budget_section', '=', True)])
     sub_section_id = fields.Many2one('res.partner', string='Sub Section',
                                      domain=[('is_budget_sub_section', '=', True)])
-    history_ids = fields.One2many('budget.core.budget.history',
-                                          'budget_id',
-                                          string="Histories")
+    history_ids = fields.Many2many('budget.core.budget.history', 'budget_core_budget_history_rel', 'budget_id', 'history_id')
 
     # COMPUTE FIELDS
     # ----------------------------------------------------------
@@ -45,7 +43,15 @@ class Budget(models.Model):
     @api.one
     @api.depends('history_ids', 'history_ids.expenditure_amount')
     def _compute_expenditure_amount(self):
-        self.expenditure_amount = sum(self.history_ids.mapped('expenditure_amount'))
+        for history in self.history_ids:
+            if history.action_taken in ['add']:
+                self.expenditure_amount += history.expenditure_amount
+            elif history.action_taken in ['subtract']:
+                self.expenditure_amount -= history.expenditure_amount
+            elif history.action_taken in ['transfer'] and self.id == history.to_budget_id.id:
+                self.expenditure_amount += history.expenditure_amount
+            elif history.action_taken in ['transfer'] and self.id == history.from_budget_id.id:
+                self.expenditure_amount -= history.expenditure_amount
 
     # TRANSITIONS
     # ----------------------------------------------------------
@@ -63,7 +69,6 @@ class Budget(models.Model):
     @api.model
     @api.returns('self', lambda rec: rec.id)
     def create(self, values):
-
         if not values.get('history_ids', False):
 
             initial_expenditure_amount = values.get('initial_expenditure_amount', 0.00)
@@ -72,8 +77,9 @@ class Budget(models.Model):
             history = {
                 'remarks': 'initial amount',
                 'expenditure_amount': initial_expenditure_amount,
-                'option': 'add',
-                'change_date': start_date
+                'action_taken': 'add',
+                'change_date': start_date,
+                'is_initial': True
             }
 
             values.update(history_ids=[(0, 0, history)])
