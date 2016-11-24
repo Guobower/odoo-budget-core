@@ -25,7 +25,6 @@
                 </xpath>
                 <xpath expr="//field[@name='history_ids']" position="attributes">
                         <attribute name="context">{'default_is_project_history': is_project}</attribute>
-                        <attribute name="no_create">1</attribute>
                 </xpath>
             </field>
         </record>

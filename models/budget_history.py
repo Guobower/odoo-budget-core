@@ -56,3 +56,5 @@ class BudgetHistory(models.Model):
             self.name = '{}: {} > {}'.format(self.action_taken.upper() or '',
                                              self.from_budget_id.name or '',
                                              self.to_budget_id.name or '')
+
+    # TODO OVERRIDE WRITE TO REFLECT CHANGES IN to_budget_id and from_budget_id to budget_ids

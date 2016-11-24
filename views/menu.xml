@@ -16,20 +16,20 @@
             parent="menu_core_top"
         />
 
-        <menuitem
-            id="menu_budget_history_left"
-            name="Budget History"
-            sequence="1"
-            parent="menu_core_top_left"
-            action="action_budget_history"
-        />
-        <menuitem
-            id="menu_budget_left"
-            name="Budget"
-            sequence="2"
-            parent="menu_core_top_left"
-            action="action_budget"
-        />
+        <!--<menuitem-->
+            <!--id="menu_budget_history_left"-->
+            <!--name="Budget History"-->
+            <!--sequence="1"-->
+            <!--parent="menu_core_top_left"-->
+            <!--action="action_budget_history"-->
+        <!--/>-->
+        <!--<menuitem-->
+            <!--id="menu_budget_left"-->
+            <!--name="Budget"-->
+            <!--sequence="2"-->
+            <!--parent="menu_core_top_left"-->
+            <!--action="action_budget"-->
+        <!--/>-->
 
         <menuitem
             id="menu_budget_history_inherit_project_left"
