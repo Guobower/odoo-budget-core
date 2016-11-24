@@ -1,4 +1,3 @@
 # -*- coding: utf-8 -*-
 
-import test_budget
-from . import test_budget
+import test_budget, test_project

@@ -15,7 +15,7 @@ Budget Core
 - Budget History
 - Project (Inherit to Budget)
 - Project History (Inherit to Budget History)
-- Cost Center - Account Code (Inherit to Budget)
+- Cost Center - Account Code (Inherit to Budget) Not Implemented
 - Utilities
 
 Brief
@@ -33,7 +33,8 @@ Brief
 
        'views/budget.xml',
        'views/budget_history.xml',
-       # 'views/budget_inherit_project.xml',
+       'views/budget_inherit_project.xml',
+       'views/budget_history_inherit_project.xml',
        'views/menu.xml'
     ],
     'demo': [

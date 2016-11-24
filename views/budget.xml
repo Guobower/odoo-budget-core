@@ -45,7 +45,16 @@
                         </group>
                         <notebook>
                             <page string="Histories">
-                                <field name="history_ids" create="false" edit="true"/>
+                                <field name="history_ids">
+                                    <tree create="false" edit="true">
+                                        <field name="name"/>
+                                        <field name="expenditure_amount"/>
+                                        <field name="from_budget_id"/>
+                                        <field name="to_budget_id"/>
+                                        <field name="change_date"/>
+                                        <field name="remarks"/>
+                                    </tree>
+                                </field>
                             </page>
                         </notebook>
                     </sheet>

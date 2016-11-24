@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+    <data>
+    <!--START VIEWS-->
+        <!-- FORM VIEW-->
+        <record model="ir.ui.view" id="view_form_budget_inherit_history">
+            <field name="name">Budget History Inherit</field>
+            <field name="model">budget.core.budget.history</field>
+            <field name="inherit_id" ref="view_form_budget_history"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='expenditure_amount']" position="before">
+                    <field name="is_project_history" invisible="1"/>
+                    <field name="commitment_amount"
+                           attrs="{'invisible': [('is_project_history', '!=', True)]}"/>
+                </xpath>
+            </field>
+        </record>
+        <!--TREE VIEW-->
+        <record model="ir.ui.view" id="view_tree_budget_inherit_history">
+            <field name="name">Budget History Inherit</field>
+            <field name="model">budget.core.budget.history</field>
+            <field name="inherit_id" ref="view_tree_budget_history"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='expenditure_amount']" position="before">
+                    <field name="is_project_history" invisible="1"/>
+                    <field name="commitment_amount"
+                           invisible="not context.get('default_is_project_history', False)"/>
+                </xpath>
+            </field>
+        </record>
+    <!--END VIEWS-->
+
+    <!--START ACTIONS-->
+        <!--Budget Action-->
+        <record model="ir.actions.act_window" id="action_budget_inherit_history">
+            <field name="name">Budget History</field>
+            <field name="res_model">budget.core.budget.history</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,pivot,graph</field>
+            <field name="view_id" ref="view_tree_budget_inherit_history"/>
+            <field name="domain">[('is_project_history', '=', True)]</field>
+            <field name="context">{'default_is_project_history': True,
+                                   'form_view_ref': 'budget_core.view_form_budget_inherit_history'}</field>
+
+        </record>
+    <!--END ACTIONS-->
+    </data>
+</openerp>

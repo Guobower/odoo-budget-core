@@ -31,13 +31,20 @@
             action="action_budget"
         />
 
-        <!--<menuitem-->
-            <!--id="menu_budget_inherit_project_left"-->
-            <!--name="Project"-->
-            <!--sequence="3"-->
-            <!--parent="menu_core_top_left"-->
-            <!--action="action_budget_inherit_project"-->
-        <!--/>-->
+        <menuitem
+            id="menu_budget_inherit_project_left"
+            name="Project"
+            sequence="3"
+            parent="menu_core_top_left"
+            action="action_budget_inherit_project"
+        />
+        <menuitem
+            id="menu_budget_inherit_history_left"
+            name="Project History"
+            sequence="4"
+            parent="menu_core_top_left"
+            action="action_budget_inherit_history"
+        />
     <!--END MENU LEFT-->
 
     <!--MENU LEFT-CHILD-->

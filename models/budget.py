@@ -72,9 +72,11 @@ class Budget(models.Model):
         if not values.get('history_ids', False):
 
             initial_expenditure_amount = values.get('initial_expenditure_amount', 0.00)
+            name = values.get('name', '')
             start_date = values.get('start_date', False)
             # create Initial history
             history = {
+                'name': 'INITIAL: %s' % name,
                 'remarks': 'initial amount',
                 'expenditure_amount': initial_expenditure_amount,
                 'action_taken': 'add',

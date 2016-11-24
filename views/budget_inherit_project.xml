@@ -9,11 +9,13 @@
             <field name="model">budget.core.budget</field>
             <field name="inherit_id" ref="view_form_budget"/>
             <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="is_project" invisible="1"/>
+                </xpath>
                 <xpath expr="//field[@name='name']" position="attributes">
-                    <attribute name="invisible">[('is_project', '==', True)]</attribute>
+                    <attribute name="attrs">{'invisible': [('is_project', '==', True)]}</attribute>
                 </xpath>
                 <xpath expr="//field[@name='name']" position="after">
-                    <field name="is_project" invisible="1"/>
                     <field name="project_no" default_focus="1" placeholder="Project No"
                            attrs="{'invisible': [('is_project', '!=', True)]}"/>
                 </xpath>
@@ -24,15 +26,12 @@
                     <field name="commitment_amount"
                            attrs="{'invisible': ['|', ('is_project', '!=', True), ('write_date', '==', False)]}"/>
                 </xpath>
-            <!--//field[@name='invoice_line_ids']/tree/field[@name='account_id']-->
+                <!--TODO FIND A BETTER WAY HIDE commitment_amount WHEN is_project IS True-->
                 <xpath expr="//field[@name='history_ids']/tree/field[@name='expenditure_amount']" position="before">
-                    <!--TODO FIND A WAY TO HIDE WHEN is_project is True-->
-                    <field name="commitment_amount" sum="true"/>
-                           <!--attrs="{'invisible': [('budget_id.is_project', '!=', True)]}"/>-->
+                    <field name="commitment_amount"/>
                 </xpath>
             </field>
         </record>
-<!--invisible="context.get('to_invoice', False)"-->
         <!--TREE VIEW-->
         <record model="ir.ui.view" id="view_tree_budget_inherit_project">
             <field name="name">Budget Inherit</field>
