@@ -29,7 +29,7 @@ class BudgetInheritOperation(models.Model):
     @api.returns('self', lambda rec: rec.id)
     def create(self, values):
         if values.get('is_operation', False):
-            initial_commitment_amount = values.get('initial_commitment_amount', 0.00)
+            initial_expenditure_amount = values.get('initial_expenditure_amount', 0.00)
             start_date = values.get('start_date', False)
             cost_center_account_code = values.get('cost_center_account_code', '')
             # create Initial history
@@ -37,7 +37,7 @@ class BudgetInheritOperation(models.Model):
                 # name exist in budget.core.budget
                 'name': 'INITIAL: %s' % cost_center_account_code,
                 'remarks': 'initial amount',
-                'commitment_amount': initial_commitment_amount,
+                'expenditure_amount': initial_expenditure_amount,
                 'action_taken': 'add',
                 'change_date': start_date,
                 'is_initial': True,
@@ -57,7 +57,7 @@ class BudgetInheritOperation(models.Model):
     def write(self, values):
         if self.is_operation:
             # Equate Project No to Name
-            cost_center_account_code = values.get('cost_center_account_code','')
+            cost_center_account_code = self.cost_center_account_code
             values.update(name=cost_center_account_code)
 
         return super(BudgetInheritOperation, self).write(values)

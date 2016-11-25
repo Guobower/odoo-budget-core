@@ -79,7 +79,7 @@ class BudgetInheritProject(models.Model):
     def write(self, values):
         if self.is_project:
             # Equate Project No to Name
-            project_no = values.get('project_no','')
+            project_no = self.project_no
             values.update(name=project_no)
 
         return super(BudgetInheritProject, self).write(values)
