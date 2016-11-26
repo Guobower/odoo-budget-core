@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<!--CONTEXT AND ATTRIBUTES ARE MANAGE IN PROJECT INHERITANCE-->
 <openerp>
     <data>
     <!--START VIEWS-->
@@ -10,7 +10,9 @@
             <field name="inherit_id" ref="view_form_budget"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='name']" position="before">
-                    <field name="is_project" invisible="1"/>
+                    <group>
+                        <field name="is_project"/>
+                    </group>
                 </xpath>
                 <xpath expr="//field[@name='name']" position="after">
                     <field name="project_no" default_focus="1" placeholder="Project No"
@@ -24,7 +26,8 @@
                            attrs="{'invisible': ['|', ('is_project', '!=', True), ('write_date', '==', False)]}"/>
                 </xpath>
                 <xpath expr="//field[@name='history_ids']" position="attributes">
-                        <attribute name="context">{'default_is_project_history': is_project}</attribute>
+                        <attribute name="context">{'default_is_project_history': is_project,
+                                                   'default_is_operation_history': is_operation}</attribute>
                 </xpath>
             </field>
         </record>

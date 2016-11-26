@@ -2,6 +2,21 @@
 
 <openerp>
     <data>
+    <!--START VIEWS-->
+        <!-- FORM VIEW-->
+        <record model="ir.ui.view" id="view_form_budget_operation_inherit_project">
+            <field name="name">Budget History Inherit</field>
+            <field name="model">budget.core.budget.history</field>
+            <field name="inherit_id" ref="view_form_budget_history"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="before">
+                    <group>
+                        <field name="is_operation_history"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    <!--END VIEWS-->
 
     <!--START ACTIONS-->
         <!--Budget Action-->
@@ -10,11 +25,10 @@
             <field name="res_model">budget.core.budget.history</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,pivot,graph</field>
-            <field name="view_id" ref="view_form_budget_history"/>
-            <field name="domain">[('is_project_history', '=', True)]</field>
-            <field name="context">{'default_is_project_history': True,
+            <field name="view_id" ref="view_tree_budget_history"/>
+            <field name="domain">[('is_operation_history', '=', True)]</field>
+            <field name="context">{'default_is_operation_history': True,
                                    'form_view_ref': 'budget_core.view_form_budget_inherit_history'}</field>
-
         </record>
     <!--END ACTIONS-->
     </data>

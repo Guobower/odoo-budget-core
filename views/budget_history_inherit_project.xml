@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<!--CONTEXT AND ATTRIBUTES ARE MANAGE IN PROJECT INHERITANCE-->
 <openerp>
     <data>
     <!--START VIEWS-->
@@ -9,10 +9,27 @@
             <field name="model">budget.core.budget.history</field>
             <field name="inherit_id" ref="view_form_budget_history"/>
             <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="before">
+                    <group>
+                        <field name="is_project_history"/>
+                    </group>
+                </xpath>
                 <xpath expr="//field[@name='expenditure_amount']" position="before">
-                    <field name="is_project_history" invisible="1"/>
                     <field name="commitment_amount"
                            attrs="{'invisible': [('is_project_history', '!=', True)]}"/>
+                </xpath>
+
+                <xpath expr="//field[@name='from_budget_id']" position="attributes">
+                    <attribute name="domain">['|',('is_project','=',is_project_history),
+                                                  ('is_operation','=',is_operation_history)
+                                             ]
+                    </attribute>
+                </xpath>
+                <xpath expr="//field[@name='to_budget_id']" position="attributes">
+                    <attribute name="domain">['|',('is_project','=',is_project_history),
+                                                  ('is_operation','=',is_operation_history)
+                                             ]
+                    </attribute>
                 </xpath>
             </field>
         </record>
@@ -23,7 +40,7 @@
             <field name="inherit_id" ref="view_tree_budget_history"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='expenditure_amount']" position="before">
-                    <field name="is_project_history" invisible="1"/>
+                    <field name="is_project_history"/>
                     <field name="commitment_amount"
                            invisible="not context.get('default_is_project_history', False)"/>
                 </xpath>

@@ -33,9 +33,9 @@ class BudgetHistory(models.Model):
 
     budget_ids = fields.Many2many('budget.core.budget', 'budget_core_budget_history_rel', 'history_id', 'budget_id')
     from_budget_id = fields.Many2one('budget.core.budget',
-                                     string="From Project No")
+                                     string="From Budget No")
     to_budget_id = fields.Many2one('budget.core.budget',
-                                   string="To Project No")
+                                   string="To Budget No")
 
     # OVERRIDE METHODS
     # ----------------------------------------------------------

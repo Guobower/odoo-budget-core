@@ -10,7 +10,9 @@
             <field name="inherit_id" ref="view_form_budget"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='name']" position="before">
-                    <field name="is_operation" invisible="1"/>
+                    <group>
+                        <field name="is_operation"/>
+                    </group>
                 </xpath>
                 <xpath expr="//field[@name='name']" position="after">
                     <field name="cost_center_account_code" default_focus="1" placeholder="Cost Center - Account Code"

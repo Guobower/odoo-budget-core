@@ -9,7 +9,7 @@ class BudgetInheritOperation(models.Model):
 
     # BASIC FIELDS
     # ----------------------------------------------------------
-    is_operation = fields.Boolean(string='Is Project')
+    is_operation = fields.Boolean(string='Is Operation')
 
     cost_center_account_code = fields.Char(string="CC-AC")
     # initial_expenditure_amount exist in budget.core.budget already
