@@ -10,8 +10,8 @@
             <field name="inherit_id" ref="view_form_budget_history"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='name']" position="before">
-                    <group>
-                        <field name="is_project_history" groups=""/>
+                    <group groups="base.group_system">
+                        <field name="is_project_history"/>
                     </group>
                 </xpath>
                 <xpath expr="//field[@name='expenditure_amount']" position="before">

@@ -14,7 +14,9 @@
                             string="Set to Active"
                             name="active"
                             type="workflow"
-                            states="draft" />
+                            states="draft"
+                            groups="budget_core.group_budget_user"
+                        />
                         <field name="state" widget="statusbar"
                                statusbar_visible="draft,active,closed"/>
                     </header>
