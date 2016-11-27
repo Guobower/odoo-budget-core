@@ -7,6 +7,8 @@ class Budget(models.Model):
     _name = 'budget.core.budget'
     _rec_name = 'name'
     _description = 'Budget'
+    # _inherit = ['mail.thread', 'ir.needaction_mixin']
+    _inherit = ['mail.thread']
 
     # CHOICES
     # ----------------------------------------------------------
