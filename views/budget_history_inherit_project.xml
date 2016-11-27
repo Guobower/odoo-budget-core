@@ -11,7 +11,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='name']" position="before">
                     <group>
-                        <field name="is_project_history"/>
+                        <field name="is_project_history" groups=""/>
                     </group>
                 </xpath>
                 <xpath expr="//field[@name='expenditure_amount']" position="before">

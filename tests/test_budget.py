@@ -41,6 +41,67 @@ class BudgetTestCase(TransactionCase):
 
             self.assertTrue(len(budget.history_ids) == 1, "History must be 1 only at initial create")
 
+    def test_update_history(self):
+        """
+        expenditure_amount is a compute field
+        sum of all histories expenditure amount
+        """
+        budget = self.env['budget.core.budget'].create(
+            {
+                u'name': u'budget_a',
+                u'initial_expenditure_amount': 500,
+                u'end_date': fake.date_time_this_month(before_now=True, after_now=False, tzinfo=None).strftime(
+                    '%Y-%m-%d'),
+                u'start_date': fake.date_time_this_month(before_now=False, after_now=True, tzinfo=None).strftime(
+                    '%Y-%m-%d'),
+                u'description': fake.text(max_nb_chars=200)
+            }
+        )
+
+        budget_b = self.env['budget.core.budget'].create(
+            {
+                u'name': u'budget_b',
+                u'initial_expenditure_amount': 1600,
+                u'end_date': fake.date_time_this_month(before_now=True, after_now=False, tzinfo=None).strftime(
+                    '%Y-%m-%d'),
+                u'start_date': fake.date_time_this_month(before_now=False, after_now=True, tzinfo=None).strftime(
+                    '%Y-%m-%d'),
+                u'description': fake.text(max_nb_chars=200)
+            }
+        )
+
+        history = self.env['budget.core.budget.history'].create(
+            {
+                'action_taken': 'transfer',
+                'to_budget_id': budget.id,
+                'from_budget_id': budget_b.id,
+            }
+        )
+
+        self.assertTrue(history.budget_ids == budget + budget_b)
+
+        history.write(
+            {
+                'from_budget_id': False,
+            }
+        )
+        self.assertTrue(history.budget_ids == budget)
+
+        history.write(
+            {
+                'from_budget_id': budget.id,
+            }
+        )
+        self.assertTrue(history.budget_ids == budget)
+
+        history.write(
+            {
+                'to_budget_id': budget_b.id,
+                'from_budget_id': False,
+            }
+        )
+        self.assertTrue(history.budget_ids == budget_b)
+
     def test_expenditure_amount(self):
         """
         expenditure_amount is a compute field

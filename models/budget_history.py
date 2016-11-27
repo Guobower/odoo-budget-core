@@ -42,10 +42,21 @@ class BudgetHistory(models.Model):
     @api.model
     @api.returns('self', lambda rec: rec.id)
     def create(self, values):
-        history = super(BudgetHistory, self).create(values)
-        budget_ids = history.to_budget_id + history.from_budget_id
-        history.budget_ids = budget_ids
-        return history
+
+        to_budget_id = values.get('to_budget_id', False)
+        from_budget_id = values.get('from_budget_id', False)
+        if to_budget_id or from_budget_id:
+            budget_ids = [x for x in [to_budget_id, from_budget_id] if x]
+            values.update(budget_ids=[(6, 0, budget_ids)])
+        return super(BudgetHistory, self).create(values)
+
+    @api.one
+    def write(self, values):
+        to_budget_id = values.get('to_budget_id', self.to_budget_id.id)
+        from_budget_id = values.get('from_budget_id', self.from_budget_id.id)
+        budget_ids = [x for x in [to_budget_id, from_budget_id] if x]
+        values.update(budget_ids=[(6, 0, budget_ids)])
+        return super(BudgetHistory, self).write(values)
 
     @api.onchange('action_taken', 'to_budget_id', 'from_budget_id')
     def onchange_name(self):
@@ -56,5 +67,3 @@ class BudgetHistory(models.Model):
             self.name = '{}: {} > {}'.format(self.action_taken.upper() or '',
                                              self.from_budget_id.name or '',
                                              self.to_budget_id.name or '')
-
-            # TODO OVERRIDE WRITE TO REFLECT CHANGES IN to_budget_id and from_budget_id to budget_ids
