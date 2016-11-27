@@ -3,7 +3,7 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 
-from odoo.addons.my_utilities.models import choices_tuple
+from utilities import choices_tuple
 
 
 class BudgetHistoryInherit(models.Model):

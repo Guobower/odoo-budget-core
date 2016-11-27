@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
-from odoo.addons.my_utilities.models import choices_tuple
+from utilities import choices_tuple
 
 
 class BudgetInheritOperation(models.Model):
