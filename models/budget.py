@@ -10,7 +10,7 @@ class Budget(models.Model):
 
     # CHOICES
     # ----------------------------------------------------------
-    STATES = choices_tuple(['draft', 'active', 'closed'], is_sorted=False)
+    STATES = choices_tuple(['draft', 'active', 'closed', 'cancelled'], is_sorted=False)
 
     # BASIC FIELDS
     # ----------------------------------------------------------
