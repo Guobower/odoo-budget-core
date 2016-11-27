@@ -33,16 +33,22 @@ Brief
         'budget_enduser'
     ],
     'data': [
-       'security/budget.xml',
-       'security/ir.model.access.csv',
+        # SECURITY
+        'security/budget.xml',
+        'security/ir.model.access.csv',
 
-       'views/budget.xml',
-       'views/budget_history.xml',
+        # VIEWS
+        'views/budget.xml',
+        'views/budget_history.xml',
         'views/budget_inherit_operation.xml',
         'views/budget_history_inherit_operation.xml',
         'views/budget_inherit_project.xml',
-       'views/budget_history_inherit_project.xml',
-       'views/menu.xml'
+        'views/budget_history_inherit_project.xml',
+        'views/menu.xml',
+
+        # WORKFLOWS
+        'workflows/budget_core_budget.xml'
+
     ],
     'demo': [
     ],

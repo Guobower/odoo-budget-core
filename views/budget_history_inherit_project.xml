@@ -40,7 +40,7 @@
             <field name="inherit_id" ref="view_tree_budget_history"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='expenditure_amount']" position="before">
-                    <field name="is_project_history"/>
+                    <field name="is_project_history" groups="base.group_system"/>
                     <field name="commitment_amount"
                            invisible="not context.get('default_is_project_history', False)"/>
                 </xpath>

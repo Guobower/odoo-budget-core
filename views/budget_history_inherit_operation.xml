@@ -16,6 +16,18 @@
                 </xpath>
             </field>
         </record>
+        <!--TREE VIEW-->
+        <record model="ir.ui.view" id="view_tree_budget_history_inherit_operation">
+            <field name="name">Budget History Inherit</field>
+            <field name="model">budget.core.budget.history</field>
+            <field name="inherit_id" ref="view_tree_budget_history"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='expenditure_amount']" position="before">
+                    <field name="is_operation_history" groups="base.group_system"/>
+                </xpath>
+            </field>
+        </record>
+
     <!--END VIEWS-->
 
     <!--START ACTIONS-->
@@ -25,7 +37,7 @@
             <field name="res_model">budget.core.budget.history</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,pivot,graph</field>
-            <field name="view_id" ref="view_tree_budget_history"/>
+            <field name="view_id" ref="view_tree_budget_history_inherit_operation"/>
             <field name="domain">[('is_operation_history', '=', True)]</field>
             <field name="context">{'default_is_operation_history': True,
                                    'form_view_ref': 'budget_core.view_form_budget_inherit_history'}</field>

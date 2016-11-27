@@ -64,6 +64,9 @@ class Budget(models.Model):
     def set2close(self):
         self.state = 'closed'
 
+    def set2cancel(self):
+        self.state = 'cancelled'
+
     # OVERRIDE METHODS
     # ----------------------------------------------------------
     @api.model

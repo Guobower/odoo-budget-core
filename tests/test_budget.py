@@ -176,21 +176,80 @@ class BudgetTestCase(TransactionCase):
         self.assertTrue(budget.expenditure_amount == 1500, "Budget A expenditure is %d" % budget.expenditure_amount)
         self.assertTrue(budget_b.expenditure_amount == 700, "Budgt B expenditure is %d" % budget_b.expenditure_amount)
 
-    # TRANSISTION TESTS
-    # ----------------------------------------------------------
+    def test_workflow(self):
+        """
+        Test Workflow
+        """
+        budget = self.env['budget.core.budget'].create(
+            {
+                u'name': u'budget',
+                u'initial_expenditure_amount': 500,
+                u'end_date': fake.date_time_this_month(before_now=True, after_now=False, tzinfo=None).strftime(
+                    '%Y-%m-%d'),
+                u'start_date': fake.date_time_this_month(before_now=False, after_now=True, tzinfo=None).strftime(
+                    '%Y-%m-%d'),
+                u'description': fake.text(max_nb_chars=200)
+            }
+        )
+        budget_a = self.env['budget.core.budget'].create(
+            {
+                u'name': u'budget_a',
+                u'initial_expenditure_amount': 500,
+                u'end_date': fake.date_time_this_month(before_now=True, after_now=False, tzinfo=None).strftime(
+                    '%Y-%m-%d'),
+                u'start_date': fake.date_time_this_month(before_now=False, after_now=True, tzinfo=None).strftime(
+                    '%Y-%m-%d'),
+                u'description': fake.text(max_nb_chars=200)
+            }
+        )
 
-    def test_set2draft(self):
-        pass
+        budget_b = self.env['budget.core.budget'].create(
+            {
+                u'name': u'budget_b',
+                u'initial_expenditure_amount': 500,
+                u'end_date': fake.date_time_this_month(before_now=True, after_now=False, tzinfo=None).strftime(
+                    '%Y-%m-%d'),
+                u'start_date': fake.date_time_this_month(before_now=False, after_now=True, tzinfo=None).strftime(
+                    '%Y-%m-%d'),
+                u'description': fake.text(max_nb_chars=200)
+            }
+        )
 
-    #        self.state = 'draft'
+        budget_c = self.env['budget.core.budget'].create(
+            {
+                u'name': u'budget_c',
+                u'initial_expenditure_amount': 500,
+                u'end_date': fake.date_time_this_month(before_now=True, after_now=False, tzinfo=None).strftime(
+                    '%Y-%m-%d'),
+                u'start_date': fake.date_time_this_month(before_now=False, after_now=True, tzinfo=None).strftime(
+                    '%Y-%m-%d'),
+                u'description': fake.text(max_nb_chars=200)
+            }
+        )
 
+        # INITIAL WORKFLOW DRAFT
+        self.assertTrue(budget.state == 'draft')
 
-    def test_set2active(self):
-        pass
+        # DRAFT > ACTIVE
+        budget.signal_workflow('active')
+        self.assertTrue(budget.state == 'active')
 
-    #        self.state = 'active'
+        # ACTIVE > CLOSED
+        budget.signal_workflow('close')
+        self.assertTrue(budget.state == 'closed')
 
+        # ALL TO CANCELLED
+        budget_a.signal_workflow('cancel')
+        self.assertTrue(budget_a.state == 'cancelled')
 
-    def test_set2close(self):
-        pass
-        #        self.state = 'closed'
+        budget_b.signal_workflow('active')
+        budget_b.signal_workflow('cancel')
+        self.assertTrue(budget_b.state == 'cancelled')
+
+        # This Should fail because the flow ends also in close
+        budget_c.signal_workflow('active')
+        budget_c.signal_workflow('close')
+        budget_c.signal_workflow('cancel')
+        self.assertTrue(budget_c.state != 'cancelled')
+
+        # Restart Process

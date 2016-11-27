@@ -16,7 +16,8 @@
                 </xpath>
                 <xpath expr="//field[@name='name']" position="after">
                     <field name="cost_center_account_code" default_focus="1" placeholder="Cost Center - Account Code"
-                           attrs="{'invisible': [('is_operation', '!=', True)]}"/>
+                           attrs="{'invisible': [('is_operation', '!=', True)],
+                                   'required': [('is_operation', '==', True)]}"/>
                 </xpath>
             </field>
         </record>
@@ -30,9 +31,11 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,pivot,graph</field>
             <field name="view_id" ref="view_tree_budget"/>
+            <field name="search_view_id" ref="search_budget"/>
             <field name="domain">[('is_operation', '=', True)]</field>
             <field name="context">{'default_is_operation': True,
-                                   'form_view_ref': 'budget_core.view_form_budget_inherit_operation'}</field>
+                                   'form_view_ref': 'budget_core.view_form_budget_inherit_operation',
+                                   'search_default_filter_state': 1}</field>
         </record>
     </data>
 </openerp>
