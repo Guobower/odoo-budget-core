@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
+from psycopg2._psycopg import IntegrityError
 
 from odoo.tests.common import TransactionCase
-
+from odoo.exceptions import ValidationError
 from faker import Faker
 import random
 
@@ -175,6 +176,105 @@ class BudgetTestCase(TransactionCase):
 
         self.assertTrue(budget.expenditure_amount == 1500, "Budget A expenditure is %d" % budget.expenditure_amount)
         self.assertTrue(budget_b.expenditure_amount == 700, "Budgt B expenditure is %d" % budget_b.expenditure_amount)
+
+    def test_expenditure_amount_transfer(self):
+        """
+        test transfer validation for expenditure amount
+        """
+        budget = self.env['budget.core.budget'].create(
+            {
+                u'name': u'budget_av',
+                u'initial_expenditure_amount': 500,
+                u'end_date': fake.date_time_this_month(before_now=True, after_now=False, tzinfo=None).strftime(
+                    '%Y-%m-%d'),
+                u'start_date': fake.date_time_this_month(before_now=False, after_now=True, tzinfo=None).strftime(
+                    '%Y-%m-%d'),
+                u'description': fake.text(max_nb_chars=200)
+            }
+        )
+
+        budget_b = self.env['budget.core.budget'].create(
+            {
+                u'name': u'budget_bv',
+                u'initial_expenditure_amount': 1600,
+                u'end_date': fake.date_time_this_month(before_now=True, after_now=False, tzinfo=None).strftime(
+                    '%Y-%m-%d'),
+                u'start_date': fake.date_time_this_month(before_now=False, after_now=True, tzinfo=None).strftime(
+                    '%Y-%m-%d'),
+                u'description': fake.text(max_nb_chars=200)
+            }
+        )
+
+        histories = [
+        # Transfer Budget (500) to Budget_b
+            {
+                'expenditure_amount': 500,
+                'action_taken': 'transfer',
+                'from_budget_id': budget.id,
+                'to_budget_id': budget_b.id,
+            },
+        ]
+        # budget (0) ; budget_b (2100)
+        budget.write({u'history_ids': [(0, 0, history) for history in histories]})
+        self.assertTrue(budget.expenditure_amount == 0, "Budget A expenditure is %d" % budget.expenditure_amount)
+        self.assertTrue(budget_b.expenditure_amount == 2100, "Budget B expenditure is %d" % budget_b.expenditure_amount)
+
+        histories = [
+        # Transfer Budget (1) to Budget_b
+            {
+                'expenditure_amount': 1,
+                'action_taken': 'transfer',
+                'from_budget_id': budget.id,
+                'to_budget_id': budget_b.id,
+            },
+        ]
+        # budget (-1) ; budget_b (2101)
+        with self.assertRaises(ValidationError):
+            budget.write({u'history_ids': [(0, 0, history) for history in histories]})
+
+    def test_expenditure_amount_negative(self):
+        """
+        test negative validation for expenditure amount
+        """
+        budget = self.env['budget.core.budget'].create(
+            {
+                u'name': u'budget_av',
+                u'initial_expenditure_amount': 500,
+                u'end_date': fake.date_time_this_month(before_now=True, after_now=False, tzinfo=None).strftime(
+                    '%Y-%m-%d'),
+                u'start_date': fake.date_time_this_month(before_now=False, after_now=True, tzinfo=None).strftime(
+                    '%Y-%m-%d'),
+                u'description': fake.text(max_nb_chars=200)
+            }
+        )
+
+        histories = [
+            {
+                'expenditure_amount': -500,
+                'action_taken': 'add',
+                'from_budget_id': budget.id,
+            },
+        ]
+        # History expenditure is negative must raise ValidationError
+        with self.assertRaises(IntegrityError):
+            budget.write({u'history_ids': [(0, 0, history) for history in histories]})
+
+    def test_default_to_budget_id_create(self):
+        """
+        test default value of history.to_budget_id when creating budget
+        """
+        budget = self.env['budget.core.budget'].create(
+            {
+                u'name': u'budget_av',
+                u'initial_expenditure_amount': 500,
+                u'end_date': fake.date_time_this_month(before_now=True, after_now=False, tzinfo=None).strftime(
+                    '%Y-%m-%d'),
+                u'start_date': fake.date_time_this_month(before_now=False, after_now=True, tzinfo=None).strftime(
+                    '%Y-%m-%d'),
+                u'description': fake.text(max_nb_chars=200)
+            }
+        )
+        self.assertTrue(budget.history_ids[0].to_budget_id == budget)
 
     def test_workflow(self):
         """

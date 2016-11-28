@@ -12,6 +12,10 @@ class BudgetInheritProject(models.Model):
     is_project = fields.Boolean(string='Is Project')
 
     project_no = fields.Char(string="Project No")
+    cwp = fields.Char(string="CWIP")
+    category = fields.Char(string="Category")
+    remarks = fields.Text(string="Category")
+    rfs_date = fields.Date(string="Ready for Service Date")
     # initial_expenditure_amount exist in budget.core.budget already
     initial_commitment_amount = fields.Monetary(currency_field='company_currency_id',
                                                  string='Initial Commitment Amount',
@@ -42,6 +46,19 @@ class BudgetInheritProject(models.Model):
                 self.commitment_amount += history.commitment_amount
             elif history.action_taken in ['transfer'] and self.id == history.from_budget_id.id:
                 self.commitment_amount -= history.commitment_amount
+
+    # ONCHANGES
+    # ----------------------------------------------------------
+    # region_id exist in budget.core.budget
+    @api.onchange('project_no', 'region_id', 'cwp', 'category', 'is_project')
+    def onchange_name(self):
+        if self.is_project:
+            region = self.region_id.alias or ''
+            cwp = self.cwp or ''
+            category = self.category or ''
+            self.project_no = '{}-{}-{}'.format(region.upper(),
+                                                      cwp.upper(),
+                                                      category.upper())
 
     # OVERRIDE METHODS
     # ----------------------------------------------------------
@@ -77,9 +94,8 @@ class BudgetInheritProject(models.Model):
 
     @api.one
     def write(self, values):
-        if self.is_project:
-            # Equate Project No to Name
-            project_no = self.project_no
-            values.update(name=project_no)
+        if self.is_project and values.get('project_no', False):
+            # Overwrite existing name if project_no is change
+            values.update(name=values.get('project_no'))
 
         return super(BudgetInheritProject, self).write(values)

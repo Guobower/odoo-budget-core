@@ -3,7 +3,7 @@
     'name': "Budget Core",
     'version': '0.1b',
     'summary': 'Budget Core Module',
-    'sequence': 1,
+    'sequence': 2,
     'description': """
 Odoo Module
 ===========

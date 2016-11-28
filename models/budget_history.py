@@ -10,6 +10,7 @@ class BudgetHistory(models.Model):
     _name = 'budget.core.budget.history'
     _rec_name = 'name'
     _description = 'Budget History'
+    _order = 'change_date'
 
     # CHOICES
     # ----------------------------------------------------------
@@ -36,6 +37,22 @@ class BudgetHistory(models.Model):
                                      string="From Budget No")
     to_budget_id = fields.Many2one('budget.core.budget',
                                    string="To Budget No")
+
+    # CONSTRAINS
+    # ----------------------------------------------------------
+    _sql_constraints = [
+        ('expenditure_must_not_be_negative', 'CHECK (expenditure_amount >= 0)', 'Expenditure Amount Must Be Positive')
+    ]
+
+    @api.one
+    @api.constrains('from_budget_id', 'expenditure_amount')
+    def _check_transfer(self):
+        # Checks of the sum of all expenditure amount is 0 and raise an error
+        if self.action_taken == 'transfer' and self.from_budget_id.expenditure_amount < 0:
+            raise ValidationError(_('Transfer of {:.2f} from {} to {} is not possible,'
+                                    ' total expenditure will be amount is {:.2f}'.\
+                                    format(self.expenditure_amount, self.from_budget_id.name, self.to_budget_id.name,
+                                           self.from_budget_id.expenditure_amount)))
 
     # OVERRIDE METHODS
     # ----------------------------------------------------------

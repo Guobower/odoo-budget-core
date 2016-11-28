@@ -2,7 +2,7 @@
 
 # BASIC MODELS
 # ----------------------------------------------------------
-from . import budget, budget_history
+from . import budget, budget_history, tag
 
 # BASIC MODELS FROM FIRST BECAUSE WE ARE INHERITING
 # TO THE BASIC MODELS IN THIS MODULE

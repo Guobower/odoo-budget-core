@@ -2,7 +2,7 @@
 <!--CONTEXT AND ATTRIBUTES ARE MANAGE IN PROJECT INHERITANCE-->
 <openerp>
     <data>
-    <!--START VIEWS-->
+        <!--START VIEWS-->
         <!-- FORM VIEW-->
         <record model="ir.ui.view" id="view_form_budget_inherit_project">
             <field name="name">Budget Inherit</field>
@@ -21,48 +21,62 @@
                 </xpath>
                 <xpath expr="//field[@name='name']" position="after">
                     <field name="project_no" default_focus="1" placeholder="Project No"
+                           attrs="{'invisible': [('is_project', '!=', True)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='section_id']" position="before">
+                    <field name="region_id"
+                           attrs="{'invisible': [('is_project', '!=', True)],
+                                   'required': [('is_project', '==', True)]}"/>
+                    <field name="cwp"
+                           attrs="{'invisible': [('is_project', '!=', True)],
+                                   'required': [('is_project', '==', True)]}"/>
+                    <field name="category"
                            attrs="{'invisible': [('is_project', '!=', True)],
                                    'required': [('is_project', '==', True)]}"/>
                 </xpath>
-                <xpath expr="//field[@name='expenditure_amount']" position="before">
-                    <!--write_date already exist in budget form view-->
-                    <field name="initial_commitment_amount"
-                           attrs="{'invisible': ['|', ('is_project', '!=', True), ('write_date', '!=', False)]}"/>
-                    <field name="commitment_amount"
-                           attrs="{'invisible': ['|', ('is_project', '!=', True), ('write_date', '==', False)]}"/>
-                </xpath>
-                <xpath expr="//field[@name='history_ids']" position="attributes">
-                        <attribute name="context">{'default_is_project_history': is_project,
-                                                   'default_is_operation_history': is_operation}</attribute>
-                </xpath>
-            </field>
-        </record>
-        <!--TREE VIEW-->
-        <record model="ir.ui.view" id="view_tree_budget_inherit_project">
-            <field name="name">Budget Inherit</field>
-            <field name="model">budget.core.budget</field>
-            <field name="inherit_id" ref="view_tree_budget"/>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='expenditure_amount']" position="after">
-                    <field name="commitment_amount" invisible="not context.get('default_is_project', False)"/>
-                </xpath>
-            </field>
-        </record>
+
+
+            <xpath expr="//field[@name='expenditure_amount']" position="before">
+                <!--write_date already exist in budget form view-->
+                <field name="initial_commitment_amount"
+                       attrs="{'invisible': ['|', ('is_project', '!=', True), ('write_date', '!=', False)]}"/>
+                <field name="commitment_amount"
+                       attrs="{'invisible': ['|', ('is_project', '!=', True), ('write_date', '==', False)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='history_ids']" position="attributes">
+                <attribute name="context">{'default_is_project_history': is_project,
+                    'default_is_operation_history': is_operation}
+                </attribute>
+            </xpath>
+        </field>
+    </record>
+    <!--TREE VIEW-->
+    <record model="ir.ui.view" id="view_tree_budget_inherit_project">
+        <field name="name">Budget Inherit</field>
+        <field name="model">budget.core.budget</field>
+        <field name="inherit_id" ref="view_tree_budget"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='expenditure_amount']" position="after">
+                <field name="commitment_amount" invisible="not context.get('default_is_project', False)"/>
+            </xpath>
+        </field>
+    </record>
     <!--END VIEWS-->
 
     <!--START ACTIONS-->
-        <!--Budget Action-->
-        <record model="ir.actions.act_window" id="action_budget_inherit_project">
-            <field name="name">Project</field>
-            <field name="res_model">budget.core.budget</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form,pivot,graph</field>
-            <field name="view_id" ref="view_tree_budget_inherit_project"/>
-            <field name="search_view_id" ref="search_budget"/>
-            <field name="domain">[('is_project', '=', True)]</field>
-            <field name="context">{'default_is_project': True,
-                                   'form_view_ref': 'budget_core.view_form_budget_inherit_project',
-                                   'search_default_filter_state': 1}</field>
-        </record>
-    </data>
-</openerp>
+    <!--Budget Action-->
+    <record model="ir.actions.act_window" id="action_budget_inherit_project">
+        <field name="name">Project</field>
+        <field name="res_model">budget.core.budget</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="view_id" ref="view_tree_budget_inherit_project"/>
+        <field name="search_view_id" ref="search_budget"/>
+        <field name="domain">[('is_project', '=', True)]</field>
+        <field name="context">{'default_is_project': True,
+            'form_view_ref': 'budget_core.view_form_budget_inherit_project',
+            'search_default_filter_state': 1}
+        </field>
+    </record>
+</data>
+        </openerp>

@@ -15,52 +15,37 @@
             name="Budget"
             parent="menu_core_top"
         />
-
-        <!--<menuitem-->
-            <!--id="menu_budget_history_left"-->
-            <!--name="Budget History"-->
-            <!--sequence="1"-->
-            <!--parent="menu_core_top_left"-->
-            <!--action="action_budget_history"-->
-        <!--/>-->
-        <!--<menuitem-->
-            <!--id="menu_budget_left"-->
-            <!--name="Budget"-->
-            <!--sequence="2"-->
-            <!--parent="menu_core_top_left"-->
-            <!--action="action_budget"-->
-        <!--/>-->
-
-        <menuitem
-            id="menu_budget_history_inherit_project_left"
-            name="Project History"
-            sequence="3"
-            parent="menu_core_top_left"
-            action="action_budget_history_inherit_project"
-        />
         <menuitem
             id="menu_budget_inherit_project_left"
             name="Project"
-            sequence="4"
+            sequence="3"
             parent="menu_core_top_left"
             action="action_budget_inherit_project"
         />
 
         <menuitem
-            id="menu_budget_history_inherit_operation_left"
-            name="Operation History"
-            sequence="5"
+            id="menu_budget_history_inherit_project_left"
+            name="Project History"
+            sequence="4"
             parent="menu_core_top_left"
-            action="action_budget_history_inherit_operation"
+            action="action_budget_history_inherit_project"
         />
+
         <menuitem
             id="menu_budget_inherit_operation_left"
             name="Operation"
-            sequence="6"
+            sequence="5"
             parent="menu_core_top_left"
             action="action_budget_inherit_operation"
         />
 
+        <menuitem
+            id="menu_budget_history_inherit_operation_left"
+            name="Operation History"
+            sequence="6"
+            parent="menu_core_top_left"
+            action="action_budget_history_inherit_operation"
+        />
     <!--END MENU LEFT-->
 
     </data>

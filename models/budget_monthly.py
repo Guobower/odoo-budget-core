@@ -3,13 +3,11 @@
 from odoo import models, fields, api
 from utilities import choices_tuple
 
-
 class Budget(models.Model):
     _name = 'budget.core.budget'
     _rec_name = 'name'
     _description = 'Budget'
-    # _inherit = ['mail.thread', 'ir.needaction_mixin']
-    _inherit = ['mail.thread']
+
 
     # CHOICES
     # ----------------------------------------------------------
@@ -35,12 +33,7 @@ class Budget(models.Model):
                                  domain=[('is_budget_section', '=', True)])
     sub_section_id = fields.Many2one('res.partner', string='Sub Section',
                                      domain=[('is_budget_sub_section', '=', True)])
-    history_ids = fields.Many2many('budget.core.budget.history', 'budget_core_budget_history_rel', 'budget_id',
-                                   'history_id')
-    tag_ids = fields.Many2many('budget.core.tag',
-                               'budget_core_budget_tags_rel',
-                               'budget_id', 'tag_id',
-                               string='Tags')
+    history_ids = fields.Many2many('budget.core.budget.history', 'budget_core_budget_history_rel', 'budget_id', 'history_id')
 
     # COMPUTE FIELDS
     # ----------------------------------------------------------
@@ -82,6 +75,7 @@ class Budget(models.Model):
     @api.returns('self', lambda rec: rec.id)
     def create(self, values):
         if not values.get('history_ids', False):
+
             initial_expenditure_amount = values.get('initial_expenditure_amount', 0.00)
             name = values.get('name', '')
             start_date = values.get('start_date', False)
@@ -97,7 +91,4 @@ class Budget(models.Model):
 
             values.update(history_ids=[(0, 0, history)])
 
-        budget = super(Budget, self).create(values)
-        budget.history_ids.write({'to_budget_id': budget.id})
-
-        return budget
+        return super(Budget, self).create(values)
