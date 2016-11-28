@@ -103,6 +103,23 @@ class BudgetTestCase(TransactionCase):
         )
         self.assertTrue(history.budget_ids == budget_b)
 
+    def test_default_to_budget_id_create(self):
+        """
+        test default value of history.to_budget_id when creating budget
+        """
+        budget = self.env['budget.core.budget'].create(
+            {
+                u'name': u'budget_av',
+                u'initial_expenditure_amount': 500,
+                u'end_date': fake.date_time_this_month(before_now=True, after_now=False, tzinfo=None).strftime(
+                    '%Y-%m-%d'),
+                u'start_date': fake.date_time_this_month(before_now=False, after_now=True, tzinfo=None).strftime(
+                    '%Y-%m-%d'),
+                u'description': fake.text(max_nb_chars=200)
+            }
+        )
+        self.assertTrue(budget.history_ids[0].to_budget_id == budget)
+
     def test_expenditure_amount(self):
         """
         expenditure_amount is a compute field
@@ -206,7 +223,7 @@ class BudgetTestCase(TransactionCase):
         )
 
         histories = [
-        # Transfer Budget (500) to Budget_b
+            # Transfer Budget (500) to Budget_b
             {
                 'expenditure_amount': 500,
                 'action_taken': 'transfer',
@@ -220,7 +237,7 @@ class BudgetTestCase(TransactionCase):
         self.assertTrue(budget_b.expenditure_amount == 2100, "Budget B expenditure is %d" % budget_b.expenditure_amount)
 
         histories = [
-        # Transfer Budget (1) to Budget_b
+            # Transfer Budget (1) to Budget_b
             {
                 'expenditure_amount': 1,
                 'action_taken': 'transfer',
@@ -258,23 +275,6 @@ class BudgetTestCase(TransactionCase):
         # History expenditure is negative must raise ValidationError
         with self.assertRaises(IntegrityError):
             budget.write({u'history_ids': [(0, 0, history) for history in histories]})
-
-    def test_default_to_budget_id_create(self):
-        """
-        test default value of history.to_budget_id when creating budget
-        """
-        budget = self.env['budget.core.budget'].create(
-            {
-                u'name': u'budget_av',
-                u'initial_expenditure_amount': 500,
-                u'end_date': fake.date_time_this_month(before_now=True, after_now=False, tzinfo=None).strftime(
-                    '%Y-%m-%d'),
-                u'start_date': fake.date_time_this_month(before_now=False, after_now=True, tzinfo=None).strftime(
-                    '%Y-%m-%d'),
-                u'description': fake.text(max_nb_chars=200)
-            }
-        )
-        self.assertTrue(budget.history_ids[0].to_budget_id == budget)
 
     def test_workflow(self):
         """

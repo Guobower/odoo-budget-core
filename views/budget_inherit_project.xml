@@ -23,10 +23,12 @@
                     <field name="project_no" default_focus="1" placeholder="Project No"
                            attrs="{'invisible': [('is_project', '!=', True)]}"/>
                 </xpath>
+
                 <xpath expr="//field[@name='section_id']" position="before">
                     <field name="region_id"
                            attrs="{'invisible': [('is_project', '!=', True)],
-                                   'required': [('is_project', '==', True)]}"/>
+                                   'required': [('is_project', '==', True)]}"
+                           options="{'no_create': True}"/>
                     <field name="cwp"
                            attrs="{'invisible': [('is_project', '!=', True)],
                                    'required': [('is_project', '==', True)]}"/>

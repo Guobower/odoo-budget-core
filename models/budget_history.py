@@ -46,11 +46,11 @@ class BudgetHistory(models.Model):
 
     @api.one
     @api.constrains('from_budget_id', 'expenditure_amount')
-    def _check_transfer(self):
+    def _check_transfer_expenditure(self):
         # Checks of the sum of all expenditure amount is 0 and raise an error
         if self.action_taken == 'transfer' and self.from_budget_id.expenditure_amount < 0:
-            raise ValidationError(_('Transfer of {:.2f} from {} to {} is not possible,'
-                                    ' total expenditure will be amount is {:.2f}'.\
+            raise ValidationError(_('Transfer of {:,.2f} from {} to {} is not possible,'
+                                    ' total amount expenditure will be {:,.2f}'. \
                                     format(self.expenditure_amount, self.from_budget_id.name, self.to_budget_id.name,
                                            self.from_budget_id.expenditure_amount)))
 

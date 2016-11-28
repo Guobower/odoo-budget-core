@@ -20,14 +20,17 @@
                 </xpath>
 
                 <xpath expr="//field[@name='from_budget_id']" position="attributes">
-                    <attribute name="domain">['|',('is_project','=',is_project_history),
-                                                  ('is_operation','=',is_operation_history)
+                    <attribute name="domain">['&amp;', '|',
+                                                          ('is_project','=',is_project_history),
+                                                          ('is_operation','=',is_operation_history),
+                                                        ('state','=','active')
                                              ]
-                    </attribute>
-                </xpath>
+                    </attribute>                </xpath>
                 <xpath expr="//field[@name='to_budget_id']" position="attributes">
-                    <attribute name="domain">['|',('is_project','=',is_project_history),
-                                                  ('is_operation','=',is_operation_history)
+                    <attribute name="domain">['&amp;', '|',
+                                                          ('is_project','=',is_project_history),
+                                                          ('is_operation','=',is_operation_history),
+                                                        ('state','=','active')
                                              ]
                     </attribute>
                 </xpath>

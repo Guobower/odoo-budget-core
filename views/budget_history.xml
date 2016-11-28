@@ -28,8 +28,12 @@
                         <group>
                             <group>
                                 <field name="from_budget_id"
-                                       attrs="{'invisible': [('action_taken', 'not in', ['transfer'])]}"/>
-                                <field name="to_budget_id"/>
+                                       attrs="{'invisible': [('action_taken', 'not in', ['transfer'])],
+                                               'required': [('action_taken', 'in', ['transfer'])]}"
+                                       options="{'no_create': True}"/>
+                                <field name="to_budget_id"
+                                       attrs="{'required': True}"
+                                       options="{'no_create': True}"/>
                             </group>
                             <group>
                                 <field name="expenditure_amount"/>

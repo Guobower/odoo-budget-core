@@ -51,7 +51,7 @@ class BudgetInheritProject(models.Model):
     # ----------------------------------------------------------
     # region_id exist in budget.core.budget
     @api.onchange('project_no', 'region_id', 'cwp', 'category', 'is_project')
-    def onchange_name(self):
+    def onchange_project_no(self):
         if self.is_project:
             region = self.region_id.alias or ''
             cwp = self.cwp or ''
