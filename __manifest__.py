@@ -13,14 +13,26 @@ Budget Core
 ---------------------
 - Budget
 - Budget History
+- Budget Recurrence
 - Project (Inherit to Budget)
 - Project History (Inherit to Budget History)
+- Project Recurrence (Inherit to Budget Recurrence)
 - Cost Center - Account Code (Inherit to Budget)
 - Cost Center History (Inherit to Budget History)
+- Cost Center Recurrence (Inherit to Budget Recurrence)
 - Access Users
-    - Dependent - Can readonly
-    - User - General Usage except delete power
-    - Manager - All power to manipulate data
+    - Budget (View All)
+        - Dependent - Can readonly
+        - User - General Usage except delete power, can Edit recurrence but not create
+        - Manager - All power to manipulate data
+    - Project
+        - Dependent - Can readonly
+        - User - General Usage except delete power, can Edit recurrence but not create
+        - Manager - All power to manipulate data
+    - Cost Center
+        - Dependent - Can readonly
+        - User - General Usage except delete power, can Edit recurrence but not create
+        - Manager - All power to manipulate data
 - Utilities
 
 Brief
