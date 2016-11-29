@@ -6,7 +6,7 @@ from odoo.exceptions import ValidationError
 from utilities import choices_tuple
 
 
-class BudgetHistoryInherit(models.Model):
+class BudgetHistoryInheritProject(models.Model):
     _inherit = 'budget.core.budget.history'
 
     # BASIC FIELDS

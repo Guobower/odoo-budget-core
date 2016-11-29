@@ -69,6 +69,9 @@
                             <page string="Histories">
                                 <field name="history_ids" widget="one2many"/>
                             </page>
+                            <page string="Recurrence">
+                                <field name="recurrence_ids"/>
+                            </page>
                         </notebook>
                     </sheet>
                     <div class="oe_chatter">

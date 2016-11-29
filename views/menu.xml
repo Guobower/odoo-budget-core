@@ -11,41 +11,68 @@
 
     <!--MENU LEFT-->
         <menuitem
-            id="menu_core_top_left"
-            name="Budget"
-            parent="menu_core_top"
-        />
-        <menuitem
-            id="menu_budget_inherit_project_left"
+            id="menu_project_top_left"
             name="Project"
-            sequence="3"
-            parent="menu_core_top_left"
-            action="action_budget_inherit_project"
+            parent="menu_core_top"
+            groups="base.group_system,group_project_dependent,group_project_user,group_project_manager"
         />
 
-        <menuitem
-            id="menu_budget_history_inherit_project_left"
-            name="Project History"
-            sequence="4"
-            parent="menu_core_top_left"
-            action="action_budget_history_inherit_project"
-        />
+        <!--MENU LEFT CHILD-->
+            <menuitem
+                id="menu_budget_inherit_project_left"
+                name="Project"
+                sequence="1"
+                parent="menu_project_top_left"
+                action="action_budget_inherit_project"
+            />
+
+            <menuitem
+                id="menu_budget_history_inherit_project_left"
+                name="Project History"
+                sequence="2"
+                parent="menu_project_top_left"
+                action="action_budget_history_inherit_project"
+            />
+
+            <menuitem
+                id="menu_budget_recurrence_inherit_project_left"
+                name="Project Recurrence"
+                sequence="3"
+                parent="menu_project_top_left"
+                action="action_budget_recurrence_inherit_project"
+            />
 
         <menuitem
-            id="menu_budget_inherit_operation_left"
+            id="menu_operation_top_left"
             name="Operation"
-            sequence="5"
-            parent="menu_core_top_left"
-            action="action_budget_inherit_operation"
+            parent="menu_core_top"
+            groups="base.group_system,group_operation_dependent,group_operation_user,group_operation_manager"
         />
+        <!--MENU LEFT CHILD-->
+            <menuitem
+                id="menu_budget_inherit_operation_left"
+                name="Operation"
+                sequence="1"
+                parent="menu_operation_top_left"
+                action="action_budget_inherit_operation"
+            />
 
-        <menuitem
-            id="menu_budget_history_inherit_operation_left"
-            name="Operation History"
-            sequence="6"
-            parent="menu_core_top_left"
-            action="action_budget_history_inherit_operation"
-        />
+            <menuitem
+                id="menu_budget_history_inherit_operation_left"
+                name="Operation History"
+                sequence="2"
+                parent="menu_operation_top_left"
+                action="action_budget_history_inherit_operation"
+            />
+
+            <menuitem
+                id="menu_budget_recurrence_inherit_operation_left"
+                name="Operation Recurrence"
+                sequence="3"
+                parent="menu_operation_top_left"
+                action="action_budget_recurrence_inherit_operation"
+            />
+
     <!--END MENU LEFT-->
 
     </data>

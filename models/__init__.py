@@ -2,7 +2,7 @@
 
 # BASIC MODELS
 # ----------------------------------------------------------
-from . import budget, budget_history, tag
+from . import budget, budget_history, tag, budget_recurrence
 
 # BASIC MODELS FROM FIRST BECAUSE WE ARE INHERITING
 # TO THE BASIC MODELS IN THIS MODULE
@@ -10,4 +10,5 @@ from . import budget, budget_history, tag
 # INHERITANCE MODELS
 # ----------------------------------------------------------
 from . import budget_inherit_operation, budget_inherit_project, \
-              budget_history_inherit_project, budget_history_inherit_operation
+    budget_history_inherit_operation, budget_history_inherit_project, \
+    budget_recurrence_inherit_operation, budget_recurrence_inherit_project

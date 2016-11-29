@@ -35,15 +35,22 @@ Brief
     'data': [
         # SECURITY
         'security/budget.xml',
+        'security/budget_access_rule.xml',
         'security/ir.model.access.csv',
 
         # VIEWS
         'views/budget.xml',
         'views/budget_history.xml',
+        'views/budget_recurrence.xml',
+
         'views/budget_inherit_operation.xml',
         'views/budget_history_inherit_operation.xml',
+        'views/budget_recurrence_inherit_operation.xml',
+
         'views/budget_inherit_project.xml',
         'views/budget_history_inherit_project.xml',
+        'views/budget_recurrence_inherit_project.xml',
+
         'views/menu.xml',
 
         # WORKFLOWS

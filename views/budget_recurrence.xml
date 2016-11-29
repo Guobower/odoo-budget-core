@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+    <data>
+    <!--START VIEWS-->
+        <!-- FORM VIEW-->
+        <record model="ir.ui.view" id="view_form_budget_recurrence">
+            <field name="name">Budget Recurrence</field>
+            <field name="model">budget.core.budget.recurrence</field>
+            <field name="arch" type="xml">
+                <form string="Budget Recurrence">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" default_focus="1" placeholder="Name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="budget_id"/>
+                                <field name="recurrence_date"/>
+                                <field name="recurrence_amount"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="remarks"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!--TREE VIEW-->
+        <record model="ir.ui.view" id="view_tree_budget_recurrence">
+            <field name="name">Budget Recurrence</field>
+            <field name="model">budget.core.budget.recurrence</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="remarks"/>
+                    <field name="recurrence_amount" sum="true"/>
+                </tree>
+            </field>
+        </record>
+    <!--END VIEWS-->
+
+    <!--START ACTIONS-->
+        <!--Budget Action-->
+        <record model="ir.actions.act_window" id="action_budget_recurrence">
+            <field name="name">Budget Recurrence</field>
+            <field name="res_model">budget.core.budget.recurrence</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,pivot,graph</field>
+            <field name="view_id" ref="view_tree_budget_recurrence"/>
+            <field name="context">{'form_view_ref': 'budget_core.view_form_budget_recurrence'}</field>
+        </record>
+    <!--END ACTIONS-->
+    </data>
+</openerp>

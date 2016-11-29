@@ -35,6 +35,9 @@ class Budget(models.Model):
                                  domain=[('is_budget_section', '=', True)])
     sub_section_id = fields.Many2one('res.partner', string='Sub Section',
                                      domain=[('is_budget_sub_section', '=', True)])
+    recurrence_ids = fields.One2many('budget.core.budget.recurrence',
+                                     'budget_id',
+                                     string="Recurrences")
     history_ids = fields.Many2many('budget.core.budget.history', 'budget_core_budget_history_rel', 'budget_id',
                                    'history_id')
     tag_ids = fields.Many2many('budget.core.tag',

@@ -1,13 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api, _
-from odoo.exceptions import ValidationError
+from odoo import models, fields
 
-from utilities import choices_tuple
-
-
-class BudgetHistoryInherit(models.Model):
+class BudgetHistoryInheritOperation(models.Model):
     _inherit = 'budget.core.budget.history'
+
 
     # BASIC FIELDS
     # ----------------------------------------------------------

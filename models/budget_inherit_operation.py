@@ -7,6 +7,10 @@ from utilities import choices_tuple
 class BudgetInheritOperation(models.Model):
     _inherit = 'budget.core.budget'
 
+    # CHOICES
+    # ----------------------------------------------------------
+    SPENT_AREAS = choices_tuple(['low_level', 'high_level'])
+
     # BASIC FIELDS
     # ----------------------------------------------------------
     is_operation = fields.Boolean(string='Is Operation')
@@ -14,6 +18,7 @@ class BudgetInheritOperation(models.Model):
     cost_center_account_code = fields.Char(string="CC-AC")
     cost_center = fields.Char(string="Cost Center")
     account_code = fields.Char(string="Account Code")
+    area_spent = fields.Selection(string='Area Spent', selection=SPENT_AREAS)
 
     # initial_expenditure_amount exist in budget.core.budget already
 
