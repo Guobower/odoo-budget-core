@@ -45,8 +45,9 @@
                         </div>
                         <group>
                             <group>
-                                <field name="section_id" options="{'no_create': True}"/>
-                                <field name="sub_section_id" options="{'no_create': True}"/>
+                                <field name="section_id" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="sub_section_id" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="budget_investment_area_id" options="{'no_create_edit': True, 'no_open': True}"/>
                                 <field name="start_date"/>
                                 <field name="end_date"/>
                             </group>
@@ -90,6 +91,7 @@
                       decoration-muted="state in ['closed', 'cancelled']">
                       <!--decoration-danger="state in ['duplicate', 'overrun']"-->
                     <field name="name"/>
+                    <field name="budget_investment_area_id"/>
                     <field name="expenditure_amount"/>
                     <field name="state"/>
                 </tree>

@@ -28,7 +28,7 @@
                     <field name="region_id"
                            attrs="{'invisible': [('is_project', '!=', True)],
                                    'required': [('is_project', '==', True)]}"
-                           options="{'no_create': True}"/>
+                           options="{'no_create': True, 'no_open': True}"/>
                     <field name="cwp"
                            attrs="{'invisible': [('is_project', '!=', True)],
                                    'required': [('is_project', '==', True)]}"/>
