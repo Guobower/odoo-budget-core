@@ -60,6 +60,13 @@ class BudgetInheritProject(models.Model):
                                                       cwp.upper(),
                                                       category.upper())
 
+    # CONSTRAINS
+    # ----------------------------------------------------------
+    _sql_constraints = [
+        ('uniq_project_no', 'UNIQUE (project_no)', 'Project No Must Be unique')
+    ]
+
+
     # OVERRIDE METHODS
     # ----------------------------------------------------------
     @api.model

@@ -42,6 +42,12 @@ class BudgetInheritOperation(models.Model):
             self.cost_center_account_code = '{}-{}'.format(cost_center.upper(),
                                                            account_code.upper())
 
+    # CONSTRAINS
+    # ----------------------------------------------------------
+    _sql_constraints = [
+        ('uniq_cost_center_account_code', 'UNIQUE (cost_center_account_code)', 'CC-AC Must Be unique')
+    ]
+
     # OVERRIDE METHODS
     # ----------------------------------------------------------
     @api.model

@@ -178,3 +178,19 @@ class ProjectTestCase(TransactionCase):
         with self.assertRaises(ValidationError):
             budget.write({u'history_ids': [(0, 0, history) for history in histories]})
 
+    def test_unique_project_no(self):
+        """
+        test uniqueness of project No
+        """
+        self.env['budget.core.budget'].create(
+            {
+                'project_no': "PROJECT 1"
+            }
+        )
+
+        with self.assertRaises(IntegrityError):
+            self.env['budget.core.budget'].create(
+                {
+                    'project_no': "PROJECT 1"
+                }
+            )
