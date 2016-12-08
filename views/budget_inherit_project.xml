@@ -38,13 +38,20 @@
                 </xpath>
 
 
-                <xpath expr="//field[@name='expenditure_amount']" position="before">
+                <xpath expr="//field[@name='initial_expenditure_amount']" position="after">
                     <!--write_date already exist in budget form view-->
                     <field name="initial_commitment_amount"
                            attrs="{'invisible': ['|', ('is_project', '!=', True), ('write_date', '!=', False)]}"/>
-                    <field name="commitment_amount"
-                           attrs="{'invisible': ['|', ('is_project', '!=', True), ('write_date', '==', False)]}"/>
                 </xpath>
+
+                <xpath expr="//group[@name='expenditure_amount']" position="after">
+                    <!--write_date already exist in budget form view-->
+                    <group name="commitment_amount"
+                           attrs="{'invisible': ['|', ('is_project', '!=', True), ('write_date', '==', False)]}">
+                        <field name="commitment_amount"/>
+                    </group>
+                </xpath>
+
                 <xpath expr="//field[@name='history_ids']" position="attributes">
                     <attribute name="context">{'default_is_project_history': is_project,
                         'default_is_operation_history': is_operation}
