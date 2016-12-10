@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 from utilities import choices_tuple
 
 
@@ -62,6 +63,16 @@ class BudgetInheritProject(models.Model):
 
     # CONSTRAINS
     # ----------------------------------------------------------
+    @api.one
+    @api.constrains('expenditure_amount', 'commitment_amount', 'is_project')
+    def _check_expenditure_commitment(self):
+        """
+        The Total Expenditure must not be greater than Total Commitment
+        If it is a project
+        """
+        if self.is_project and self.expenditure_amount > self.commitment_amount:
+            raise ValidationError("Parent Task Total Expenditure Can't exceed Total Commitment")
+
     _sql_constraints = [
         ('uniq_project_no', 'UNIQUE (project_no)', 'Project No Must Be unique')
     ]

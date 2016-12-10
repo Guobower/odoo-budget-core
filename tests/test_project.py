@@ -9,13 +9,29 @@ import random
 
 fake = Faker()
 
-
 class ProjectTestCase(TransactionCase):
     at_install = False
     post_install = True
 
     def setUp(self):
         super(ProjectTestCase, self).setUp()
+
+    def test_unique_project_no(self):
+        """
+        test uniqueness of project No
+        """
+        self.env['budget.core.budget'].create(
+            {
+                'project_no': "PROJECT 1"
+            }
+        )
+
+        with self.assertRaises(IntegrityError):
+            self.env['budget.core.budget'].create(
+                {
+                    'project_no': "PROJECT 1"
+                }
+            )
 
     def test_commitment_amount(self):
         """
@@ -178,19 +194,30 @@ class ProjectTestCase(TransactionCase):
         with self.assertRaises(ValidationError):
             budget.write({u'history_ids': [(0, 0, history) for history in histories]})
 
-    def test_unique_project_no(self):
+    def test_expenditure_exceed_commitment(self):
         """
-        test uniqueness of project No
+        Test Validation for Expenditure Exceeding Commitment
         """
-        self.env['budget.core.budget'].create(
+        project = self.env['budget.core.budget'].create(
             {
-                'project_no': "PROJECT 1"
+                u'is_project': True,
+                u'name': u'budget_bv',
+                u'initial_commitment_amount': 1000,
+                u'initial_expenditure_amount': 500,
+                u'end_date': fake.date_time_this_month(before_now=True, after_now=False, tzinfo=None).strftime(
+                    '%Y-%m-%d'),
+                u'start_date': fake.date_time_this_month(before_now=False, after_now=True, tzinfo=None).strftime(
+                    '%Y-%m-%d'),
+                u'description': fake.text(max_nb_chars=200)
             }
         )
 
-        with self.assertRaises(IntegrityError):
-            self.env['budget.core.budget'].create(
-                {
-                    'project_no': "PROJECT 1"
-                }
-            )
+        histories = [
+            {
+                'expenditure_amount': 600,
+                'action_taken': 'add',
+                'to_budget_id': project.id,
+            },
+        ]
+        with self.assertRaises(ValidationError):
+            project.write({u'history_ids': [(0, 0, history) for history in histories]})
