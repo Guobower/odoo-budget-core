@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 {
     'name': "Budget Core",
-    'version': '0.1b',
+    'version': '0.2',
     'summary': 'Budget Core Module',
     'sequence': 2,
     'description': """
-Odoo Module
+Budget Core
 ===========
 Specifically Designed for Etisalat-TBPC
 
-Budget Core
+Summary
 ---------------------
 - Budget
 - Budget History
@@ -33,10 +33,20 @@ Budget Core
         - Dependent - Can readonly
         - User - General Usage except delete power, can Edit recurrence but not create
         - Manager - All power to manipulate data
+- Validations
+    - Project
+        - Project Expenditure Amount Can't be More Than Commitment Amount
+        - When Transferring Expenditure/Commitment Amount, the losing amount shouldn't be negative after the operation
+        - When Adding/Subtracting Expenditure/Commitment Amount, the losing amount shouldn't be negative after the operation
+        - Project No must be unique
+        - Recurring Amounts should be Positive
+    - Cost Center - Account Code
+        - When Transferring Expenditure, the losing amount shouldn't be negative after the operation
+        - When Adding/Subtracting Expenditure, the losing amount shouldn't be negative after the operation
+        - Cost Center - Account Code must be unique
+        - Recurring Amounts should be Positive
+- Tagging Feature
 - Utilities
-
-Brief
----------------------
     """,
     'author': "Marc Philippe de Villeres",
     'website': "https://github.com/mpdevilleres",
