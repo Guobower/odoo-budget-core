@@ -10,26 +10,26 @@ import random
 fake = Faker()
 
 
-class ProjectTestCase(TransactionCase):
+class OperationTestCase(TransactionCase):
     at_install = False
     post_install = True
 
     def setUp(self):
-        super(ProjectTestCase, self).setUp()
+        super(OperationTestCase, self).setUp()
 
-    def test_cc_ac(self):
+    def test_cc(self):
         """
-        test uniqueness of CC-AC
+        test uniqueness of CC
         """
         self.env['budget.core.budget'].create(
             {
-                'cost_center_account_code': "PROJECT 1"
+                'cost_center': "PROJECT 1"
             }
         )
 
         with self.assertRaises(IntegrityError):
             self.env['budget.core.budget'].create(
                 {
-                    'cost_center_account_code': "PROJECT 1"
+                    'cost_center': "PROJECT 1"
                 }
             )
