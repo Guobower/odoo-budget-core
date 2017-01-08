@@ -13,5 +13,5 @@ class BudgetInvestmentArea(models.Model):
     # RELATIONSHIPS
     # ----------------------------------------------------------
     budget_ids = fields.One2many('budget.core.budget',
-                                  'budget_investment_area_id',
+                                  'investment_area_id',
                                   string="Budget Investment Area")

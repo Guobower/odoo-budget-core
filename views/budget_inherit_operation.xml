@@ -16,18 +16,10 @@
                 </xpath>
 
                 <xpath expr="//field[@name='name']" position="after">
-                    <field name="cost_center_account_code" default_focus="1" placeholder="Cost Center - Account Code"
+                    <field name="cost_center" default_focus="1" placeholder="Cost Center"
                            attrs="{'invisible': [('is_operation', '!=', True)]}"/>
                 </xpath>
-                <xpath expr="//field[@name='section_id']" position="before">
-                    <field name="account_code"
-                           attrs="{'invisible': [('is_operation', '!=', True)],
-                                   'required': [('is_operation', '==', True)]}"/>
-                    <field name="cost_center"
-                           attrs="{'invisible': [('is_operation', '!=', True)],
-                                   'required': [('is_operation', '==', True)]}"
-                           options="{'no_create': True}"/>
-                </xpath>
+
             </field>
         </record>
         <!--TREE VIEW-->

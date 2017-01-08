@@ -15,7 +15,7 @@ class BudgetInheritProject(models.Model):
     project_no = fields.Char(string="Project No")
     cwp = fields.Char(string="CWIP")
     category = fields.Char(string="Category")
-    remarks = fields.Text(string="Category")
+    remarks = fields.Text(string="Remarks")
     rfs_date = fields.Date(string="Ready for Service Date")
     # initial_expenditure_amount exist in budget.core.budget already
     initial_commitment_amount = fields.Monetary(currency_field='company_currency_id',
