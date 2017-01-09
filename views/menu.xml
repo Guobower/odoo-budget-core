@@ -6,7 +6,7 @@
     <menuitem
         id="menu_core_top"
         name="Budgets"
-        sequence="3"/>
+        sequence="4"/>
     <!--END MENU PARENT-->
 
     <!--MENU LEFT-->

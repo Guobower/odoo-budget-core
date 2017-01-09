@@ -3,7 +3,7 @@
     'name': "Budget Core",
     'version': '0.2',
     'summary': 'Budget Core Module',
-    'sequence': 2,
+    'sequence': 3,
     'description': """
 Budget Core
 ===========
