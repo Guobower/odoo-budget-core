@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!--START VIEWS-->
+        <!--START FORM VIEW-->
+        <record model="ir.ui.view" id="view_form_contract_inherit">
+            <field name="name">budget.contractor.contract.form</field>
+            <field name="model">budget.contractor.contract</field>
+            <field name="inherit_id" ref="budget_contractor.view_form_contract"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Budgets">
+                        <field name="budget_ids"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        <!--END FORM VIEW-->
+
+    </data>
+</openerp>

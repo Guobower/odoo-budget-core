@@ -15,7 +15,7 @@ class BudgetInheritOperation(models.Model):
     # ----------------------------------------------------------
     is_operation = fields.Boolean(string='Is Operation')
 
-    cost_center = fields.Char(string="Cost Center")
+    cost_center_account_code = fields.Char(string="CC-AC")
     area_spent = fields.Selection(string='Area Spent', selection=SPENT_AREAS)
 
     # initial_expenditure_amount exist in budget.core.budget already
@@ -24,6 +24,8 @@ class BudgetInheritOperation(models.Model):
     # ----------------------------------------------------------
     # company_currency_id exist in budget.core.budget already
     # history_ids exist in budget.core.budget already
+    cost_center_id = fields.Many2one('budget.core.cost.center', string='Cost Center')
+    account_code_id = fields.Many2one('budget.core.account.code', string='Account Code')
 
     # COMPUTE FIELDS
     # ----------------------------------------------------------
@@ -35,7 +37,7 @@ class BudgetInheritOperation(models.Model):
     # CONSTRAINS
     # ----------------------------------------------------------
     _sql_constraints = [
-        ('uniq_cost_center', 'UNIQUE (cost_center)', 'Cost Center')
+        ('uniq_cost_center', 'UNIQUE (cost_center_account_code)', 'Cost Center')
     ]
 
     # OVERRIDE METHODS
@@ -46,11 +48,11 @@ class BudgetInheritOperation(models.Model):
         if values.get('is_operation', False):
             initial_expenditure_amount = values.get('initial_expenditure_amount', 0.00)
             start_date = values.get('start_date', False)
-            cost_center = values.get('cost_center', '')
+            cost_center_account_code = values.get('cost_center_account_code', '')
             # create Initial history
             history = {
                 # name exist in budget.core.budget
-                'name': 'INITIAL: %s' % cost_center,
+                'name': 'INITIAL: %s' % cost_center_account_code,
                 'remarks': 'initial amount',
                 'expenditure_amount': initial_expenditure_amount,
                 'action_taken': 'add',
@@ -62,15 +64,15 @@ class BudgetInheritOperation(models.Model):
             values.update(history_ids=[(0, 0, history)])
 
             # Equate Project No to Name
-            cost_center = values.get('cost_center', '')
-            values.update(name=cost_center)
+            cost_center_account_code = values.get('cost_center_account_code', '')
+            values.update(name=cost_center_account_code)
 
         return super(BudgetInheritOperation, self).create(values)
 
     @api.one
     def write(self, values):
-        if self.is_operation and values.get('cost_center', False):
+        if self.is_operation and values.get('cost_center_account_code', False):
             # Overwrite existing name if cost_center is change
-            values.update(name=values.get('cost_center'))
+            values.update(name=values.get('cost_center_account_code'))
 
         return super(BudgetInheritOperation, self).write(values)

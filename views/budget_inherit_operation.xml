@@ -16,8 +16,13 @@
                 </xpath>
 
                 <xpath expr="//field[@name='name']" position="after">
-                    <field name="cost_center" default_focus="1" placeholder="Cost Center"
+                    <field name="cost_center_account_code" default_focus="1" placeholder="CC-AC"
                            attrs="{'invisible': [('is_operation', '!=', True)]}"/>
+                </xpath>
+
+                <xpath expr="//group[@name='general']/group[@name='col_left']" position="inside">
+                    <field name="cost_center_id" attrs="{'invisible': [('is_operation', '!=', True)]}"/>
+                    <field name="account_code_id" attrs="{'invisible': [('is_operation', '!=', True)]}"/>
                 </xpath>
 
             </field>
@@ -38,7 +43,7 @@
     <!--START ACTIONS-->
         <!--Budget Action-->
         <record model="ir.actions.act_window" id="action_budget_inherit_operation">
-            <field name="name">Cost Center</field>
+            <field name="name">Cost Center - Account Code</field>
             <field name="res_model">budget.core.budget</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,pivot,graph</field>

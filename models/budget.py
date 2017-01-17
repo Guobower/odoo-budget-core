@@ -35,16 +35,18 @@ class Budget(models.Model):
                                  domain=[('is_budget_section', '=', True)])
     sub_section_id = fields.Many2one('res.partner', string='Sub Section',
                                      domain=[('is_budget_sub_section', '=', True)])
+    # TODO MUST BE CHANGE TO MANY2MANY
     investment_area_id = fields.Many2one('budget.core.budget.investment.area', string='Investment Area')
     recurrence_ids = fields.One2many('budget.core.budget.recurrence',
                                      'budget_id',
                                      string="Recurrences")
+    contract_ids = fields.Many2many('budget.contractor.contract',
+                                    'budget_contract_rel',
+                                    'budget_id',
+                                    'contract_id',
+                                    string='Contract/s')
     history_ids = fields.Many2many('budget.core.budget.history', 'budget_core_budget_history_rel', 'budget_id',
                                    'history_id')
-    tag_ids = fields.Many2many('budget.core.tag',
-                               'budget_core_budget_tags_rel',
-                               'budget_id', 'tag_id',
-                               string='Tags')
 
     # COMPUTE FIELDS
     # ----------------------------------------------------------

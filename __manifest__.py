@@ -45,14 +45,14 @@ Summary
         - When Adding/Subtracting Expenditure, the losing amount shouldn't be negative after the operation
         - Cost Center - Account Code must be unique
         - Recurring Amounts should be Positive
-- Tagging Feature
 - Utilities
     """,
     'author': "Marc Philippe de Villeres",
     'website': "https://github.com/mpdevilleres",
     'category': 'TBPC Budget',
     'depends': [
-        'budget_enduser'
+        'budget_enduser',
+        'budget_contractor'
     ],
     'data': [
         # SECURITY
@@ -64,6 +64,8 @@ Summary
         'views/budget.xml',
         'views/budget_history.xml',
         'views/budget_recurrence.xml',
+        'views/cost_center.xml',
+        'views/account_code.xml',
 
         'views/budget_inherit_operation.xml',
         'views/budget_history_inherit_operation.xml',
@@ -72,6 +74,8 @@ Summary
         'views/budget_inherit_project.xml',
         'views/budget_history_inherit_project.xml',
         'views/budget_recurrence_inherit_project.xml',
+
+        'views/contract_inherit.xml',
 
         'views/menu.xml',
 

@@ -73,6 +73,22 @@
                 action="action_budget_recurrence_inherit_operation"
             />
 
+            <menuitem
+                id="menu_budget_cost_center_left"
+                name="Cost Center"
+                sequence="4"
+                parent="menu_operation_top_left"
+                action="action_cost_center"
+            />
+
+            <menuitem
+                id="menu_budget_account_code_left"
+                name="Account Code"
+                sequence="5"
+                parent="menu_operation_top_left"
+                action="action_account_code"
+            />
+
     <!--END MENU LEFT-->
 
     </data>
