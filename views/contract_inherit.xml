@@ -10,7 +10,17 @@
             <field name="arch" type="xml">
                 <xpath expr="//notebook" position="inside">
                     <page string="Budgets">
-                        <field name="budget_ids"/>
+                        <field name="budget_ids">
+                            <tree>
+                                <field name="name"/>
+                                <field name="investment_area"/>
+                                <field name="commitment_amount"/>
+                                <field name="expenditure_amount"/>
+                                <field name="is_project" groups="base.group_system"/>
+                                <field name="is_operation" groups="base.group_system"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
                     </page>
                 </xpath>
             </field>

@@ -35,11 +35,11 @@
             />
 
             <menuitem
-                id="menu_budget_recurrence_inherit_project_left"
-                name="Project Recurrence"
+                id="menu_budget_plan_inherit_project_left"
+                name="Project Plan"
                 sequence="3"
                 parent="menu_project_top_left"
-                action="action_budget_recurrence_inherit_project"
+                action="action_budget_plan_inherit_project"
             />
 
         <menuitem
@@ -66,11 +66,11 @@
             />
 
             <menuitem
-                id="menu_budget_recurrence_inherit_operation_left"
-                name="Operation Recurrence"
+                id="menu_budget_plan_inherit_operation_left"
+                name="Operation Plan"
                 sequence="3"
                 parent="menu_operation_top_left"
-                action="action_budget_recurrence_inherit_operation"
+                action="action_budget_plan_inherit_operation"
             />
 
             <menuitem

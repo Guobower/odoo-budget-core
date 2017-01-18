@@ -64,7 +64,7 @@
                                 <field name="contract_ids" widget="many2many_tags"
                                        options="{'no_create': True, 'no_open': True}"/>
                                 <field name="section_id" options="{'no_create': True, 'no_open': True}"/>
-                                <field name="investment_area_id"
+                                <field name="investment_area"
                                        options="{'no_create_edit': True, 'no_open': True}"/>
                             </group>
 
@@ -84,8 +84,8 @@
                             <page string="Histories">
                                 <field name="history_ids" widget="one2many"/>
                             </page>
-                            <page string="Recurrence">
-                                <field name="recurrence_ids"/>
+                            <page string="Plan">
+                                <field name="plan_ids"/>
                             </page>
                         </notebook>
                     </sheet>
@@ -105,7 +105,7 @@
                       decoration-muted="state in ['closed', 'cancelled']">
                     <!--decoration-danger="state in ['duplicate', 'overrun']"-->
                     <field name="name"/>
-                    <field name="investment_area_id"/>
+                    <field name="investment_area"/>
                     <field name="expenditure_amount"/>
                     <field name="state"/>
                 </tree>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    <!--START VIEWS-->
+        <!-- FORM VIEW-->
+        <record model="ir.ui.view" id="view_form_budget_plan_inherit_project">
+            <field name="name">Budget Plan Inherit</field>
+            <field name="model">budget.core.budget.plan</field>
+            <field name="inherit_id" ref="view_form_budget_plan"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="before">
+                    <group groups="base.group_system">
+                        <field name="is_project_plan" />
+                    </group>
+                </xpath>
+
+            </field>
+        </record>
+        <!--TREE VIEW-->
+        <record model="ir.ui.view" id="view_tree_budget_plan_inherit_project">
+            <field name="name">Budget Plan Inherit</field>
+            <field name="model">budget.core.budget.plan</field>
+            <field name="inherit_id" ref="view_tree_budget_plan"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='expenditure_amount']" position="before">
+                    <field name="is_project_plan" groups="base.group_system"/>
+                    <field name="commitment_amount"
+                           invisible="not context.get('default_is_project_plan', False)"/>
+                </xpath>
+            </field>
+        </record>
+    <!--END VIEWS-->
+
+    <!--START ACTIONS-->
+        <!--Budget Action-->
+        <record model="ir.actions.act_window" id="action_budget_plan_inherit_project">
+            <field name="name">Budget Plan Inherit</field>
+            <field name="res_model">budget.core.budget.plan</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,pivot,graph</field>
+            <field name="view_id" ref="view_tree_budget_plan_inherit_project"/>
+            <field name="domain">[('is_project_plan', '=', True)]</field>
+            <field name="context">{'default_is_project_plan': True,
+                'form_view_ref': 'budget_core.view_form_budget_plan_inherit_project'}
+            </field>
+        </record>
+    <!--END ACTIONS-->
+    </data>
+</openerp>

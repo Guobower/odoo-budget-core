@@ -276,9 +276,9 @@ class BudgetTestCase(TransactionCase):
         with self.assertRaises(IntegrityError):
             budget.write({u'history_ids': [(0, 0, history) for history in histories]})
 
-    def test_recurrence_amount_negative(self):
+    def test_plan_amount_negative(self):
         """
-        test negative validation for recurrence amount
+        test negative validation for plan amount
         """
         budget = self.env['budget.core.budget'].create(
             {
@@ -292,14 +292,14 @@ class BudgetTestCase(TransactionCase):
             }
         )
 
-        recurrences = [
+        plans = [
             {
-                'recurrence_amount': -500,
+                'plan_amount': -500,
             },
         ]
         # History expenditure is negative must raise IntegrityError
         with self.assertRaises(IntegrityError):
-            budget.write({u'recurrence_ids': [(0, 0, recurrence) for recurrence in recurrences]})
+            budget.write({u'plan_ids': [(0, 0, plan) for plan in plans]})
 
     def test_workflow(self):
         """

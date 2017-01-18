@@ -30,16 +30,19 @@ class Budget(models.Model):
     # ----------------------------------------------------------
     company_currency_id = fields.Many2one('res.currency', readonly=True,
                                           default=lambda self: self.env.user.company_id.currency_id)
+    # TODO TO BE REMOVE as per the version 2 data structure design
     region_id = fields.Many2one('budget.enduser.region', string='Region')
+    # TODO TO BE REMOVE as per the version 2 data structure design
     section_id = fields.Many2one('res.partner', string='Section',
                                  domain=[('is_budget_section', '=', True)])
+    # TODO TO BE REMOVE as per the version 2 data structure design
     sub_section_id = fields.Many2one('res.partner', string='Sub Section',
                                      domain=[('is_budget_sub_section', '=', True)])
-    # TODO MUST BE CHANGE TO MANY2MANY
-    investment_area_id = fields.Many2one('budget.core.budget.investment.area', string='Investment Area')
-    recurrence_ids = fields.One2many('budget.core.budget.recurrence',
+    # TODO THIS MUST BE CHANGE TO A TAG LIKE OPTION
+    investment_area = fields.Char(string='Investment Area')
+    plan_ids = fields.One2many('budget.core.budget.plan',
                                      'budget_id',
-                                     string="Recurrences")
+                                     string="Plans")
     contract_ids = fields.Many2many('budget.contractor.contract',
                                     'budget_contract_rel',
                                     'budget_id',

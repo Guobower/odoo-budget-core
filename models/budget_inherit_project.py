@@ -71,7 +71,7 @@ class BudgetInheritProject(models.Model):
         If it is a project
         """
         if self.is_project and self.expenditure_amount > self.commitment_amount:
-            raise ValidationError("Parent Task Total Expenditure Can't exceed Total Commitment")
+            raise ValidationError("Expenditure Can't exceed Total Commitment")
 
     _sql_constraints = [
         ('uniq_project_no', 'UNIQUE (project_no)', 'Project No Must Be unique')

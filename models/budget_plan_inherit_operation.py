@@ -3,15 +3,15 @@
 from odoo import models, fields, api
 
 
-class BudgetRecurrenceInheritOperation(models.Model):
-    _inherit = 'budget.core.budget.recurrence'
+class BudgetPlanInheritOperation(models.Model):
+    _inherit = 'budget.core.budget.plan'
 
     # CHOICES
     # ----------------------------------------------------------
 
     # BASIC FIELDS
     # ----------------------------------------------------------
-    is_operation_recurrence = fields.Boolean(string='Is Recurrence Operation')
+    is_operation_plan = fields.Boolean(string='Is Plan Operation')
 
     # RELATIONSHIPS
     # ----------------------------------------------------------

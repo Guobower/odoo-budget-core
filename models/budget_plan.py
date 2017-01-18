@@ -3,22 +3,21 @@
 from odoo import models, fields, api
 
 
-class BudgetRecurrence(models.Model):
-    _name = 'budget.core.budget.recurrence'
+class BudgetPlan(models.Model):
+    _name = 'budget.core.budget.plan'
     _rec_name = 'name'
-    _description = 'Budget Recurrence'
-    _order = 'recurrence_date'
+    _description = 'Budget Plan'
+    _order = 'date'
 
     # CHOICES
     # ----------------------------------------------------------
 
     # BASIC FIELDS
     # ----------------------------------------------------------
-    recurrence_amount = fields.Monetary(currency_field='company_currency_id',
-                                        string='Recurrence Amount')
-    recurrence_date = fields.Date(string="Recurrence Date")
+    expenditure_amount = fields.Monetary(currency_field='company_currency_id',
+                                        string='Expenditure Amount')
+    date = fields.Date(string="Date")
     remarks = fields.Text(string="Remarks")
-
 
     # RELATIONSHIPS
     # ----------------------------------------------------------
@@ -30,7 +29,7 @@ class BudgetRecurrence(models.Model):
     # CONSTRAINS
     # ----------------------------------------------------------
     _sql_constraints = [
-        ('recurrence_must_not_be_negative', 'CHECK (recurrence_amount >= 0)', 'Recurrence Amount Must Be Positive')
+        ('expenditure_must_not_be_negative', 'CHECK (expenditure_amount >= 0)', 'Expenditure Amount Must Be Positive')
     ]
 
     # COMPUTE FIELDS
@@ -38,9 +37,8 @@ class BudgetRecurrence(models.Model):
     name = fields.Char(compute="_compute_name",
                        string="Name")
 
-
     @api.one
-    @api.depends('recurrence_date')
+    @api.depends('date')
     def _compute_name(self):
-        if self.recurrence_date:
-            self.name = '{}'.format(fields.Datetime.from_string(self.recurrence_date).strftime("%b-%Y"))
+        if self.date:
+            self.name = '{}'.format(fields.Datetime.from_string(self.date).strftime("%b-%Y"))

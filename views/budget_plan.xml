@@ -4,11 +4,11 @@
     <data>
     <!--START VIEWS-->
         <!-- FORM VIEW-->
-        <record model="ir.ui.view" id="view_form_budget_recurrence">
-            <field name="name">Budget Recurrence</field>
-            <field name="model">budget.core.budget.recurrence</field>
+        <record model="ir.ui.view" id="view_form_budget_plan">
+            <field name="name">Budget Plan</field>
+            <field name="model">budget.core.budget.plan</field>
             <field name="arch" type="xml">
-                <form string="Budget Recurrence">
+                <form string="Budget Plan">
                     <sheet>
                         <div class="oe_button_box" name="button_box">
                         </div>
@@ -20,8 +20,8 @@
                         <group>
                             <group>
                                 <field name="budget_id"/>
-                                <field name="recurrence_date"/>
-                                <field name="recurrence_amount"/>
+                                <field name="date"/>
+                                <field name="expenditure_amount"/>
                             </group>
                             <group>
                             </group>
@@ -34,14 +34,14 @@
             </field>
         </record>
         <!--TREE VIEW-->
-        <record model="ir.ui.view" id="view_tree_budget_recurrence">
-            <field name="name">Budget Recurrence</field>
-            <field name="model">budget.core.budget.recurrence</field>
+        <record model="ir.ui.view" id="view_tree_budget_plan">
+            <field name="name">Budget Plan</field>
+            <field name="model">budget.core.budget.plan</field>
             <field name="arch" type="xml">
                 <tree>
                     <field name="name"/>
                     <field name="remarks"/>
-                    <field name="recurrence_amount" sum="true"/>
+                    <field name="expenditure_amount" sum="true"/>
                 </tree>
             </field>
         </record>
@@ -49,13 +49,13 @@
 
     <!--START ACTIONS-->
         <!--Budget Action-->
-        <record model="ir.actions.act_window" id="action_budget_recurrence">
-            <field name="name">Budget Recurrence</field>
-            <field name="res_model">budget.core.budget.recurrence</field>
+        <record model="ir.actions.act_window" id="action_budget_plan">
+            <field name="name">Budget Plan</field>
+            <field name="res_model">budget.core.budget.plan</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,pivot,graph</field>
-            <field name="view_id" ref="view_tree_budget_recurrence"/>
-            <field name="context">{'form_view_ref': 'budget_core.view_form_budget_recurrence'}</field>
+            <field name="view_id" ref="view_tree_budget_plan"/>
+            <field name="context">{'form_view_ref': 'budget_core.view_form_budget_plan'}</field>
         </record>
     <!--END ACTIONS-->
     </data>

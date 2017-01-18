@@ -19,7 +19,7 @@
                            attrs="{'invisible': [('is_project', '!=', True)]}"/>
                 </xpath>
 
-                <xpath expr="//field[@name='investment_area_id']" position="after">
+                <xpath expr="//field[@name='investment_area']" position="after">
                     <field name="region_id"
                            attrs="{'invisible': [('is_project', '!=', True)],
                                    'required': [('is_project', '==', True)]}"
@@ -45,6 +45,11 @@
                 <xpath expr="//field[@name='history_ids']" position="attributes">
                     <attribute name="context">{'default_is_project_history': is_project,
                         'default_is_operation_history': is_operation}
+                    </attribute>
+                </xpath>
+                <xpath expr="//field[@name='plan_ids']" position="attributes">
+                    <attribute name="context">{'default_is_project_plan': is_project,
+                        'default_is_operation_plan': is_operation}
                     </attribute>
                 </xpath>
             </field>

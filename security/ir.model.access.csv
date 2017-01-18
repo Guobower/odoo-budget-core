@@ -1,5 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_budget_core_tags,budget_core.budget.tag,model_budget_core_tag,,1,0,1,0
 access_budget_core_budget_investment_area,budget_core.budget.investment.area,model_budget_core_budget_investment_area,,1,1,1,0
 access_budget_core_dependent,budget_core.budget,model_budget_core_budget,group_budget_dependent,1,0,0,0
 access_budget_core_user,budget_core.budget,model_budget_core_budget,group_budget_user,1,1,1,0
@@ -7,9 +6,9 @@ access_budget_core_manager,budget_core.budget,model_budget_core_budget,group_bud
 access_budget_core_history_dependent,budget_core.budget.history,model_budget_core_budget_history,group_budget_dependent,1,0,0,0
 access_budget_core_history_user,budget_core.budget.history,model_budget_core_budget_history,group_budget_user,1,1,1,0
 access_budget_core_history_manager,budget_core.budget.history,model_budget_core_budget_history,group_budget_manager,1,1,1,1
-access_budget_core_recurrence_dependent,budget_core.budget.recurrence,model_budget_core_budget_recurrence,group_budget_dependent,1,0,0,0
-access_budget_core_recurrence_user,budget_core.budget.recurrence,model_budget_core_budget_recurrence,group_budget_user,1,1,0,0
-access_budget_core_recurrence_manager,budget_core.budget.recurrence,model_budget_core_budget_recurrence,group_budget_manager,1,1,1,1
+access_budget_core_plan_dependent,budget_core.budget.plan,model_budget_core_budget_plan,group_budget_dependent,1,0,0,0
+access_budget_core_plan_user,budget_core.budget.plan,model_budget_core_budget_plan,group_budget_user,1,1,0,0
+access_budget_core_plan_manager,budget_core.budget.plan,model_budget_core_budget_plan,group_budget_manager,1,1,1,1
 access_budget_core_cost_center_dependent,budget_core.budget.cost.center,model_budget_core_cost_center,group_operation_dependent,1,0,0,0
 access_budget_core_cost_center_user,budget_core.budget.cost.center,model_budget_core_cost_center,group_operation_user,1,1,0,0
 access_budget_core_cost_center_manager,budget_core.budget.cost.center,model_budget_core_cost_center,group_operation_manager,1,1,1,1
