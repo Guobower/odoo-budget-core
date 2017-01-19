@@ -25,6 +25,20 @@
                     <field name="account_code_id" attrs="{'invisible': [('is_operation', '!=', True)]}"/>
                 </xpath>
 
+                <xpath expr="//group[@name='general']/group[@name='col_right']" position="inside">
+                    <field name="grouping" attrs="{'invisible': [('is_operation', '!=', True)]}"/>
+                    <field name="classification_hl" attrs="{'invisible': [('is_operation', '!=', True)]}"/>
+                    <field name="classification_ll" attrs="{'invisible': [('is_operation', '!=', True)]}"/>
+                </xpath>
+
+                <xpath expr="//field[@name='description']" position="before">
+                    <field name="cost_center_description" attrs="{'invisible': [('is_operation', '!=', True)]}"/>
+                    <field name="account_code_description" attrs="{'invisible': [('is_operation', '!=', True)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='description']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('is_operation', '==', True)]}</attribute>
+                </xpath>
+
             </field>
         </record>
         <!--TREE VIEW-->
