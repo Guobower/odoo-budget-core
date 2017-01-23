@@ -27,8 +27,8 @@
 
                 <xpath expr="//group[@name='general']/group[@name='col_right']" position="inside">
                     <field name="grouping" attrs="{'invisible': [('is_operation', '!=', True)]}"/>
-                    <field name="classification_hl" attrs="{'invisible': [('is_operation', '!=', True)]}"/>
-                    <field name="classification_ll" attrs="{'invisible': [('is_operation', '!=', True)]}"/>
+                    <field name="area_of_spend_hl" attrs="{'invisible': [('is_operation', '!=', True)]}"/>
+                    <field name="area_of_spend_ll" attrs="{'invisible': [('is_operation', '!=', True)]}"/>
                 </xpath>
 
                 <xpath expr="//field[@name='description']" position="before">
@@ -36,6 +36,9 @@
                     <field name="account_code_description" attrs="{'invisible': [('is_operation', '!=', True)]}"/>
                 </xpath>
                 <xpath expr="//field[@name='description']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('is_operation', '==', True)]}</attribute>
+                </xpath>
+                <xpath expr="//notebook/page[@name='histories']" position="attributes">
                     <attribute name="attrs">{'invisible': [('is_operation', '==', True)]}</attribute>
                 </xpath>
 
@@ -47,6 +50,13 @@
             <field name="model">budget.core.budget</field>
             <field name="inherit_id" ref="view_tree_budget"/>
             <field name="arch" type="xml">
+                <xpath expr="//field[@name='investment_area']" position="after">
+                    <field name="cost_center_id" invisible="not context.get('default_is_operation', False)"/>
+                    <field name="account_code_id" invisible="not context.get('default_is_operation', False)"/>
+                    <field name="grouping" invisible="not context.get('default_is_operation', False)"/>
+                    <field name="area_of_spend_hl" invisible="not context.get('default_is_operation', False)"/>
+                    <field name="area_of_spend_ll" invisible="not context.get('default_is_operation', False)"/>
+                </xpath>
                 <xpath expr="//field[@name='expenditure_amount']" position="after">
                     <field name="is_operation" groups="base.group_system"/>
                 </xpath>

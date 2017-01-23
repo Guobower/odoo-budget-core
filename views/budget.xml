@@ -81,11 +81,11 @@
                         </group>
 
                         <notebook>
-                            <page string="Histories">
+                            <page name="histories" string="Histories">
                                 <field name="history_ids" widget="one2many"/>
                             </page>
                             <!--TODO CHECK THIS PART IT IS NOT SHOWING THE AS DEFAULT-->
-                            <page string="Plans">
+                            <page name="plans" string="Plans">
                                 <field name="plan_ids"
                                        context="{'default_budget_id': id}"
                                 />

@@ -13,7 +13,6 @@
                         <field name="is_project_plan" />
                     </group>
                 </xpath>
-
             </field>
         </record>
         <!--TREE VIEW-->
@@ -34,7 +33,7 @@
     <!--START ACTIONS-->
         <!--Budget Action-->
         <record model="ir.actions.act_window" id="action_budget_plan_inherit_project">
-            <field name="name">Budget Plan Inherit</field>
+            <field name="name">Budget Plan</field>
             <field name="res_model">budget.core.budget.plan</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,pivot,graph</field>

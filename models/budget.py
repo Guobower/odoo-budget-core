@@ -30,12 +30,9 @@ class Budget(models.Model):
     # ----------------------------------------------------------
     company_currency_id = fields.Many2one('res.currency', readonly=True,
                                           default=lambda self: self.env.user.company_id.currency_id)
-    # TODO TO BE REMOVE as per the version 2 data structure design
     region_id = fields.Many2one('budget.enduser.region', string='Region')
-    # TODO TO BE REMOVE as per the version 2 data structure design
     section_id = fields.Many2one('res.partner', string='Section',
                                  domain=[('is_budget_section', '=', True)])
-    # TODO TO BE REMOVE as per the version 2 data structure design
     sub_section_id = fields.Many2one('res.partner', string='Sub Section',
                                      domain=[('is_budget_sub_section', '=', True)])
     # TODO THIS MUST BE CHANGE TO A TAG LIKE OPTION

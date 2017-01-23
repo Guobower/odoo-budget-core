@@ -12,7 +12,7 @@
     <!--MENU LEFT-->
         <menuitem
             id="menu_project_top_left"
-            name="Project"
+            name="CAPEX"
             parent="menu_core_top"
             groups="base.group_system,group_project_dependent,group_project_user,group_project_manager"
         />
@@ -20,7 +20,7 @@
         <!--MENU LEFT CHILD-->
             <menuitem
                 id="menu_budget_inherit_project_left"
-                name="Project"
+                name="CWIP"
                 sequence="1"
                 parent="menu_project_top_left"
                 action="action_budget_inherit_project"
@@ -28,7 +28,7 @@
 
             <menuitem
                 id="menu_budget_history_inherit_project_left"
-                name="Project History"
+                name="CWIP Transfer"
                 sequence="2"
                 parent="menu_project_top_left"
                 action="action_budget_history_inherit_project"
@@ -36,7 +36,7 @@
 
             <menuitem
                 id="menu_budget_plan_inherit_project_left"
-                name="Project Plan"
+                name="Budget Plan"
                 sequence="3"
                 parent="menu_project_top_left"
                 action="action_budget_plan_inherit_project"
@@ -44,30 +44,30 @@
 
         <menuitem
             id="menu_operation_top_left"
-            name="Operation"
+            name="OPEX"
             parent="menu_core_top"
             groups="base.group_system,group_operation_dependent,group_operation_user,group_operation_manager"
         />
         <!--MENU LEFT CHILD-->
             <menuitem
                 id="menu_budget_inherit_operation_left"
-                name="Operation"
+                name="CC - AC"
                 sequence="1"
                 parent="menu_operation_top_left"
                 action="action_budget_inherit_operation"
             />
 
-            <menuitem
-                id="menu_budget_history_inherit_operation_left"
-                name="Operation History"
-                sequence="2"
-                parent="menu_operation_top_left"
-                action="action_budget_history_inherit_operation"
-            />
+            <!--<menuitem-->
+                <!--id="menu_budget_history_inherit_operation_left"-->
+                <!--name="CC - AC History"-->
+                <!--sequence="2"-->
+                <!--parent="menu_operation_top_left"-->
+                <!--action="action_budget_history_inherit_operation"-->
+            <!--/>-->
 
             <menuitem
                 id="menu_budget_plan_inherit_operation_left"
-                name="Operation Plan"
+                name="Budget Plan"
                 sequence="3"
                 parent="menu_operation_top_left"
                 action="action_budget_plan_inherit_operation"

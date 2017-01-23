@@ -15,10 +15,17 @@ class CostCenter(models.Model):
     # ----------------------------------------------------------
     state = fields.Selection(STATES, default='draft')
     cost_center = fields.Char(string='Cost Center')
-    description = fields.Char(string='Description')
+    description = fields.Text(string='Description')
+    remark = fields.Text(string='Remark')
 
     # RELATIONSHIPS
     # ----------------------------------------------------------
+    section_id = fields.Many2one('res.partner',
+                                 domain=[('is_budget_section','=',True)],
+                                 string="Section")
+    sub_section_id = fields.Many2one('res.partner',
+                                 domain=[('is_budget_sub_section','=',True)],
+                                 string="Sub Section")
     budget_ids = fields.One2many('budget.core.budget',
                                  'cost_center_id',
                                  string="CC-AC")

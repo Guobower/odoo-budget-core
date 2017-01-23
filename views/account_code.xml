@@ -18,19 +18,26 @@
                         </div>
                         <div class="oe_title">
                             <h1>
-                                <field name="account_code" default_focus="1" placeholder="Name" invisible="1"/>
+                                <field name="account_code" default_focus="1" placeholder="Account Code"/>
                             </h1>
                         </div>
 
                         <group>
                             <group>
-                                <field name="description"/>
+                                <field name="grouping"/>
+
                             </group>
 
                             <group>
+                                <field name="area_of_spend_ll"/>
+                                <field name="area_of_spend_hl"/>
                             </group>
-                        </group>
 
+                        </group>
+                        <group>
+                            <field name="description"/>
+                            <field name="remark"/>
+                        </group>
                         <notebook>
                             <page string="Budgets">
                                 <field name="budget_ids"/>
@@ -49,6 +56,8 @@
                       decoration-muted="state in ['closed', 'cancelled']">
                     <!--decoration-danger="state in ['duplicate', 'overrun']"-->
                     <field name="account_code"/>
+                    <field name="area_of_spend_ll"/>
+                    <field name="area_of_spend_hl"/>
                     <field name="description"/>
                     <field name="state"/>
                 </tree>

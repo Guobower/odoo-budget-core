@@ -5,7 +5,7 @@
     <!--START VIEWS-->
         <!-- FORM VIEW-->
         <record model="ir.ui.view" id="view_form_budget_operation_inherit_project">
-            <field name="name">Budget History Inherit</field>
+            <field name="name">Budget Transfer Inherit</field>
             <field name="model">budget.core.budget.history</field>
             <field name="inherit_id" ref="view_form_budget_history"/>
             <field name="arch" type="xml">
@@ -18,7 +18,7 @@
         </record>
         <!--TREE VIEW-->
         <record model="ir.ui.view" id="view_tree_budget_history_inherit_operation">
-            <field name="name">Budget History Inherit</field>
+            <field name="name">Budget Transfer Inherit</field>
             <field name="model">budget.core.budget.history</field>
             <field name="inherit_id" ref="view_tree_budget_history"/>
             <field name="arch" type="xml">
