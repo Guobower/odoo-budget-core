@@ -20,11 +20,9 @@ class CostCenter(models.Model):
 
     # RELATIONSHIPS
     # ----------------------------------------------------------
-    section_id = fields.Many2one('res.partner',
-                                 domain=[('is_budget_section','=',True)],
+    section_id = fields.Many2one('budget.enduser.section',
                                  string="Section")
-    sub_section_id = fields.Many2one('res.partner',
-                                 domain=[('is_budget_sub_section','=',True)],
+    sub_section_id = fields.Many2one('budget.enduser.sub.section',
                                  string="Sub Section")
     budget_ids = fields.One2many('budget.core.budget',
                                  'cost_center_id',
