@@ -26,14 +26,19 @@
                 </xpath>
 
                 <xpath expr="//group[@name='general']/group[@name='col_right']" position="inside">
-                    <field name="grouping" attrs="{'invisible': [('is_operation', '!=', True)]}"/>
-                    <field name="area_of_spend_hl" attrs="{'invisible': [('is_operation', '!=', True)]}"/>
-                    <field name="area_of_spend_ll" attrs="{'invisible': [('is_operation', '!=', True)]}"/>
+                    <field name="grouping" attrs="{'invisible': [('is_operation', '!=', True)],
+                                                   'readonly': True}"/>
+                    <field name="area_of_spend_hl_id" attrs="{'invisible': [('is_operation', '!=', True)],
+                                                              'readonly': True}"/>
+                    <field name="area_of_spend_ll_id" attrs="{'invisible': [('is_operation', '!=', True)],
+                                                              'readonly': True}"/>
                 </xpath>
 
                 <xpath expr="//field[@name='description']" position="before">
-                    <field name="cost_center_description" attrs="{'invisible': [('is_operation', '!=', True)]}"/>
-                    <field name="account_code_description" attrs="{'invisible': [('is_operation', '!=', True)]}"/>
+                    <field name="cost_center_description" attrs="{'invisible': [('is_operation', '!=', True)],
+                                                                  'readonly': True}"/>
+                    <field name="account_code_description" attrs="{'invisible': [('is_operation', '!=', True)],
+                                                                  'readonly': True}"/>
                 </xpath>
                 <xpath expr="//field[@name='description']" position="attributes">
                     <attribute name="attrs">{'invisible': [('is_operation', '==', True)]}</attribute>
@@ -54,8 +59,8 @@
                     <field name="cost_center_id" invisible="not context.get('default_is_operation', False)"/>
                     <field name="account_code_id" invisible="not context.get('default_is_operation', False)"/>
                     <field name="grouping" invisible="not context.get('default_is_operation', False)"/>
-                    <field name="area_of_spend_hl" invisible="not context.get('default_is_operation', False)"/>
-                    <field name="area_of_spend_ll" invisible="not context.get('default_is_operation', False)"/>
+                    <field name="area_of_spend_hl_id" invisible="not context.get('default_is_operation', False)"/>
+                    <field name="area_of_spend_ll_id" invisible="not context.get('default_is_operation', False)"/>
                 </xpath>
                 <xpath expr="//field[@name='expenditure_amount']" position="after">
                     <field name="is_operation" groups="base.group_system"/>

@@ -20,54 +20,6 @@ class AccountCode(models.Model):
         '5a - general expenses',
         '1c - cost transfers'
     ])
-    CLASSIFICATION_HIGH_LEVELS = choices_tuple([
-        'cost transfers',
-        'fte',
-        'general expenses',
-        'maintenance',
-        'other operating cost',
-        'resources',
-        'support',
-        'utilities'
-    ])
-    CLASSIFICATION_LOW_LEVELS = choices_tuple([
-        'direct staff cost',
-        'pte',
-        'team based hire',
-        'overtime',
-        'indirect staff cost',
-        'tad',
-        'other operating cost',
-        'entertainment',
-        'sundry exp',
-        'buildings',
-        'line plant',
-        'tools & test equipment',
-        'consultancy',
-        'write offs',
-        'cost transfers',
-        'network support',
-        'server support',
-        'software support',
-        'general expenses',
-        'efm',
-        'access network',
-        'professional fees',
-        'repair & return',
-        'fuel',
-        'rental genset',
-        'tower',
-        'e&m equipment',
-        'incentive',
-        'mobile cow',
-        'telephone',
-        'digital tv',
-        'cse maintenance',
-        'fdh uplifting',
-        'office equipment',
-        'vsat/earth station',
-        'contract staff',
-    ])
 
     # BASIC FIELDS
     # ----------------------------------------------------------
@@ -76,13 +28,16 @@ class AccountCode(models.Model):
     description = fields.Text(string='Description')
     remark = fields.Text(string='Remark')
     grouping = fields.Selection(selection=GROUPINGS, string='Grouping')
-    area_of_spend_ll = fields.Selection(selection=CLASSIFICATION_LOW_LEVELS,
-                                        string='Area of Spent (LOW LEVEL)')
-    area_of_spend_hl = fields.Selection(selection=CLASSIFICATION_HIGH_LEVELS,
-                                        string='Area of Spent (HIGH LEVEL)')
 
     # RELATIONSHIPS
     # ----------------------------------------------------------
+    area_of_spend_ll_id = fields.Many2one('budget.core.account.code.area.spent',
+                                          domain=[('level','=','low')],
+                                          string='Area of Spent (LOW LEVEL)')
+    area_of_spend_hl_id = fields.Many2one('budget.core.account.code.area.spent',
+                                           domain=[('level', '=', 'high')],
+                                           string='Area of Spent (HIGH LEVEL)')
+
     budget_ids = fields.One2many('budget.core.budget',
                                  'account_code_id',
                                  string="CC-AC")

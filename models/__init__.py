@@ -7,7 +7,7 @@ from . import contract_inherit
 # BASIC MODELS
 # ----------------------------------------------------------
 from . import budget, budget_history, budget_plan, \
-    cost_center, account_code # budget_investment_area
+    cost_center, account_code, area_spent
 
 # BASIC MODELS FROM FIRST BECAUSE WE ARE INHERITING
 # TO THE BASIC MODELS IN THIS MODULE

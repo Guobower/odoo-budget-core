@@ -33,14 +33,12 @@ class BudgetInheritOperation(models.Model):
     # company_currency_id exist in budget.core.budget already
     # history_ids exist in budget.core.budget already
     cost_center_description = fields.Text(related='cost_center_id.description',
-                                          string='Cost Center Description',
-                                          readonly=True)
+                                          string='Cost Center Description')
     account_code_description = fields.Text(related='account_code_id.description',
-                                           string='Account Code Description',
-                                           readonly=True)
+                                           string='Account Code Description')
     # This is Section ID Related for operation not CWIP
-    area_of_spend_ll = fields.Selection(related='account_code_id.area_of_spend_ll')
-    area_of_spend_hl = fields.Selection(related='account_code_id.area_of_spend_hl')
+    area_of_spend_ll_id = fields.Many2one(related='account_code_id.area_of_spend_ll_id')
+    area_of_spend_hl_id = fields.Many2one(related='account_code_id.area_of_spend_hl_id')
     grouping = fields.Selection(related='account_code_id.grouping')
 
     # COMPUTE FIELDS
