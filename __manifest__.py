@@ -56,6 +56,7 @@ Summary
         'views/budget_plan.xml',
         'views/cost_center.xml',
         'views/account_code.xml',
+        'views/account_code_area_spent.xml',
 
         'views/budget_inherit_operation.xml',
         'views/budget_history_inherit_operation.xml',

@@ -89,6 +89,14 @@
                 action="action_account_code"
             />
 
+            <menuitem
+                id="menu_budget_account_code_area_spent_left"
+                name="Account Code Area Spent"
+                sequence="6"
+                parent="menu_operation_top_left"
+                action="action_account_code_area_spent"
+            />
+
     <!--END MENU LEFT-->
 
     </data>
