@@ -54,8 +54,9 @@ class BudgetInheritOperation(models.Model):
     @api.one
     @api.depends('cost_center_id', 'cost_center_id.section_id')
     def _compute_section_id(self):
-        if self.is_operation:
-            self.section_id = self.cost_center_id.section_id
+        pass
+        # if self.is_operation:
+        #     self.section_id = self.cost_center_id.section_id
 
     @api.one
     def _set_section_id(self):
@@ -67,10 +68,12 @@ class BudgetInheritOperation(models.Model):
     @api.onchange('cost_center_account_code', 'cost_center_id', 'account_code_id')
     def onchange_cost_center_account_code(self):
         if self.is_operation:
-            cost_center = self.cost_center_id.cost_center or ''
-            account_code = self.account_code_id.account_code or ''
-            self.cost_center_account_code = '{}-{}'.format(cost_center,
-                                                           account_code)
+            cost_center = self.cost_center_id.cost_center
+            account_code = self.account_code_id.account_code
+
+            string_list = [i for i in [cost_center, account_code] if i is not False]
+
+            self.cost_center_account_code = '-'.join(string_list)
 
     # CONSTRAINS
     # ----------------------------------------------------------

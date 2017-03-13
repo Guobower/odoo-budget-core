@@ -22,7 +22,7 @@
             <field name="model">budget.core.budget.plan</field>
             <field name="inherit_id" ref="view_tree_budget_plan"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='expenditure_amount']" position="before">
+                <xpath expr="//field[@name='approved_amount']" position="before">
                     <field name="is_operation_plan" groups="base.group_system"/>
                 </xpath>
             </field>

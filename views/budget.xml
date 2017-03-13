@@ -64,8 +64,10 @@
                                 <field name="contract_ids" widget="many2many_tags"
                                        options="{'no_create': True, 'no_open': True}"/>
                                 <field name="section_id" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="old_section_id" options="{'no_create': True, 'no_open': True}"/>
                                 <field name="investment_area"
-                                       options="{'no_create_edit': True, 'no_open': True}"/>
+                                       options="{'no_create': True, 'no_open': True}"
+                                       attrs="{'invisible': [('is_project', '!=', True)]}"/>
                             </group>
 
                             <group name="col_right">
@@ -86,9 +88,16 @@
                             </page>
                             <!--TODO CHECK THIS PART IT IS NOT SHOWING THE AS DEFAULT-->
                             <page name="plans" string="Plans">
-                                <field name="plan_ids"
-                                       context="{'default_budget_id': id}"
-                                />
+                                <field name="plan_ids" context="{'default_budget_id': id}" readonly="1">
+                                    <tree>
+                                        <field name="budget_id" groups="base.group_system"/>
+                                        <field name="name" string="Month"/>
+                                        <field name="approved_amount" sum="1"/>
+                                        <field name="deducted_amount" sum="1"/>
+                                        <field name="shared_amount" sum="1"/>
+                                        <field name="remarks"/>
+                                    </tree>
+                                </field>
                             </page>
                         </notebook>
                     </sheet>
@@ -122,7 +131,6 @@
             <field name="arch" type="xml">
                 <search>
                     <field name="name"/>
-                    <!--<field name="contractor_id"/>-->
                     <field name="create_uid"/>
                     <field name="state"/>
                     <filter

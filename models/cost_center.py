@@ -3,6 +3,7 @@
 from odoo import models, fields
 from odoo.addons.budget_utilities.models.utilities import choices_tuple
 
+
 class CostCenter(models.Model):
     _name = 'budget.core.cost.center'
     _rec_name = 'cost_center'
@@ -23,7 +24,7 @@ class CostCenter(models.Model):
     section_id = fields.Many2one('budget.enduser.section',
                                  string="Section")
     sub_section_id = fields.Many2one('budget.enduser.sub.section',
-                                 string="Sub Section")
+                                     string="Sub Section")
     budget_ids = fields.One2many('budget.core.budget',
                                  'cost_center_id',
                                  string="CC-AC")

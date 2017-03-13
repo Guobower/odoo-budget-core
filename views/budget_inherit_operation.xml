@@ -2,7 +2,7 @@
 
 <openerp>
     <data>
-    <!--START VIEWS-->
+        <!--START VIEWS-->
         <!-- FORM VIEW-->
         <record model="ir.ui.view" id="view_form_budget_inherit_operation">
             <field name="name">Budget Inherit</field>
@@ -21,24 +21,37 @@
                 </xpath>
 
                 <xpath expr="//group[@name='general']/group[@name='col_left']" position="inside">
-                    <field name="cost_center_id" attrs="{'invisible': [('is_operation', '!=', True)]}"/>
-                    <field name="account_code_id" attrs="{'invisible': [('is_operation', '!=', True)]}"/>
+                    <field name="cost_center_id"
+                           attrs="{'invisible': [('is_operation', '!=', True)]}"
+                           options="{'no_create': True}"/>
+                    <field name="account_code_id"
+                           attrs="{'invisible': [('is_operation', '!=', True)]}"
+                           options="{'no_create': True}"/>
                 </xpath>
 
                 <xpath expr="//group[@name='general']/group[@name='col_right']" position="inside">
-                    <field name="grouping" attrs="{'invisible': [('is_operation', '!=', True)],
-                                                   'readonly': True}"/>
-                    <field name="area_of_spend_hl_id" attrs="{'invisible': [('is_operation', '!=', True)],
-                                                              'readonly': True}"/>
-                    <field name="area_of_spend_ll_id" attrs="{'invisible': [('is_operation', '!=', True)],
-                                                              'readonly': True}"/>
                 </xpath>
 
                 <xpath expr="//field[@name='description']" position="before">
-                    <field name="cost_center_description" attrs="{'invisible': [('is_operation', '!=', True)],
-                                                                  'readonly': True}"/>
-                    <field name="account_code_description" attrs="{'invisible': [('is_operation', '!=', True)],
-                                                                  'readonly': True}"/>
+                    <group>
+                        <field name="grouping"
+                               attrs="{'invisible': [('is_operation', '!=', True)], 'readonly': True}"
+                               options="{'no_create': True, 'no_open': True}"/>
+                        <field name="area_of_spend_hl_id"
+                               attrs="{'invisible': [('is_operation', '!=', True)], 'readonly': True}"
+                               options="{'no_create': True, 'no_open': True}"/>
+                        <field name="area_of_spend_ll_id"
+                               attrs="{'invisible': [('is_operation', '!=', True)], 'readonly': True}"
+                               options="{'no_create': True, 'no_open': True}"/>
+                    </group>
+                    <group>
+                        <field name="cost_center_description"
+                               attrs="{'invisible': [('is_operation', '!=', True)], 'readonly': True}"
+                               options="{'no_create': True, 'no_open': True}"/>
+                        <field name="account_code_description"
+                               attrs="{'invisible': [('is_operation', '!=', True)], 'readonly': True}"
+                               options="{'no_create': True, 'no_open': True}"/>
+                    </group>
                 </xpath>
                 <xpath expr="//field[@name='description']" position="attributes">
                     <attribute name="attrs">{'invisible': [('is_operation', '==', True)]}</attribute>
@@ -69,7 +82,7 @@
         </record>
         <!--END VIEWS-->
 
-    <!--START ACTIONS-->
+        <!--START ACTIONS-->
         <!--Budget Action-->
         <record model="ir.actions.act_window" id="action_budget_inherit_operation">
             <field name="name">Cost Center - Account Code</field>
@@ -80,8 +93,9 @@
             <field name="search_view_id" ref="search_budget"/>
             <field name="domain">[('is_operation', '=', True)]</field>
             <field name="context">{'default_is_operation': True,
-                                   'form_view_ref': 'budget_core.view_form_budget_inherit_operation',
-                                   'search_default_filter_state': 1}</field>
+                'form_view_ref': 'budget_core.view_form_budget_inherit_operation',
+                'search_default_filter_state': 1}
+            </field>
         </record>
     </data>
 </openerp>

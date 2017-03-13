@@ -21,6 +21,7 @@
             <field name="domain_force">[('is_project','=',True)]</field>
         </record>
         <!-- END PROJECT ACCESS -->
+
         <!-- PROJECT ACCESS -->
         <record id="budget_visibility_group_operation_dependent" model="ir.rule">
             <field name="name">Project Dependent can only View Projects</field>

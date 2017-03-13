@@ -95,6 +95,7 @@
                 sequence="6"
                 parent="menu_operation_top_left"
                 action="action_account_code_area_spent"
+                groups="base.group_system,base.group_no_one"
             />
 
     <!--END MENU LEFT-->

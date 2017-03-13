@@ -21,7 +21,9 @@
                             <group>
                                 <field name="budget_id"/>
                                 <field name="date"/>
-                                <field name="expenditure_amount"/>
+                                <field name="approved_amount"/>
+                                <field name="deducted_amount"/>
+                                <field name="shared_amount"/>
                             </group>
                             <group>
                             </group>
@@ -40,9 +42,11 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="budget_id"/>
-                    <field name="name"/>
+                    <field name="name" string="Month"/>
+                    <field name="approved_amount" sum="1"/>
+                    <field name="deducted_amount" sum="1"/>
+                    <field name="shared_amount" sum="1"/>
                     <field name="remarks"/>
-                    <field name="expenditure_amount" sum="true"/>
                 </tree>
             </field>
         </record>

@@ -14,8 +14,12 @@ class BudgetPlan(models.Model):
 
     # BASIC FIELDS
     # ----------------------------------------------------------
-    expenditure_amount = fields.Monetary(currency_field='company_currency_id',
-                                        string='Expenditure Amount')
+    approved_amount = fields.Monetary(currency_field='company_currency_id',
+                                        string='Approved Amount')
+    deducted_amount = fields.Monetary(currency_field='company_currency_id',
+                                        string='Deducted Amount')
+    shared_amount = fields.Monetary(currency_field='company_currency_id',
+                                        string='Shared Amount')
     date = fields.Date(string="Date")
     remarks = fields.Text(string="Remarks")
 
@@ -29,7 +33,9 @@ class BudgetPlan(models.Model):
     # CONSTRAINS
     # ----------------------------------------------------------
     _sql_constraints = [
-        ('expenditure_must_not_be_negative', 'CHECK (expenditure_amount >= 0)', 'Expenditure Amount Must Be Positive')
+        ('approved_amount_must_not_be_negative', 'CHECK (approved_amount >= 0)', 'Approved Amount Must Be Positive'),
+        ('deducted_amount_must_not_be_negative', 'CHECK (deducted_amount >= 0)', 'Deducted Amount Must Be Positive'),
+        ('shared_amount_must_not_be_negative', 'CHECK (shared_amount >= 0)', 'Shared Amount Must Be Positive')
     ]
 
     # COMPUTE FIELDS
