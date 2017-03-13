@@ -44,12 +44,12 @@ class BudgetInheritOperation(models.Model):
     # COMPUTE FIELDS
     # ----------------------------------------------------------
     # expenditure_amount exist in budget.core.budget
-    section_id = fields.Many2one('res.partner',
-                                 string='Section',
-                                 domain=[('is_budget_section', '=', True)],
-                                 compute='_compute_section_id',
-                                 inverse='_set_section_id',
-                                 store=True)
+    # section_id = fields.Many2one('res.partner',
+    #                              string='Section',
+    #                              domain=[('is_budget_section', '=', True)],
+    #                              compute='_compute_section_id',
+    #                              inverse='_set_section_id',
+    #                              store=True)
 
     @api.one
     @api.depends('cost_center_id', 'cost_center_id.section_id')
