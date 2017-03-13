@@ -32,12 +32,10 @@ class Budget(models.Model):
                                           default=lambda self: self.env.user.company_id.currency_id)
     region_id = fields.Many2one('budget.enduser.region', string='Region')
 
-    section_id = fields.Many2one('res.partner', string='Section',
-                                 domain=[('is_budget_section', '=', True)])
+    section_id = fields.Many2one('budget.enduser.section', string='Section')
     old_section_id = fields.Many2one('res.partner', string='Old Section')
 
-    sub_section_id = fields.Many2one('res.partner', string='Sub Section',
-                                     domain=[('is_budget_sub_section', '=', True)])
+    sub_section_id = fields.Many2one('budget.enduser.sub.section', string='Sub Section')
     old_sub_section_id = fields.Many2one('res.partner', string='Old Sub Section')
 
     # TODO THIS MUST BE CHANGE TO A TAG LIKE OPTION
