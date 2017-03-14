@@ -30,21 +30,25 @@ class BudgetPlan(models.Model):
 
     budget_id = fields.Many2one('budget.core.budget', string='Budget')
 
-    # CONSTRAINS
-    # ----------------------------------------------------------
-    _sql_constraints = [
-        ('approved_amount_must_not_be_negative', 'CHECK (approved_amount >= 0)', 'Approved Amount Must Be Positive'),
-        ('deducted_amount_must_not_be_negative', 'CHECK (deducted_amount >= 0)', 'Deducted Amount Must Be Positive'),
-        ('shared_amount_must_not_be_negative', 'CHECK (shared_amount >= 0)', 'Shared Amount Must Be Positive')
-    ]
-
     # COMPUTE FIELDS
     # ----------------------------------------------------------
     name = fields.Char(compute="_compute_name",
-                       string="Name")
+                       string="Name",
+                       store=True
+                       )
 
     @api.one
     @api.depends('date')
     def _compute_name(self):
         if self.date:
             self.name = '{}'.format(fields.Datetime.from_string(self.date).strftime("%b-%Y"))
+
+    # CONSTRAINS
+    # ----------------------------------------------------------
+    _sql_constraints = [
+        ('approved_amount_must_not_be_negative', 'CHECK (approved_amount >= 0)', 'Approved Amount Must Be Positive'),
+        ('deducted_amount_must_not_be_negative', 'CHECK (deducted_amount >= 0)', 'Deducted Amount Must Be Positive'),
+        ('shared_amount_must_not_be_negative', 'CHECK (shared_amount >= 0)', 'Shared Amount Must Be Positive'),
+        ('name_uniq', 'UNIQUE (name)', 'Name Must be Uniq')
+    ]
+
