@@ -49,6 +49,7 @@ class BudgetPlan(models.Model):
         ('approved_amount_must_not_be_negative', 'CHECK (approved_amount >= 0)', 'Approved Amount Must Be Positive'),
         ('deducted_amount_must_not_be_negative', 'CHECK (deducted_amount >= 0)', 'Deducted Amount Must Be Positive'),
         ('shared_amount_must_not_be_negative', 'CHECK (shared_amount >= 0)', 'Shared Amount Must Be Positive'),
-        ('name_uniq', 'UNIQUE (name)', 'Name Must be Uniq')
+        ('name_uniq', 'CHECK(1=1)', 'Name Must be Uniq'),
+        ('name_budget_id_uniq', 'UNIQUE (name, budget_id)', 'Name Budget ID Must be Uniq')
     ]
 
