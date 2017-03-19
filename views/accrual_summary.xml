@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+    <data>
+        <!--START VIEWS-->
+        <!-- FORM VIEW-->
+        <record model="ir.ui.view" id="view_form_budget_accrual_summary">
+            <field name="name">Budget Accrual Summary</field>
+            <field name="model">budget.core.budget.accrual.summary</field>
+            <field name="arch" type="xml">
+                <form string="Budget Accrual Summary">
+                    <header>
+                        <button
+                                string="Approve"
+                                name="set2approved"
+                                type="object"
+                                states="draft"
+                                groups="base.group_system,budget_core.group_operation_user,budget_core.group_operation_manager"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,approved"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" groups="base.group_system"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                       options='{"terminology": "archive"}'/>
+                            </button>
+                            <button name="%(budget_core.action_budget_show_accrual_from_summary)d"
+                                    type="action"
+                                    class="oe_stat_button"
+                                    icon="fa-minus-square"
+                                    context="{'search_default_state': 'draft'}"
+                                    help="Required Verification">
+                                <field name="total_draft" widget="statinfo" string="New"/>
+                            </button>
+                            <button name="%(budget_core.action_budget_show_accrual_from_summary)d"
+                                    type="action"
+                                    class="oe_stat_button"
+                                    icon="fa-check-square"
+                                    context="{'search_default_state': 'verified'}"
+                                    help="Ready For Approval">
+                                <field name="total_verified" widget="statinfo" string="Verified"/>
+                            </button>
+                            <button name="%(budget_core.action_budget_show_accrual_from_summary)d"
+                                    type="action"
+                                    class="oe_stat_button"
+                                    icon="fa-money"
+                                    context="{'search_default_state': 'approved'}"
+                                    help="Approved, Changes are not possible">
+                                <field name="total_approved" widget="statinfo" string="Approved"/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" default_focus="1" placeholder="Name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="date"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="remarks"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--TREE VIEW-->
+        <record model="ir.ui.view" id="view_tree_budget_accrual_summary">
+            <field name="name">Budget Accrual Summary</field>
+            <field name="model">budget.core.budget.accrual.summary</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="remarks"/>
+                    <field name="create_uid"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <!--END VIEWS-->
+
+        <record id="accrual_verify_server_action" model="ir.actions.server">
+            <field name="name">Verify</field>
+            <field name="model_id" ref="model_budget_core_budget_accrual"/>
+            <field name="state">code</field>
+            <field name="code">records.set2verified()</field>
+        </record>
+
+        <record id="run_accrual_verify_server_action" model="ir.values">
+            <field name="name">Verify</field>
+            <field name="model_id" ref="model_budget_core_budget_accrual"/>
+            <field name="key">action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="model">budget.core.budget.accrual</field>
+            <field name="value" eval="'ir.actions.server,' + str(ref('accrual_verify_server_action'))"/>
+        </record>
+
+        <!--START ACTIONS-->
+        <record model="ir.actions.act_window" id="action_budget_accrual_summary">
+            <field name="name">Budget Accrual Summary</field>
+            <field name="res_model">budget.core.budget.accrual.summary</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_tree_budget_accrual_summary"/>
+            <field name="context">{'form_view_ref': 'budget_core.view_form_budget_accrual_summary'}</field>
+        </record>
+        <!--END ACTIONS-->
+    </data>
+</openerp>

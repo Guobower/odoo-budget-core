@@ -45,7 +45,6 @@
 
                         <group name="information" attrs="{'invisible': [('write_date', '==', False)]}">
                             <group name="col_left">
-                                <field name="expenditure_amount"/>
                             </group>
                             <group name="col_right">
                             </group>
@@ -53,7 +52,6 @@
 
                         <group name="initial_input" attrs="{'invisible': [('write_date', '!=', False)]}">
                             <group name="col_left">
-                                <field name="initial_expenditure_amount"/>
                             </group>
                             <group name="col_right">
                             </group>
@@ -64,7 +62,13 @@
                                 <field name="contract_ids" widget="many2many_tags"
                                        options="{'no_create': True, 'no_open': True}"/>
                                 <field name="section_id" options="{'no_create': True, 'no_open': True}"/>
-                                <field name="old_section_id" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="old_section_id"
+                                       groups="base.group_system"
+                                       options="{'no_create': True, 'no_open': True}"/>
+                                <field name="sub_section_id" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="old_sub_section_id"
+                                       groups="base.group_system"
+                                       options="{'no_create': True, 'no_open': True}"/>
                                 <field name="investment_area"
                                        options="{'no_create': True, 'no_open': True}"
                                        attrs="{'invisible': [('is_project', '!=', True)]}"/>
@@ -82,7 +86,7 @@
                             <field name="description"/>
                         </group>
 
-                        <notebook>
+                        <notebook attrs="{'invisible': [('write_date','=',False)]}">
                             <page name="histories" string="Histories">
                                 <field name="history_ids" widget="one2many"/>
                             </page>
@@ -96,6 +100,16 @@
                                         <field name="deducted_amount" sum="1"/>
                                         <field name="shared_amount" sum="1"/>
                                         <field name="remarks"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="accruals" string="Accruals">
+                                <field name="accrual_ids" context="{'default_budget_id': id}" readonly="1">
+                                    <tree>
+                                        <field name="budget_id" groups="base.group_system"/>
+                                        <field name="name" string="Month"/>
+                                        <field name="accrued_amount" sum="1"/>
+                                        <field name="state"/>
                                     </tree>
                                 </field>
                             </page>
@@ -117,6 +131,8 @@
                       decoration-muted="state in ['closed', 'cancelled']">
                     <!--decoration-danger="state in ['duplicate', 'overrun']"-->
                     <field name="name"/>
+                    <field name="section_id"/>
+                    <field name="sub_section_id"/>
                     <field name="investment_area"/>
                     <field name="expenditure_amount"/>
                     <field name="state"/>

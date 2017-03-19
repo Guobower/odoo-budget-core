@@ -32,17 +32,15 @@ class Budget(models.Model):
                                           default=lambda self: self.env.user.company_id.currency_id)
     region_id = fields.Many2one('budget.enduser.region', string='Region')
 
-    section_id = fields.Many2one('budget.enduser.section', string='Section')
-    old_section_id = fields.Many2one('res.partner', string='Old Section')
-
-    sub_section_id = fields.Many2one('budget.enduser.sub.section', string='Sub Section')
-    old_sub_section_id = fields.Many2one('res.partner', string='Old Sub Section')
-
     # TODO THIS MUST BE CHANGE TO A TAG LIKE OPTION
     investment_area = fields.Char(string='Investment Area')
     plan_ids = fields.One2many('budget.core.budget.plan',
-                                     'budget_id',
-                                     string="Plans")
+                               'budget_id',
+                               string="Plans")
+    accrual_ids = fields.One2many('budget.core.budget.accrual',
+                                  'budget_id',
+                                  string="Accruals",
+                                  domain=[('state','=','approved')])
     contract_ids = fields.Many2many('budget.contractor.contract',
                                     'budget_contract_rel',
                                     'budget_id',
@@ -53,10 +51,30 @@ class Budget(models.Model):
 
     # COMPUTE FIELDS
     # ----------------------------------------------------------
+    section_id = fields.Many2one('budget.enduser.section', string='Section',
+                                 compute='_compute_section_id', inverse='_set_section_id', store=True)
+    old_section_id = fields.Many2one('res.partner', string='Old Section')
+
+    sub_section_id = fields.Many2one('budget.enduser.sub.section', string='Sub Section',
+                                     compute='_compute_sub_section_id', inverse='_set_sub_section_id', store=True)
+    old_sub_section_id = fields.Many2one('res.partner', string='Old Sub Section')
+
     expenditure_amount = fields.Monetary(compute='_compute_expenditure_amount',
                                          currency_field='company_currency_id',
                                          string='Expenditure Amount',
                                          store=True)
+
+    @api.one
+    @api.depends()
+    def _compute_section_id(self):
+        # Use for operation automation of section
+        pass
+
+    @api.one
+    @api.depends()
+    def _compute_sub_section_id(self):
+        # Use for operation automation of section
+        pass
 
     @api.one
     @api.depends('history_ids', 'history_ids.expenditure_amount')
@@ -70,6 +88,16 @@ class Budget(models.Model):
                 self.expenditure_amount += history.expenditure_amount
             elif history.action_taken in ['transfer'] and self.id == history.from_budget_id.id:
                 self.expenditure_amount -= history.expenditure_amount
+
+    @api.one
+    def _set_sub_section_id(self):
+        # Use for operation automation of section
+        pass
+
+    @api.one
+    def _set_section_id(self):
+        # Use for operation automation of section
+        pass
 
     # TRANSITIONS
     # ----------------------------------------------------------

@@ -35,10 +35,12 @@
 
                 <xpath expr="//group[@name='information']/group[@name='col_right']" position="inside">
                         <field name="commitment_amount" attrs="{'invisible': [('is_project', '!=', True)]}"/>
+                        <field name="expenditure_amount" attrs="{'invisible': [('is_project', '!=', True)]}"/>
                 </xpath>
 
                 <xpath expr="//group[@name='initial_input']/group[@name='col_right']" position="inside">
                     <field name="initial_commitment_amount" attrs="{'invisible': [('is_project', '!=', True)]}"/>
+                    <field name="initial_expenditure_amount" attrs="{'invisible': [('is_project', '!=', True)]}"/>
                 </xpath>
 
 

@@ -33,34 +33,52 @@ class BudgetInheritOperation(models.Model):
     # company_currency_id exist in budget.core.budget already
     # history_ids exist in budget.core.budget already
     cost_center_description = fields.Text(related='cost_center_id.description',
-                                          string='Cost Center Description')
+                                          string='Cost Center Description',
+                                          store=True)
     account_code_description = fields.Text(related='account_code_id.description',
-                                           string='Account Code Description')
+                                           string='Account Code Description',
+                                           store=True)
     # This is Section ID Related for operation not CWIP
-    area_of_spend_ll_id = fields.Many2one(related='account_code_id.area_of_spend_ll_id')
-    area_of_spend_hl_id = fields.Many2one(related='account_code_id.area_of_spend_hl_id')
-    grouping = fields.Selection(related='account_code_id.grouping')
+    area_of_spend_ll_id = fields.Many2one(related='account_code_id.area_of_spend_ll_id',
+                                          store=True)
+    area_of_spend_hl_id = fields.Many2one(related='account_code_id.area_of_spend_hl_id',
+                                          store=True)
+    grouping = fields.Selection(related='account_code_id.grouping',
+                                store=True)
 
     # COMPUTE FIELDS
     # ----------------------------------------------------------
-    # expenditure_amount exist in budget.core.budget
-    # section_id = fields.Many2one('res.partner',
-    #                              string='Section',
-    #                              domain=[('is_budget_section', '=', True)],
-    #                              compute='_compute_section_id',
-    #                              inverse='_set_section_id',
-    #                              store=True)
+    # company_currency_id exist in budget.core.budget
+    accrued_amount = fields.Monetary(compute='_compute_accrued_amount',
+                                     currency_field='company_currency_id',
+                                     string='Accrued Amount',
+                                     store=True)
+
+    @api.one
+    @api.depends('accrual_ids', 'accrual_ids.accrued_amount')
+    def _compute_accrued_amount(self):
+        # accrual_ids
+        # inheriting
+        if self.is_operation:
+            self.accrued_amount = sum(self.accrual_ids.filtered(lambda r: r.state == 'approved'))
 
     @api.one
     @api.depends('cost_center_id', 'cost_center_id.section_id')
     def _compute_section_id(self):
-        pass
-        # if self.is_operation:
-        #     self.section_id = self.cost_center_id.section_id
+        # this exist in the main budget.py
+        # inheriting
+        super(BudgetInheritOperation, self)._compute_section_id()
+        if self.is_operation:
+            self.section_id = self.cost_center_id.section_id
 
     @api.one
-    def _set_section_id(self):
-        pass
+    @api.depends('cost_center_id', 'cost_center_id.sub_section_id')
+    def _compute_sub_section_id(self):
+        # this exist in the main budget.py
+        # inheriting
+        super(BudgetInheritOperation, self)._compute_sub_section_id()
+        if self.is_operation:
+            self.sub_section_id = self.cost_center_id.sub_section_id
 
     # ONCHANGES
     # ----------------------------------------------------------

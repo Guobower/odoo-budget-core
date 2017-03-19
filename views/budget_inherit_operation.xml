@@ -69,12 +69,16 @@
             <field name="inherit_id" ref="view_tree_budget"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='investment_area']" position="after">
-                    <field name="cost_center_id" invisible="not context.get('default_is_operation', False)"/>
-                    <field name="account_code_id" invisible="not context.get('default_is_operation', False)"/>
                     <field name="grouping" invisible="not context.get('default_is_operation', False)"/>
                     <field name="area_of_spend_hl_id" invisible="not context.get('default_is_operation', False)"/>
                     <field name="area_of_spend_ll_id" invisible="not context.get('default_is_operation', False)"/>
+                    <field name="accrued_amount" invisible="not context.get('default_is_operation', False)"/>
                 </xpath>
+
+                <xpath expr="//field[@name='expenditure_amount']" position="attributes">
+                    <attribute name="invisible">context.get('default_is_operation', False)</attribute>
+                </xpath>
+
                 <xpath expr="//field[@name='expenditure_amount']" position="after">
                     <field name="is_operation" groups="base.group_system"/>
                 </xpath>

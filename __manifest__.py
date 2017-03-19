@@ -47,8 +47,8 @@ Summary
     'data': [
         # SECURITY
         'security/budget.xml',
-        'security/budget_access_rule.xml',
         'security/ir.model.access.csv',
+        'security/budget_access_rule.xml',
 
         # VIEWS
         'views/budget.xml',
@@ -57,6 +57,8 @@ Summary
         'views/cost_center.xml',
         'views/account_code.xml',
         'views/account_code_area_spent.xml',
+        'views/accrual.xml',
+        'views/accrual_summary.xml',
 
         'views/budget_inherit_operation.xml',
         'views/budget_history_inherit_operation.xml',

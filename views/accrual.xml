@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+    <data>
+        <!--START VIEWS-->
+        <!--TREE VIEW-->
+        <record model="ir.ui.view" id="view_tree_budget_accrual">
+            <field name="name">Budget Accrual</field>
+            <field name="model">budget.core.budget.accrual</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" create="false">
+                    <field name="is_readonly" groups="base.group_system"/>
+                    <field name="name" attrs="{'readonly':[('is_readonly','=',True)]}"/>
+                    <field name="budget_id" attrs="{'readonly':[('is_readonly','=',True)]}"/>
+                    <field name="date" attrs="{'readonly':[('is_readonly','=',True)]}"/>
+                    <field name="accrued_amount" attrs="{'readonly':[('is_readonly','=',True)]}"/>
+                    <button name="set2verified" string="Verify" type="object" icon="fa-thumbs-up text-success"
+                            attrs="{'invisible':[('state','not in',['draft'])]}"
+                            groups="base.group_system,budget_core.group_operation_user,budget_core.group_operation_manager"/>
+                    <field name="remarks" attrs="{'readonly':[('is_readonly','=',True)]}"/>
+                    <field name="create_uid" attrs="{'readonly':True}"/>
+                    <field name="state" attrs="{'readonly':True}"/>
+                </tree>
+            </field>
+        </record>
+        <!--END VIEWS-->
+
+        <!--START PIVOT-->
+        <record model="ir.ui.view" id="view_pivot_budget_accrual">
+            <field name="name">Budget Accrual</field>
+            <field name="model">budget.core.budget.accrual</field>
+            <field name="arch" type="xml">
+                <pivot string="Accruals">
+                </pivot>
+            </field>
+        </record>
+        <!--END PIVOT-->
+
+        <!--START SEARCH-->
+        <record model="ir.ui.view" id="search_budget_accrual">
+            <field name="name">Accrual Search</field>
+            <field name="model">budget.core.budget.accrual</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="accrual_summary_id"/>
+                    <field name="state"/>
+                    <filter string="Current Month"
+                            name="current_month"
+                            domain="[('date','&lt;=',(datetime.date.today()+relativedelta(day=31)).strftime('%Y-%m-%d')),('date','&gt;=',(datetime.date.today()-relativedelta(day=1)).strftime('%Y-%m-%d'))]"
+                            help="Current Month"/>
+                </search>
+            </field>
+        </record>
+        <!--END SEARCH-->
+
+        <!--START ACTIONS-->
+        <!--Budget Action-->
+        <record model="ir.actions.act_window" id="action_budget_accrual">
+            <field name="name">Budget Accrual</field>
+            <field name="res_model">budget.core.budget.accrual</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">pivot,tree,form</field>
+            <field name="view_id" ref="view_pivot_budget_accrual"/>
+            <field name="context">{'search_default_current_month': True}
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_budget_show_accrual_from_summary">
+            <field name="name">Budget Accrual</field>
+            <field name="res_model">budget.core.budget.accrual</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,pivot</field>
+            <field name="context">{'search_default_accrual_summary_id': active_id}</field>
+        </record>
+        <!--END ACTIONS-->
+    </data>
+</openerp>
