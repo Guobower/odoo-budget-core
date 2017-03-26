@@ -24,7 +24,7 @@ class BudgetHistory(models.Model):
     action_taken = fields.Selection(string='Action Taken', selection=OPTIONS, default='add')
     expenditure_amount = fields.Monetary(currency_field='company_currency_id',
                                          string='Expenditure Amount')
-    change_date = fields.Date(string="Change Date")
+    change_date = fields.Date(string="Change Date", default=fields.Date.today())
     remarks = fields.Text(string="Remarks")
 
     # RELATIONSHIPS

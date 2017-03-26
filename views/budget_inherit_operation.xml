@@ -29,33 +29,6 @@
                            options="{'no_create': True}"/>
                 </xpath>
 
-                <xpath expr="//group[@name='general']/group[@name='col_right']" position="inside">
-                </xpath>
-
-                <xpath expr="//field[@name='description']" position="before">
-                    <group>
-                        <field name="grouping"
-                               attrs="{'invisible': [('is_operation', '!=', True)], 'readonly': True}"
-                               options="{'no_create': True, 'no_open': True}"/>
-                        <field name="area_of_spend_hl_id"
-                               attrs="{'invisible': [('is_operation', '!=', True)], 'readonly': True}"
-                               options="{'no_create': True, 'no_open': True}"/>
-                        <field name="area_of_spend_ll_id"
-                               attrs="{'invisible': [('is_operation', '!=', True)], 'readonly': True}"
-                               options="{'no_create': True, 'no_open': True}"/>
-                    </group>
-                    <group>
-                        <field name="cost_center_description"
-                               attrs="{'invisible': [('is_operation', '!=', True)], 'readonly': True}"
-                               options="{'no_create': True, 'no_open': True}"/>
-                        <field name="account_code_description"
-                               attrs="{'invisible': [('is_operation', '!=', True)], 'readonly': True}"
-                               options="{'no_create': True, 'no_open': True}"/>
-                    </group>
-                </xpath>
-                <xpath expr="//field[@name='description']" position="attributes">
-                    <attribute name="attrs">{'invisible': [('is_operation', '==', True)]}</attribute>
-                </xpath>
                 <xpath expr="//notebook/page[@name='histories']" position="attributes">
                     <attribute name="attrs">{'invisible': [('is_operation', '==', True)]}</attribute>
                 </xpath>

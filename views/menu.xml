@@ -19,14 +19,14 @@
         <!--MENU LEFT CHILD-->
         <menuitem
                 id="menu_budget_inherit_project_left"
-                name="CWIP"
+                name="CWP"
                 sequence="1"
                 parent="menu_project_top_left"
                 action="action_budget_inherit_project"/>
 
         <menuitem
                 id="menu_budget_history_inherit_project_left"
-                name="CWIP Transfer"
+                name="CWP Transfer"
                 sequence="2"
                 parent="menu_project_top_left"
                 action="action_budget_history_inherit_project"/>

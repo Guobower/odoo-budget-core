@@ -38,7 +38,7 @@ class BudgetInheritOperation(models.Model):
     account_code_description = fields.Text(related='account_code_id.description',
                                            string='Account Code Description',
                                            store=True)
-    # This is Section ID Related for operation not CWIP
+    # This is Section ID Related for operation not CWP
     area_of_spend_ll_id = fields.Many2one(related='account_code_id.area_of_spend_ll_id',
                                           store=True)
     area_of_spend_hl_id = fields.Many2one(related='account_code_id.area_of_spend_hl_id',
@@ -60,7 +60,7 @@ class BudgetInheritOperation(models.Model):
         # accrual_ids
         # inheriting
         if self.is_operation:
-            self.accrued_amount = sum(self.accrual_ids.filtered(lambda r: r.state == 'approved'))
+            self.accrued_amount = sum(self.accrual_ids.filtered(lambda r: r.state == 'approved').mapped('accrued_amount'))
 
     @api.one
     @api.depends('cost_center_id', 'cost_center_id.section_id')
@@ -135,3 +135,14 @@ class BudgetInheritOperation(models.Model):
             values.update(name=values.get('cost_center_account_code'))
 
         return super(BudgetInheritOperation, self).write(values)
+
+    # ACTION METHODS
+    # ----------------------------------------------------------
+    @api.multi
+    def action_make_enhancement(self):
+        action = super(BudgetInheritOperation, self).action_make_enhancement()
+        context = action['context']
+        context.update(default_is_operation_history=self.is_operation)
+        action['context'] = context
+
+        return action

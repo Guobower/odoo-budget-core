@@ -13,7 +13,7 @@ class BudgetInheritProject(models.Model):
     is_project = fields.Boolean(string='Is Project')
 
     project_no = fields.Char(string="Project No")
-    cwp = fields.Char(string="CWIP")
+    cwp = fields.Char(string="CWP")
     category = fields.Char(string="Category")
     remarks = fields.Text(string="Remarks")
     rfs_date = fields.Date(string="Ready for Service Date")
@@ -57,12 +57,11 @@ class BudgetInheritProject(models.Model):
             region = self.region_id.alias or ''
             cwp = self.cwp or ''
             category = self.category or ''
-            self.project_no = '{}-{}-{}'.format(region.upper(),
-                                                      cwp.upper(),
-                                                      category.upper())
+            string_list = [i for i in [region.upper(), cwp.upper(), category.upper()] if i is not '']
+            self.project_no = '-'.join(string_list)
 
     # CONSTRAINS
-    # TODO MUST BE REVIEWED AS MAJORITY OF CWIP IS HAVE EXPENDITURE MORE THAN COMMITMENT
+    # TODO MUST BE REVIEWED AS MAJORITY OF CWP IS HAVE EXPENDITURE MORE THAN COMMITMENT
     # ----------------------------------------------------------
     # @api.one
     # @api.constrains('expenditure_amount', 'commitment_amount', 'is_project')
@@ -118,3 +117,14 @@ class BudgetInheritProject(models.Model):
             values.update(name=values.get('project_no'))
 
         return super(BudgetInheritProject, self).write(values)
+
+    # ACTION METHODS
+    # ----------------------------------------------------------
+    @api.multi
+    def action_make_enhancement(self):
+        action = super(BudgetInheritProject, self).action_make_enhancement()
+        context = action['context']
+        context.update(default_is_project_history=self.is_project)
+        action['context'] = context
+
+        return action

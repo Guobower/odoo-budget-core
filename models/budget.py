@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 from utilities import choices_tuple
 
 
@@ -37,15 +37,13 @@ class Budget(models.Model):
     plan_ids = fields.One2many('budget.core.budget.plan',
                                'budget_id',
                                string="Plans")
+    budget_contract_allocation_ids = fields.One2many('budget.core.contract.allocation',
+                                                     'budget_id',
+                                                     string="Budget Contract Allocation")
     accrual_ids = fields.One2many('budget.core.budget.accrual',
                                   'budget_id',
                                   string="Accruals",
-                                  domain=[('state','=','approved')])
-    contract_ids = fields.Many2many('budget.contractor.contract',
-                                    'budget_contract_rel',
-                                    'budget_id',
-                                    'contract_id',
-                                    string='Contract/s')
+                                  domain=[('state', '=', 'approved')])
     history_ids = fields.Many2many('budget.core.budget.history', 'budget_core_budget_history_rel', 'budget_id',
                                    'history_id')
 
@@ -112,6 +110,30 @@ class Budget(models.Model):
 
     def set2cancel(self):
         self.state = 'cancelled'
+
+    # ACTION METHODS
+    # ----------------------------------------------------------
+    @api.multi
+    def action_make_enhancement(self):
+        """ Open a window to make enhancement
+        """
+        form = self.env.ref('budget_core.view_form_budget_history')
+        ctx = dict(
+            default_to_budget_id=self.id,
+            default_from_budget_id=self.id
+        )
+
+        return {
+            'name': _('Make Enhancement'),
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'budget.core.budget.history',
+            'views': [(form.id, 'form')],
+            'view_id': form.id,
+            'target': 'current',
+            'context': ctx,
+        }
 
     # OVERRIDE METHODS
     # ----------------------------------------------------------

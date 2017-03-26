@@ -10,22 +10,25 @@
             <field name="arch" type="xml">
                 <form string="Budget">
                     <header>
-                        <button
-                                string="Set to Active"
+                        <button string="Budget Enhancement"
+                                name="action_make_enhancement"
+                                type="object"
+                                states="active"
+                                help="Make Budget Enhancement"/>
+
+                        <button string="Set to Active"
                                 name="active"
                                 type="workflow"
                                 states="draft"
                                 groups="budget_core.group_budget_user,base.group_system"
                         />
-                        <button
-                                string="Close"
+                        <button string="Close"
                                 name="close"
                                 type="workflow"
                                 states="active"
                                 groups="budget_core.group_budget_user,base.group_system"
                         />
-                        <button
-                                string="Cancel"
+                        <button string="Cancel"
                                 name="cancel"
                                 type="workflow"
                                 states="draft,active,closed"
@@ -42,8 +45,7 @@
                                 <field name="name" default_focus="1" placeholder="Name" invisible="1"/>
                             </h1>
                         </div>
-
-                        <group name="information" attrs="{'invisible': [('write_date', '==', False)]}">
+                        <group name="information">
                             <group name="col_left">
                             </group>
                             <group name="col_right">
@@ -59,8 +61,6 @@
 
                         <group name="general">
                             <group name="col_left">
-                                <field name="contract_ids" widget="many2many_tags"
-                                       options="{'no_create': True, 'no_open': True}"/>
                                 <field name="section_id" options="{'no_create': True, 'no_open': True}"/>
                                 <field name="old_section_id"
                                        groups="base.group_system"
@@ -81,16 +81,37 @@
                             </group>
                         </group>
 
-                        <group>
-
-                            <field name="description"/>
-                        </group>
-
                         <notebook attrs="{'invisible': [('write_date','=',False)]}">
                             <page name="histories" string="Histories">
-                                <field name="history_ids" widget="one2many"/>
+                                <field name="history_ids">
+                                    <tree editable="bottom" create="false" delete="false">
+                                        <field name="name"/>
+                                        <field name="action_taken" required="1"/>
+                                        <field name="expenditure_amount"/>
+                                        <field name="from_budget_id"
+                                               attrs="{'readonly': [('action_taken', 'not in', ['transfer'])],
+                                                       'required': [('action_taken', 'in', ['transfer'])]}"
+                                               options="{'no_create': True}"
+                                        />
+                                        <field name="to_budget_id"/>
+                                        <field name="change_date" required="1"/>
+                                        <field name="remarks"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="contracts" string="Contracts">
+                                <field name="budget_contract_allocation_ids" readonly="1">
+                                    <form></form>
+                                    <tree>
+                                        <field name="budget_id"
+                                               groups="base.group_system"/>
+                                        <field name="contract_id"/>
+                                        <field name="required_amount"/>
+                                    </tree>
+                                </field>
                             </page>
                             <!--TODO CHECK THIS PART IT IS NOT SHOWING THE AS DEFAULT-->
+                            budget_contract_allocation_ids
                             <page name="plans" string="Plans">
                                 <field name="plan_ids" context="{'default_budget_id': id}" readonly="1">
                                     <tree>

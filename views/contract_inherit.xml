@@ -10,15 +10,20 @@
             <field name="arch" type="xml">
                 <xpath expr="//notebook[@name='bottom']" position="inside">
                     <page string="Budgets">
-                        <field name="budget_ids">
-                            <tree>
-                                <field name="name"/>
-                                <field name="investment_area"/>
-                                <field name="commitment_amount"/>
-                                <field name="expenditure_amount"/>
-                                <field name="is_project" groups="base.group_system"/>
-                                <field name="is_operation" groups="base.group_system"/>
-                                <field name="state"/>
+                        <field name="budget_contract_allocation_ids"
+                               context="{'default_contract_id': id}">
+                            <form></form>
+                            <tree editable="bottom">
+                                <field name="contract_id"
+                                       required="1"
+                                       groups="base.group_system"
+                                       options="{'no_create': True, 'no_open': True}"/>
+                                <field name="budget_id"
+                                       required="1"
+                                       options="{'no_create': True, 'no_open': True}"/>
+                                <field name="total_budget_amount" sum="1"/>
+                                <field name="total_accrual_amount" sum="1"/>
+                                <field name="required_amount" sum="1"/>
                             </tree>
                         </field>
                     </page>

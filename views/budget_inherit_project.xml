@@ -32,23 +32,45 @@
                                    'required': [('is_project', '==', True)]}"/>
                 </xpath>
 
+                <xpath expr="//group[@name='information']" position="attributes">
+                    <attribute name="attrs">
+                        {'invisible': [('is_project', '!=', True)]}
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//group[@name='general']" position="after">
+                    <group attrs="{'invisible': [('is_project', '!=', True)]}">
+                        <field name="description"/>
+                    </group>
+                </xpath>
+
+                <xpath expr="//group[@name='information']/group[@name='col_left']" position="inside">
+                    <field name="commitment_amount" attrs="{'invisible': [('is_project', '!=', True)]}"/>
+                </xpath>
 
                 <xpath expr="//group[@name='information']/group[@name='col_right']" position="inside">
-                        <field name="commitment_amount" attrs="{'invisible': [('is_project', '!=', True)]}"/>
-                        <field name="expenditure_amount" attrs="{'invisible': [('is_project', '!=', True)]}"/>
+                    <field name="expenditure_amount" attrs="{'invisible': [('is_project', '!=', True)]}"/>
+                </xpath>
+
+                <xpath expr="//group[@name='initial_input']/group[@name='col_left']" position="inside">
+                    <field name="initial_commitment_amount" attrs="{'invisible': [('is_project', '!=', True)]}"/>
                 </xpath>
 
                 <xpath expr="//group[@name='initial_input']/group[@name='col_right']" position="inside">
-                    <field name="initial_commitment_amount" attrs="{'invisible': [('is_project', '!=', True)]}"/>
                     <field name="initial_expenditure_amount" attrs="{'invisible': [('is_project', '!=', True)]}"/>
                 </xpath>
 
-
                 <xpath expr="//field[@name='history_ids']" position="attributes">
-                    <attribute name="context">{'default_is_project_history': is_project,
+                    <attribute name="context">
+                        {'default_is_project_history': is_project,
                         'default_is_operation_history': is_operation}
                     </attribute>
                 </xpath>
+                <xpath expr="//field[@name='history_ids']/tree/field[@name='expenditure_amount']" position="before">
+                    <!-- TODO ADD INVISIBLE CONDITION -->
+                    <field name="commitment_amount"/>
+                </xpath>
+
                 <xpath expr="//field[@name='plan_ids']" position="attributes">
                     <attribute name="context">{'default_is_project_plan': is_project,
                         'default_is_operation_plan': is_operation}

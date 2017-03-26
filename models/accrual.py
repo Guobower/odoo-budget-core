@@ -107,6 +107,7 @@ class Accrual(models.Model):
     # ----------------------------------------------------------
     @api.multi
     def set2verified(self):
+        import ipdb; ipdb.set_trace()
         for record in self:
             record.state = 'verified'
 
