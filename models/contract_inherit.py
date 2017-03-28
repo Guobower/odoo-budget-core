@@ -17,10 +17,10 @@ class ContractInherit(models.Model):
 
     # CONSTRAINS
     # ----------------------------------------------------------
-    @api.one
-    @api.constrains('amount', 'budget_contract_allocation_ids')
-    def _check_required_amount(self):
-        required_amount = sum(self.budget_contract_allocation_ids.mapped('required_amount'))
-        if float_compare(self.amount, required_amount, precision_digits=2) != 0:
-            msg = 'Contract Amount is {}, Total Required must be equal'.format(self.amount)
-            raise ValidationError(msg)
+    # @api.one
+    # @api.constrains('amount', 'budget_contract_allocation_ids')
+    # def _check_required_amount(self):
+    #     required_amount = sum(self.budget_contract_allocation_ids.mapped('required_amount'))
+    #     if float_compare(self.amount, required_amount, precision_digits=2) != 0:
+    #         msg = 'Contract Amount is {}, Total Required must be equal'.format(self.amount)
+    #         raise ValidationError(msg)
