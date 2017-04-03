@@ -5,13 +5,29 @@ from odoo.addons.budget_core.models.utilities import choices_tuple
 
 from odoo.exceptions import ValidationError, UserError
 
-def create_accruals(env, name):
-    plans = env['budget.core.budget.plan'].search([('name', '=', name)])
+
+def create_accruals(env, date):
+    contract_ids = env['budget.contractor.contract'].search([('is_opex', '=', True),
+                                                             ('state','=', 'on going'),
+                                                             ('commencement_date', '<=', date),
+                                                             ('end_date', '>=', date)])
 
     data = []
-    for plan in plans:
-        values = {'budget_id': plan.budget_id.id,
-                  'date': plan.date}
+    for contract_id in contract_ids:
+        allocation_ids = contract_id.budget_contract_allocation_ids
+        allocation_ids = allocation_ids.filtered(lambda r: r.budget_id.is_operation)
+        if len(allocation_ids) == 0:
+            continue
+
+        elif len(allocation_ids) == 1:
+            allocation_id = allocation_ids
+
+        else:
+            allocation_id = allocation_ids[0]
+
+        values = {'contract_id': contract_id.id,
+                  'budget_id': allocation_id.budget_id.id,
+                  'date': date}
         data.append((0, 0, values))
 
     return False if not data else data
@@ -22,6 +38,7 @@ class AccrualSummary(models.Model):
     _rec_name = 'name'
     _description = 'Accrual Summary'
     _order = 'date'
+    _inherit = ['record.lock.mixin']
 
     # CHOICES
     # ----------------------------------------------------------
@@ -82,6 +99,14 @@ class AccrualSummary(models.Model):
     def _compute_total_approved(self):
         self.total_approved = len(self.accrual_ids.filtered(lambda r: r.state == 'approved'))
 
+    # RECORD LOCK CONDITION
+    # ----------------------------------------------------------
+    @api.one
+    @api.depends('state')
+    def _compute_is_record_lock(self):
+        lock_states = ['approved']
+        self.is_record_lock = True if self.state in lock_states else False
+
     # CONSTRAINS
     # ----------------------------------------------------------
     _sql_constraints = [
@@ -110,6 +135,6 @@ class AccrualSummary(models.Model):
     @api.returns('self', lambda value: value.id)
     def create(self, values):
         res = super(AccrualSummary, self).create(values)
-        accrual_ids = create_accruals(self.env, res.name)
+        accrual_ids = create_accruals(self.env, res.date)
         res.update({'accrual_ids': accrual_ids})
         return res

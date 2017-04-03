@@ -83,21 +83,22 @@
 
                         <notebook attrs="{'invisible': [('write_date','=',False)]}">
                             <page name="histories" string="Histories">
-                                <field name="history_ids">
-                                    <tree editable="bottom" create="false" delete="false">
-                                        <field name="name"/>
-                                        <field name="action_taken" required="1"/>
-                                        <field name="expenditure_amount"/>
-                                        <field name="from_budget_id"
-                                               attrs="{'readonly': [('action_taken', 'not in', ['transfer'])],
-                                                       'required': [('action_taken', 'in', ['transfer'])]}"
-                                               options="{'no_create': True}"
-                                        />
-                                        <field name="to_budget_id"/>
-                                        <field name="change_date" required="1"/>
-                                        <field name="remarks"/>
-                                    </tree>
-                                </field>
+                                <field name="history_ids"/>
+                                <!--TODO MUST CHECK WHY IT IS GIVING ERROR-->
+                                    <!--<tree editable="bottom" create="false" delete="false">-->
+                                        <!--<field name="name"/>-->
+                                        <!--<field name="action_taken" required="1"/>-->
+                                        <!--<field name="expenditure_amount"/>-->
+                                        <!--<field name="from_budget_id"-->
+                                               <!--attrs="{'readonly': [('action_taken', 'not in', ['transfer'])],-->
+                                                       <!--'required': [('action_taken', 'in', ['transfer'])]}"-->
+                                               <!--options="{'no_create': True}"-->
+                                        <!--/>-->
+                                        <!--<field name="to_budget_id"/>-->
+                                        <!--<field name="change_date" required="1"/>-->
+                                        <!--<field name="remarks"/>-->
+                                    <!--</tree>-->
+                                <!--</field>-->
                             </page>
                             <page name="contracts" string="Contracts">
                                 <field name="budget_contract_allocation_ids" readonly="1">
@@ -110,10 +111,8 @@
                                     </tree>
                                 </field>
                             </page>
-                            <!--TODO CHECK THIS PART IT IS NOT SHOWING THE AS DEFAULT-->
-                            budget_contract_allocation_ids
                             <page name="plans" string="Plans">
-                                <field name="plan_ids" context="{'default_budget_id': id}" readonly="1">
+                                <field name="plan_ids" readonly="1">
                                     <tree>
                                         <field name="budget_id" groups="base.group_system"/>
                                         <field name="name" string="Month"/>

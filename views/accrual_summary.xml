@@ -11,11 +11,11 @@
                 <form string="Budget Accrual Summary">
                     <header>
                         <button
-                                string="Approve"
-                                name="set2approved"
-                                type="object"
-                                states="draft"
-                                groups="base.group_system,budget_core.group_operation_user,budget_core.group_operation_manager"/>
+                            string="Approve"
+                            name="set2approved"
+                            type="object"
+                            states="draft"
+                            groups="base.group_system,budget_core.group_operation_user,budget_core.group_operation_manager"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft,approved"/>
                     </header>
                     <sheet>
@@ -29,7 +29,7 @@
                                     type="action"
                                     class="oe_stat_button"
                                     icon="fa-minus-square"
-                                    context="{'search_default_state': 'draft'}"
+                                    context="{'search_default_state': 'draft', 'default_date':date}"
                                     help="Required Verification">
                                 <field name="total_draft" widget="statinfo" string="New"/>
                             </button>
@@ -37,7 +37,7 @@
                                     type="action"
                                     class="oe_stat_button"
                                     icon="fa-check-square"
-                                    context="{'search_default_state': 'verified'}"
+                                    context="{'search_default_state': 'verified', 'default_date':date}"
                                     help="Ready For Approval">
                                 <field name="total_verified" widget="statinfo" string="Verified"/>
                             </button>
@@ -45,7 +45,7 @@
                                     type="action"
                                     class="oe_stat_button"
                                     icon="fa-money"
-                                    context="{'search_default_state': 'approved'}"
+                                    context="{'search_default_state': 'approved', 'default_date':date}"
                                     help="Approved, Changes are not possible">
                                 <field name="total_approved" widget="statinfo" string="Approved"/>
                             </button>

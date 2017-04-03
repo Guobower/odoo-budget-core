@@ -15,37 +15,42 @@ class BudgetContractAllocation(models.Model):
 
     # BASIC FIELDS
     # ----------------------------------------------------------
+    cost_per_month = fields.Monetary(string='Cost per Month', currency_field='company_currency_id')
+    cost_per_year = fields.Monetary(string='Cost per Year', currency_field='company_currency_id')
     required_amount = fields.Monetary(currency_field='company_currency_id',
                                       string='Required Amount',
-                                      default=0.00)
-    # TODO MAKE A COMPUTE FIELD AND TAKE BUDGET (COMMITMENT AND SHARED)
-    total_budget_amount = fields.Monetary(currency_field='company_currency_id',
-                                      string='Total Budget Amount',
-                                      default=0.00)
-    # TODO MAKE A COMPUTE FIELD
-    total_accrual_amount = fields.Monetary(currency_field='company_currency_id',
-                                      string='Total Accrued Amount',
                                       default=0.00)
     # RELATIONSHIPS
     # ----------------------------------------------------------
     company_currency_id = fields.Many2one('res.currency', readonly=True,
                                           default=lambda self: self.env.user.company_id.currency_id)
-    budget_id = fields.Many2one('budget.core.budget', string='CWP/CC-AC', ondelete='cascade',
-                                domain="[('state','=','active')]")
+    budget_id = fields.Many2one('budget.core.budget', string='CWP/CC-AC', ondelete='cascade')
     contract_id = fields.Many2one('budget.contractor.contract', string='Contract', ondelete='cascade')
 
     # COMPUTE FIELDS
     # ----------------------------------------------------------
-    # total_available_amount = fields.Monetary(string='Total Available Amount',
-    #                                          compute='_compute_total_available_amount',
-    #                                          currency_field='company_currency_id',
-    #                                          default=0.00,
-    #                                          store=True)
+    total_budget_amount = fields.Monetary(currency_field='company_currency_id',
+                                          string='Total Budget Amount',
+                                          compute='_compute_total_budget_amount',
+                                          store=True
+                                          )
 
-    # @api.one
-    # @api.depends('budget_id.budget_amount')
-    # def _compute_total_available_amount(self):
-    #     self.total_available_amount = sum(self.budget_id.mapped('budget_amount'))
+    total_accrual_amount = fields.Monetary(currency_field='company_currency_id',
+                                           string='Total Accrued Amount',
+                                           compute='_compute_total_accrual_amount',
+                                           store=True
+                                           )
+
+    @api.one
+    @api.depends()
+    def _compute_total_budget_amount(self):
+        pass
+
+    @api.one
+    @api.depends()
+    def _compute_total_accrual_amount(self):
+        pass
+
     # TRANSITIONS
     # ----------------------------------------------------------
 

@@ -8,18 +8,30 @@
             <field name="name">Budget Accrual</field>
             <field name="model">budget.core.budget.accrual</field>
             <field name="arch" type="xml">
-                <tree editable="bottom" create="false">
-                    <field name="is_readonly" groups="base.group_system"/>
-                    <field name="name" attrs="{'readonly':[('is_readonly','=',True)]}"/>
-                    <field name="budget_id" attrs="{'readonly':[('is_readonly','=',True)]}"/>
-                    <field name="date" attrs="{'readonly':[('is_readonly','=',True)]}"/>
-                    <field name="accrued_amount" attrs="{'readonly':[('is_readonly','=',True)]}"/>
+                <tree editable="bottom">
+                    <field name="is_record_lock" groups="base.group_system"/>
+                    <field name="name" readonly="1"/>
+                    <field name="date" readonly="1" required="1"/>
+                    <field name="contract_id"
+                           required="1"
+                           options="{'no_quick_create': True, 'no_create_edit': True,'no_open':True}"/>
+                    <field name="contract_description" readonly="1"/>
+                    <field name="budget_id"
+                           required="1"
+                           domain="[('budget_contract_allocation_ids.contract_id', '=', contract_id),
+                                    ('is_operation', '=', True)]"
+                           options="{'no_quick_create': True, 'no_create_edit': True,'no_open':True}"/>
+                    <field name="previous_accrued_amount" readonly="1"/>
+                    <field name="accrued_amount"/>
                     <button name="set2verified" string="Verify" type="object" icon="fa-thumbs-up text-success"
                             attrs="{'invisible':[('state','not in',['draft'])]}"
                             groups="base.group_system,budget_core.group_operation_user,budget_core.group_operation_manager"/>
-                    <field name="remarks" attrs="{'readonly':[('is_readonly','=',True)]}"/>
-                    <field name="create_uid" attrs="{'readonly':True}"/>
-                    <field name="state" attrs="{'readonly':True}"/>
+                    <field name="remarks"/>
+                    <field name="create_uid"
+                           readonly="1"
+                           options="{'no_quick_create': True, 'no_create_edit': True,'no_open':True}"/>
+                    <field name="state" readonly="1"/>
+
                 </tree>
             </field>
         </record>
@@ -43,8 +55,10 @@
             <field name="arch" type="xml">
                 <search>
                     <field name="name"/>
-                    <field name="accrual_summary_id"/>
+                    <field name="budget_id"/>
+                    <field name="contract_id"/>
                     <field name="state"/>
+                    <field name="accrual_summary_id"/>
                     <filter string="Current Month"
                             name="current_month"
                             domain="[('date','&lt;=',(datetime.date.today()+relativedelta(day=31)).strftime('%Y-%m-%d')),('date','&gt;=',(datetime.date.today()-relativedelta(day=1)).strftime('%Y-%m-%d'))]"

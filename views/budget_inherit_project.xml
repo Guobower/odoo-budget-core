@@ -14,6 +14,13 @@
                         <field name="is_project"/>
                     </group>
                 </xpath>
+
+                <xpath expr="//button[@name='action_make_enhancement']" position="attributes">
+                    <attribute name="groups">
+                        base.group_system,budget_core.group_project_user,budget_core.group_project_manager
+                    </attribute>
+                </xpath>
+
                 <xpath expr="//field[@name='name']" position="after">
                     <field name="project_no" default_focus="1" placeholder="Project No"
                            attrs="{'invisible': [('is_project', '!=', True)]}"/>
@@ -67,7 +74,6 @@
                     </attribute>
                 </xpath>
                 <xpath expr="//field[@name='history_ids']/tree/field[@name='expenditure_amount']" position="before">
-                    <!-- TODO ADD INVISIBLE CONDITION -->
                     <field name="commitment_amount"/>
                 </xpath>
 

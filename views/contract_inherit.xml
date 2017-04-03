@@ -11,18 +11,21 @@
                 <xpath expr="//notebook[@name='bottom']" position="inside">
                     <page string="Budgets">
                         <field name="budget_contract_allocation_ids"
-                               context="{'default_contract_id': id}">
+                               context="{'is_opex': is_opex, 'is_capex': is_capex}">
                             <form></form>
                             <tree editable="bottom">
                                 <field name="contract_id"
-                                       required="1"
                                        groups="base.group_system"
                                        options="{'no_create': True, 'no_open': True}"/>
                                 <field name="budget_id"
                                        required="1"
-                                       options="{'no_create': True, 'no_open': True}"/>
+                                       options="{'no_create': True, 'no_open': True}"
+                                       domain="['|', ('is_operation','=',context.get('is_opex', False)),
+                                                     ('is_project','=',context.get('is_capex', False))]"/>
                                 <field name="total_budget_amount" sum="1"/>
                                 <field name="total_accrual_amount" sum="1"/>
+                                <field name="cost_per_month"/>
+                                <field name="cost_per_year"/>
                                 <field name="required_amount" sum="1"/>
                             </tree>
                         </field>
