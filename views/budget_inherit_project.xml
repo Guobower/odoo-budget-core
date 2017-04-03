@@ -73,9 +73,9 @@
                         'default_is_operation_history': is_operation}
                     </attribute>
                 </xpath>
-                <xpath expr="//field[@name='history_ids']/tree/field[@name='expenditure_amount']" position="before">
-                    <field name="commitment_amount"/>
-                </xpath>
+                <!--<xpath expr="//field[@name='history_ids']/tree/field[@name='expenditure_amount']" position="before">-->
+                    <!--<field name="commitment_amount"/>-->
+                <!--</xpath>-->
 
                 <xpath expr="//field[@name='plan_ids']" position="attributes">
                     <attribute name="context">{'default_is_project_plan': is_project,
