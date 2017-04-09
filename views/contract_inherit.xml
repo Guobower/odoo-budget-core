@@ -17,7 +17,8 @@
                                 <field name="contract_id"
                                        groups="base.group_system"
                                        options="{'no_create': True, 'no_open': True}"/>
-                                <field name="budget_id"
+                                <!-- TODO FIX DOMAIN TO ALSO FILTER/DONT SHOW CHOICE WHEN BOTH ARE FALSE -->
+                                 <field name="budget_id"
                                        required="1"
                                        options="{'no_create': True, 'no_open': True}"
                                        domain="['|', ('is_operation','=',context.get('is_opex', False)),

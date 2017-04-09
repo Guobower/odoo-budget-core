@@ -13,20 +13,11 @@ def create_accruals(env, date):
                                                              ('end_date', '>=', date)])
 
     data = []
-    for contract_id in contract_ids:
-        allocation_ids = contract_id.budget_contract_allocation_ids
-        allocation_ids = allocation_ids.filtered(lambda r: r.budget_id.is_operation)
-        if len(allocation_ids) == 0:
-            continue
+    opex_allocation_ids = contract_ids.mapped('budget_contract_allocation_ids').filtered(lambda r: r.budget_id.is_operation)
+    for opex_allocation_id in opex_allocation_ids:
 
-        elif len(allocation_ids) == 1:
-            allocation_id = allocation_ids
-
-        else:
-            allocation_id = allocation_ids[0]
-
-        values = {'contract_id': contract_id.id,
-                  'budget_id': allocation_id.budget_id.id,
+        values = {'contract_id': opex_allocation_id.contract_id.id,
+                  'budget_id': opex_allocation_id.budget_id.id,
                   'date': date}
         data.append((0, 0, values))
 
