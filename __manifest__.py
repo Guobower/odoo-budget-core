@@ -60,6 +60,8 @@ Summary
         'views/accrual.xml',
         'views/accrual_summary.xml',
 
+        'views/rfq_inherit.xml',
+
         'views/budget_inherit_operation.xml',
         'views/budget_history_inherit_operation.xml',
         'views/budget_plan_inherit_operation.xml',

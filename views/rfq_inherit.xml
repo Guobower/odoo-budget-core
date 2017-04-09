@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!--START VIEWS-->
+        <!--START FORM VIEW-->
+        <record model="ir.ui.view" id="view_form_rfq_inherit">
+            <field name="name">budget.contractor.rfq.form</field>
+            <field name="model">budget.contractor.rfq</field>
+            <field name="inherit_id" ref="budget_contractor.view_form_rfq"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='is_tool']" position="after">
+                    <field name="is_capex"/>
+                    <field name="is_opex"/>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Budgets">
+                        <field name="budget_rfq_allocation_ids"
+                               context="{'is_opex': is_opex, 'is_capex': is_capex}">
+                            <form></form>
+                            <tree editable="bottom">
+                                <field name="rfq_id"
+                                       groups="base.group_system"
+                                       options="{'no_create': True, 'no_open': True}"/>
+                                <!-- TODO FIX DOMAIN TO ALSO FILTER/DONT SHOW CHOICE WHEN BOTH ARE FALSE -->
+                                <field name="budget_id"
+                                       required="1"
+                                       options="{'no_create': True, 'no_open': True}"
+                                       domain="[('is_operation','=',context.get('is_opex')),
+                                                ('is_project','=',context.get('is_capex'))]"/>
+                                       <!--domain="['&amp;',('|',('is_operation','=',context.get('is_opex')),-->
+                                                             <!--('is_project','=',context.get('is_capex'))),-->
+                                                        <!--('&amp;'('is_operation','=',context.get('is_opex')),-->
+                                                                <!--('is_project','=',context.get('is_capex')))]"/>-->
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        <!--END FORM VIEW-->
+
+    </data>
+</openerp>
