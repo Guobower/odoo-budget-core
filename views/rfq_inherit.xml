@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
     <data>
         <!--START VIEWS-->
         <!--START FORM VIEW-->
@@ -27,10 +27,6 @@
                                        options="{'no_create': True, 'no_open': True}"
                                        domain="[('is_operation','=',context.get('is_opex')),
                                                 ('is_project','=',context.get('is_capex'))]"/>
-                                       <!--domain="['&amp;',('|',('is_operation','=',context.get('is_opex')),-->
-                                                             <!--('is_project','=',context.get('is_capex'))),-->
-                                                        <!--('&amp;'('is_operation','=',context.get('is_opex')),-->
-                                                                <!--('is_project','=',context.get('is_capex')))]"/>-->
                             </tree>
                         </field>
                     </page>
@@ -40,4 +36,4 @@
         <!--END FORM VIEW-->
 
     </data>
-</openerp>
+</odoo>

@@ -115,10 +115,9 @@ class Accrual(models.Model):
 
     # CONSTRAINS
     # ----------------------------------------------------------
-    # TODO REMOVE name_budget_id_uniq after updating production
     _sql_constraints = [
         ('approved_amount_must_not_be_negative', 'CHECK (accrued_amount >= 0)', 'Approved Amount Must Be Positive'),
-        ('name_budget_id_uniq', 'CHECK(1=1)', 'Name Budget ID Must be Uniq'),
+        ('name_budget_id_uniq', 'CHECK(1=1)', 'Name Budget ID Must be Uniq'), # Change to 1=1 to overwrite/remove the previous contraints
         ('identifier_uniq', 'UNIQUE (name, budget_id, contract_id)', 'Name Budget ID Contract Must be Uniq')
     ]
 

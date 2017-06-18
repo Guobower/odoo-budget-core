@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--CONTEXT AND ATTRIBUTES ARE MANAGE IN PROJECT INHERITANCE-->
-<openerp>
+<odoo>
     <data>
     <!--START VIEWS-->
         <!-- FORM VIEW-->
@@ -66,4 +66,4 @@
         </record>
     <!--END ACTIONS-->
     </data>
-</openerp>
+</odoo>
