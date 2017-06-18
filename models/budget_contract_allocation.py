@@ -20,6 +20,8 @@ class BudgetContractAllocation(models.Model):
     required_amount = fields.Monetary(currency_field='company_currency_id',
                                       string='Required Amount',
                                       default=0.00)
+    expense_description = fields.Text(string='Expense Description')
+
     # RELATIONSHIPS
     # ----------------------------------------------------------
     company_currency_id = fields.Many2one('res.currency', readonly=True,

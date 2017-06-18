@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
     <data>
         <!--START VIEWS-->
         <!--START FORM VIEW-->
@@ -18,11 +18,12 @@
                                        groups="base.group_system"
                                        options="{'no_create': True, 'no_open': True}"/>
                                 <!-- TODO FIX DOMAIN TO ALSO FILTER/DONT SHOW CHOICE WHEN BOTH ARE FALSE -->
-                                 <field name="budget_id"
-                                       required="1"
-                                       options="{'no_create': True, 'no_open': True}"
-                                       domain="['|', ('is_operation','=',context.get('is_opex', False)),
-                                                     ('is_project','=',context.get('is_capex', False))]"/>
+                                <field name="budget_id"
+                                   required="1"
+                                   options="{'no_create': True, 'no_open': True}"
+                                   domain="['|', ('is_operation','=',context.get('is_opex', False)),
+                                                 ('is_project','=',context.get('is_capex', False))]"/>
+                                <field name="expense_description"/>
                                 <field name="total_budget_amount" sum="1"/>
                                 <field name="total_accrual_amount" sum="1"/>
                                 <field name="cost_per_month"/>
@@ -37,4 +38,4 @@
         <!--END FORM VIEW-->
 
     </data>
-</openerp>
+</odoo>
