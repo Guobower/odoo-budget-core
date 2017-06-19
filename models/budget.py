@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
-from utilities import choices_tuple
+from odoo.addons.budget_utilities.models.utilities import choices_tuple
 
 
 class Budget(models.Model):
@@ -49,12 +49,10 @@ class Budget(models.Model):
 
     # COMPUTE FIELDS
     # ----------------------------------------------------------
-    section_id = fields.Many2one('budget.enduser.section', string='Section',
-                                 compute='_compute_section_id', inverse='_set_section_id', store=True)
+    section_id = fields.Many2one('budget.enduser.section', string='Section')
     old_section_id = fields.Many2one('res.partner', string='Old Section')
 
-    sub_section_id = fields.Many2one('budget.enduser.sub.section', string='Sub Section',
-                                     compute='_compute_sub_section_id', inverse='_set_sub_section_id', store=True)
+    sub_section_id = fields.Many2one('budget.enduser.sub.section', string='Sub Section')
     old_sub_section_id = fields.Many2one('res.partner', string='Old Sub Section')
 
     expenditure_amount = fields.Monetary(compute='_compute_expenditure_amount',
@@ -62,17 +60,17 @@ class Budget(models.Model):
                                          string='Expenditure Amount',
                                          store=True)
 
-    @api.one
-    @api.depends()
-    def _compute_section_id(self):
-        # Use for operation automation of section
-        pass
-
-    @api.one
-    @api.depends()
-    def _compute_sub_section_id(self):
-        # Use for operation automation of section
-        pass
+    # @api.one
+    # @api.depends()
+    # def _compute_section_id(self):
+    #     # Use for operation automation of section
+    #     self.section_id = self.section_id
+    #
+    # @api.one
+    # @api.depends()
+    # def _compute_sub_section_id(self):
+    #     # Use for operation automation of section
+    #     self.sub_section_id = self.sub_section_id
 
     @api.one
     @api.depends('history_ids', 'history_ids.expenditure_amount')
@@ -87,15 +85,15 @@ class Budget(models.Model):
             elif history.action_taken in ['transfer'] and self.id == history.from_budget_id.id:
                 self.expenditure_amount -= history.expenditure_amount
 
-    @api.one
-    def _set_sub_section_id(self):
-        # Use for operation automation of section
-        pass
-
-    @api.one
-    def _set_section_id(self):
-        # Use for operation automation of section
-        pass
+    # @api.one
+    # def _set_sub_section_id(self):
+    #     # Use for operation automation of section
+    #     pass
+    #
+    # @api.one
+    # def _set_section_id(self):
+    #     # Use for operation automation of section
+    #     pass
 
     # TRANSITIONS
     # ----------------------------------------------------------

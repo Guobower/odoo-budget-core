@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
-from utilities import choices_tuple
+from odoo.addons.budget_utilities.models.utilities import choices_tuple
 
 
 class BudgetInvestmentArea(models.Model):

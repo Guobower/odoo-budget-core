@@ -2,7 +2,7 @@
 
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
-from utilities import choices_tuple
+from odoo.addons.budget_utilities.models.utilities import choices_tuple
 
 
 class BudgetInheritProject(models.Model):

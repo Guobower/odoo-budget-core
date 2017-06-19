@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
-from utilities import choices_tuple
+from odoo.addons.budget_utilities.models.utilities import choices_tuple
 
 
 class BudgetInheritOperation(models.Model):
@@ -62,22 +62,12 @@ class BudgetInheritOperation(models.Model):
         if self.is_operation:
             self.accrued_amount = sum(self.accrual_ids.filtered(lambda r: r.state == 'approved').mapped('accrued_amount'))
 
-    @api.one
-    @api.depends('cost_center_id', 'cost_center_id.section_id')
-    def _compute_section_id(self):
+    @api.onchange('cost_center_id')
+    def onchange_section_id(self):
         # this exist in the main budget.py
         # inheriting
-        super(BudgetInheritOperation, self)._compute_section_id()
         if self.is_operation:
             self.section_id = self.cost_center_id.section_id
-
-    @api.one
-    @api.depends('cost_center_id', 'cost_center_id.sub_section_id')
-    def _compute_sub_section_id(self):
-        # this exist in the main budget.py
-        # inheriting
-        super(BudgetInheritOperation, self)._compute_sub_section_id()
-        if self.is_operation:
             self.sub_section_id = self.cost_center_id.sub_section_id
 
     # ONCHANGES

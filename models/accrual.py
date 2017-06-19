@@ -5,7 +5,7 @@ import dateutil.relativedelta
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 
-from odoo.addons.budget_core.models.utilities import choices_tuple
+from odoo.addons.budget_utilities.models.utilities import choices_tuple
 
 
 class Accrual(models.Model):
@@ -23,6 +23,7 @@ class Accrual(models.Model):
     # ----------------------------------------------------------
     state = fields.Selection(STATES, default='draft')
 
+    is_reversal = fields.Boolean(string="Is Reversal")
     date = fields.Date(string="Date")
     remarks = fields.Text(string="Remarks")
     active = fields.Boolean(default=True, help="Set active to false to hide the tax without removing it.")
@@ -117,7 +118,8 @@ class Accrual(models.Model):
     # ----------------------------------------------------------
     _sql_constraints = [
         ('approved_amount_must_not_be_negative', 'CHECK (accrued_amount >= 0)', 'Approved Amount Must Be Positive'),
-        ('name_budget_id_uniq', 'CHECK(1=1)', 'Name Budget ID Must be Uniq'), # Change to 1=1 to overwrite/remove the previous contraints
+        ('name_budget_id_uniq', 'CHECK(1=1)', 'Name Budget ID Must be Uniq'),
+        # Change to 1=1 to overwrite/remove the previous contraints
         ('identifier_uniq', 'UNIQUE (name, budget_id, contract_id)', 'Name Budget ID Contract Must be Uniq')
     ]
 
@@ -133,5 +135,5 @@ class Accrual(models.Model):
         for record in self:
             record.state = 'approved'
 
-    # OVERRIDE METHODS
-    # ----------------------------------------------------------
+            # OVERRIDE METHODS
+            # ----------------------------------------------------------

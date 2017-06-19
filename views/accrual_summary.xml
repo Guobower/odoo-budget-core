@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<openerp>
+<odoo>
     <data>
         <!--START VIEWS-->
         <!-- FORM VIEW-->
@@ -16,14 +16,22 @@
                             type="object"
                             states="draft"
                             groups="base.group_system,budget_core.group_operation_user,budget_core.group_operation_manager"/>
+                        <button
+                            string="Generate File"
+                            name="create_accrual_file"
+                            type="object"
+                            states="approved"
+                            groups="base.group_system,budget_core.group_operation_user,budget_core.group_operation_manager"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft,approved"/>
                     </header>
                     <sheet>
                         <group attrs="{'invisible': [('write_date', '!=', False)]}">
                             <h4>
-                                Note: Accrual is applicable to opex contracts, with ongoing state,
+                                Note:
                                 <br/>
-                                and date selected is between commencement date and end date"
+                                Accrual is applicable to opex contracts, with ongoing state,
+                                <br/>
+                                and date selected is between commencement date and end date
                             </h4>
                         </group>
                         <div class="oe_button_box" name="button_box">
@@ -124,4 +132,4 @@
         </record>
         <!--END ACTIONS-->
     </data>
-</openerp>
+</odoo>

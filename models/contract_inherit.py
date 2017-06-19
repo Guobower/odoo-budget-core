@@ -20,9 +20,9 @@ class ContractInherit(models.Model):
 
     # ONCHANGE FIELDS
     # ----------------------------------------------------------
+    @api.multi
     @api.onchange('budget_contract_allocation_ids', 'is_opex', 'is_capex')
-    def onchange_budget_contract_allocation_ids(self):
-        # TODO NOT WORKING FOR PROJECT
+    def onchange_budget_allocation_ids(self):
         self.section_ids |= self.mapped('budget_contract_allocation_ids.budget_id.section_id')
         self.sub_section_ids |= self.mapped('budget_contract_allocation_ids.budget_id.sub_section_id')
 
@@ -41,12 +41,12 @@ class ContractInherit(models.Model):
 
         super(ContractInherit, self).set2contract_signed()
 
-    # CONSTRAINS
-    # ----------------------------------------------------------
-    # @api.one
-    # @api.constrains('amount', 'budget_contract_allocation_ids')
-    # def _check_required_amount(self):
-    #     required_amount = sum(self.budget_contract_allocation_ids.mapped('required_amount'))
-    #     if float_compare(self.amount, required_amount, precision_digits=2) != 0:
-    #         msg = 'Contract Amount is {}, Total Required must be equal'.format(self.amount)
-    #         raise ValidationError(msg)
+        # CONSTRAINS
+        # ----------------------------------------------------------
+        # @api.one
+        # @api.constrains('amount', 'budget_contract_allocation_ids')
+        # def _check_required_amount(self):
+        #     required_amount = sum(self.budget_contract_allocation_ids.mapped('required_amount'))
+        #     if float_compare(self.amount, required_amount, precision_digits=2) != 0:
+        #         msg = 'Contract Amount is {}, Total Required must be equal'.format(self.amount)
+        #         raise ValidationError(msg)
