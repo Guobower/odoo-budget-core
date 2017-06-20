@@ -61,6 +61,7 @@
 
                         <group name="general">
                             <group name="col_left">
+                                <field name="division_id" options="{'no_create': True, 'no_open': True}"/>
                                 <field name="section_id" options="{'no_create': True, 'no_open': True}"/>
                                 <field name="old_section_id"
                                        groups="base.group_system"

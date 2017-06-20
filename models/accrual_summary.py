@@ -200,6 +200,7 @@ class AccrualSummary(models.Model):
             ws.cell(row=row, column=column + 17).value = get_accrual_amount(r, 'Dec', year)
             ws.cell(row=row, column=column + 19).value = int(budget_id.cost_center_id.cost_center)
             ws.cell(row=row, column=column + 20).value = int(budget_id.account_code_id.account_code)
+            # TODO CHANGE SECTION ID TO DIVISION ID
             ws.cell(row=row, column=column + 22).value = budget_id.section_id.alias
             ws.cell(row=row, column=column + 23).value = budget_id.sub_section_id.name
             row += 1

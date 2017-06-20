@@ -62,6 +62,7 @@ class BudgetInheritOperation(models.Model):
         if self.is_operation:
             self.accrued_amount = sum(self.accrual_ids.filtered(lambda r: r.state == 'approved').mapped('accrued_amount'))
 
+    # TODO ENCHANCE TO REFLECT COST CENTER FROM MIXIN
     @api.onchange('cost_center_id')
     def onchange_section_id(self):
         # this exist in the main budget.py

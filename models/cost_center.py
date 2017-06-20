@@ -21,6 +21,9 @@ class CostCenter(models.Model):
 
     # RELATIONSHIPS
     # ----------------------------------------------------------
+    # TODO TRASFERING SECTION TO DIVISION
+    division_id = fields.Many2one('budget.enduser.section', string="Division")
+
     section_id = fields.Many2one('budget.enduser.section',
                                  string="Section")
     sub_section_id = fields.Many2one('budget.enduser.sub.section',

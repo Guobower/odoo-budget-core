@@ -47,18 +47,20 @@ class Budget(models.Model):
     history_ids = fields.Many2many('budget.core.budget.history', 'budget_core_budget_history_rel', 'budget_id',
                                    'history_id')
 
+    # TODO TRASFERING SECTION TO DIVISION
+    division_id = fields.Many2one('budget.enduser.section', string="Division")
+    section_id = fields.Many2one('budget.enduser.section', string='Section')
+    sub_section_id = fields.Many2one('budget.enduser.sub.section', string='Sub Section')
+
     # COMPUTE FIELDS
     # ----------------------------------------------------------
-    section_id = fields.Many2one('budget.enduser.section', string='Section')
-    old_section_id = fields.Many2one('res.partner', string='Old Section')
-
-    sub_section_id = fields.Many2one('budget.enduser.sub.section', string='Sub Section')
-    old_sub_section_id = fields.Many2one('res.partner', string='Old Sub Section')
-
     expenditure_amount = fields.Monetary(compute='_compute_expenditure_amount',
                                          currency_field='company_currency_id',
                                          string='Expenditure Amount',
                                          store=True)
+    # TODO DEPRECATE
+    old_section_id = fields.Many2one('res.partner', string='Old Section')
+    old_sub_section_id = fields.Many2one('res.partner', string='Old Sub Section')
 
     # @api.one
     # @api.depends()

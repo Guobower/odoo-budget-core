@@ -20,6 +20,7 @@ class ContractInherit(models.Model):
 
     # ONCHANGE FIELDS
     # ----------------------------------------------------------
+    # TODO ENHANCE FOR SUB SECTION MIXIN
     @api.multi
     @api.onchange('budget_contract_allocation_ids', 'is_opex', 'is_capex')
     def onchange_budget_allocation_ids(self):

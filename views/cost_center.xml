@@ -23,6 +23,7 @@
                         </div>
                         <group>
                             <group>
+                                <field name="division_id" options="{'no_create': True}"/>
                                 <field name="section_id" options="{'no_create': True}"/>
                                 <field name="sub_section_id" options="{'no_create': True}"/>
                             </group>
