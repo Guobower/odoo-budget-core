@@ -8,8 +8,7 @@ class Budget(models.Model):
     _name = 'budget.core.budget'
     _rec_name = 'name'
     _description = 'Budget'
-    # _inherit = ['mail.thread', 'ir.needaction_mixin']
-    _inherit = ['mail.thread']
+    _inherit = ['mail.thread', 'budget.enduser.mixin']
 
     # CHOICES
     # ----------------------------------------------------------
@@ -17,6 +16,7 @@ class Budget(models.Model):
 
     # BASIC FIELDS
     # ----------------------------------------------------------
+    # division_id, section_id, sub_section_id exist in enduser.mixin
     state = fields.Selection(STATES, default='draft')
 
     name = fields.Char(string="Name")
@@ -47,11 +47,6 @@ class Budget(models.Model):
     history_ids = fields.Many2many('budget.core.budget.history', 'budget_core_budget_history_rel', 'budget_id',
                                    'history_id')
 
-    # TODO TRASFERING SECTION TO DIVISION
-    division_id = fields.Many2one('budget.enduser.section', string="Division")
-    section_id = fields.Many2one('budget.enduser.section', string='Section')
-    sub_section_id = fields.Many2one('budget.enduser.sub.section', string='Sub Section')
-
     # COMPUTE FIELDS
     # ----------------------------------------------------------
     expenditure_amount = fields.Monetary(compute='_compute_expenditure_amount',
@@ -61,18 +56,6 @@ class Budget(models.Model):
     # TODO DEPRECATE
     old_section_id = fields.Many2one('res.partner', string='Old Section')
     old_sub_section_id = fields.Many2one('res.partner', string='Old Sub Section')
-
-    # @api.one
-    # @api.depends()
-    # def _compute_section_id(self):
-    #     # Use for operation automation of section
-    #     self.section_id = self.section_id
-    #
-    # @api.one
-    # @api.depends()
-    # def _compute_sub_section_id(self):
-    #     # Use for operation automation of section
-    #     self.sub_section_id = self.sub_section_id
 
     @api.one
     @api.depends('history_ids', 'history_ids.expenditure_amount')
@@ -87,15 +70,6 @@ class Budget(models.Model):
             elif history.action_taken in ['transfer'] and self.id == history.from_budget_id.id:
                 self.expenditure_amount -= history.expenditure_amount
 
-    # @api.one
-    # def _set_sub_section_id(self):
-    #     # Use for operation automation of section
-    #     pass
-    #
-    # @api.one
-    # def _set_section_id(self):
-    #     # Use for operation automation of section
-    #     pass
 
     # TRANSITIONS
     # ----------------------------------------------------------

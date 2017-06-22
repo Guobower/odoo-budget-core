@@ -7,6 +7,7 @@ from odoo.addons.budget_utilities.models.utilities import choices_tuple
 class CostCenter(models.Model):
     _name = 'budget.core.cost.center'
     _rec_name = 'cost_center'
+    _inherit = ['budget.enduser.mixin']
 
     # CHOICES
     # ----------------------------------------------------------
@@ -21,13 +22,6 @@ class CostCenter(models.Model):
 
     # RELATIONSHIPS
     # ----------------------------------------------------------
-    # TODO TRASFERING SECTION TO DIVISION
-    division_id = fields.Many2one('budget.enduser.section', string="Division")
-
-    section_id = fields.Many2one('budget.enduser.section',
-                                 string="Section")
-    sub_section_id = fields.Many2one('budget.enduser.sub.section',
-                                     string="Sub Section")
     budget_ids = fields.One2many('budget.core.budget',
                                  'cost_center_id',
                                  string="CC-AC")
