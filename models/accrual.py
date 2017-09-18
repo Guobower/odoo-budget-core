@@ -33,13 +33,13 @@ class Accrual(models.Model):
     contract_description = fields.Text(related='contract_id.description')
 
     previous_accrued_amount = fields.Monetary(string='Previous Accrued Amount',
-                                              currency_field='company_currency_id',
+                                              currency_field='currency_id',
                                               related='previous_accrual_id.accrued_amount',
                                               store=True)
 
     # RELATIONSHIPS
     # ----------------------------------------------------------
-    company_currency_id = fields.Many2one('res.currency', readonly=True,
+    currency_id = fields.Many2one('res.currency', readonly=True,
                                           default=lambda self: self.env.user.company_id.currency_id)
 
     budget_id = fields.Many2one('budget.core.budget',
@@ -66,7 +66,7 @@ class Accrual(models.Model):
                                           store=True)
 
     accrued_amount = fields.Monetary(string='Accrued Amount',
-                                     currency_field='company_currency_id',
+                                     currency_field='currency_id',
                                      compute='_compute_accrued_amount',
                                      inverse='_set_accrued_amount',
                                      store=True

@@ -22,14 +22,14 @@ class BudgetHistory(models.Model):
     is_initial = fields.Boolean(string='Is Initial')
 
     action_taken = fields.Selection(string='Action Taken', selection=OPTIONS, default='add')
-    expenditure_amount = fields.Monetary(currency_field='company_currency_id',
+    expenditure_amount = fields.Monetary(currency_field='currency_id',
                                          string='Expenditure Amount')
     change_date = fields.Date(string="Change Date", default=fields.Date.today())
     remarks = fields.Text(string="Remarks")
 
     # RELATIONSHIPS
     # ----------------------------------------------------------
-    company_currency_id = fields.Many2one('res.currency', readonly=True,
+    currency_id = fields.Many2one('res.currency', readonly=True,
                                           default=lambda self: self.env.user.company_id.currency_id)
 
     budget_ids = fields.Many2many('budget.core.budget', 'budget_core_budget_history_rel', 'history_id', 'budget_id')

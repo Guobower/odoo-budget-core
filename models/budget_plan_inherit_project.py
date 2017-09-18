@@ -12,7 +12,7 @@ class BudgetPlanInheritProject(models.Model):
     # BASIC FIELDS
     # ----------------------------------------------------------
     is_project_plan = fields.Boolean(string='Is Plan Project')
-    commitment_amount = fields.Monetary(currency_field='company_currency_id',
+    commitment_amount = fields.Monetary(currency_field='currency_id',
                                         string='Commitment Amount')
     # RELATIONSHIPS
     # ----------------------------------------------------------

@@ -18,20 +18,20 @@ class BudgetInheritProject(models.Model):
     remarks = fields.Text(string="Remarks")
     rfs_date = fields.Date(string="Ready for Service Date")
     # initial_expenditure_amount exist in budget.core.budget already
-    initial_commitment_amount = fields.Monetary(currency_field='company_currency_id',
+    initial_commitment_amount = fields.Monetary(currency_field='currency_id',
                                                  string='Initial Commitment Amount',
                                                  default=0.00)
 
     # RELATIONSHIPS
     # ----------------------------------------------------------
-    # company_currency_id exist in budget.core.budget already
+    # currency_id exist in budget.core.budget already
     # history_ids exist in budget.core.budget already
 
     # COMPUTE FIELDS
     # ----------------------------------------------------------
     # expenditure_amount exist in budget.core.budget
     commitment_amount = fields.Monetary(compute='_compute_commitment_amount',
-                                         currency_field='company_currency_id',
+                                         currency_field='currency_id',
                                          string='Commitment Amount',
                                          store=True)
 

@@ -16,7 +16,7 @@ class BudgetContractAllocation(models.Model):
     # ----------------------------------------------------------
     # RELATIONSHIPS
     # ----------------------------------------------------------
-    company_currency_id = fields.Many2one('res.currency', readonly=True,
+    currency_id = fields.Many2one('res.currency', readonly=True,
                                           default=lambda self: self.env.user.company_id.currency_id)
     budget_id = fields.Many2one('budget.core.budget', string='CWP/CC-AC', ondelete='cascade')
     rfq_id = fields.Many2one('budget.contractor.rfq', string='RFQ')

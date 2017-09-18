@@ -23,12 +23,12 @@ class Budget(models.Model):
     start_date = fields.Date(string="Start Date")
     end_date = fields.Date(string="End Date")
     description = fields.Text(string="Description")
-    initial_expenditure_amount = fields.Monetary(currency_field='company_currency_id',
+    initial_expenditure_amount = fields.Monetary(currency_field='currency_id',
                                                  string='Initial Expenditure Amount',
                                                  default=0.00)
     # RELATIONSHIPS
     # ----------------------------------------------------------
-    company_currency_id = fields.Many2one('res.currency', readonly=True,
+    currency_id = fields.Many2one('res.currency', readonly=True,
                                           default=lambda self: self.env.user.company_id.currency_id)
     region_id = fields.Many2one('budget.enduser.region', string='Region')
 
@@ -50,7 +50,7 @@ class Budget(models.Model):
     # COMPUTE FIELDS
     # ----------------------------------------------------------
     expenditure_amount = fields.Monetary(compute='_compute_expenditure_amount',
-                                         currency_field='company_currency_id',
+                                         currency_field='currency_id',
                                          string='Expenditure Amount',
                                          store=True)
     # TODO DEPRECATE

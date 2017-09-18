@@ -14,18 +14,18 @@ class BudgetPlan(models.Model):
 
     # BASIC FIELDS
     # ----------------------------------------------------------
-    approved_amount = fields.Monetary(currency_field='company_currency_id',
+    approved_amount = fields.Monetary(currency_field='currency_id',
                                         string='Approved Amount')
-    deducted_amount = fields.Monetary(currency_field='company_currency_id',
+    deducted_amount = fields.Monetary(currency_field='currency_id',
                                         string='Deducted Amount')
-    shared_amount = fields.Monetary(currency_field='company_currency_id',
+    shared_amount = fields.Monetary(currency_field='currency_id',
                                         string='Shared Amount')
     date = fields.Date(string="Date")
     remarks = fields.Text(string="Remarks")
 
     # RELATIONSHIPS
     # ----------------------------------------------------------
-    company_currency_id = fields.Many2one('res.currency', readonly=True,
+    currency_id = fields.Many2one('res.currency', readonly=True,
                                           default=lambda self: self.env.user.company_id.currency_id)
 
     budget_id = fields.Many2one('budget.core.budget', string='Budget')

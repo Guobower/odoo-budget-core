@@ -20,7 +20,7 @@ class BudgetInheritOperation(models.Model):
 
     # RELATIONSHIPS
     # ----------------------------------------------------------
-    # company_currency_id exist in budget.core.budget already
+    # currency_id exist in budget.core.budget already
     # history_ids exist in budget.core.budget already
     # section_id exist in budget.core.budget already so we need to overwrite here
     # budget model must be first to be import then budget_inherit_operation
@@ -30,7 +30,7 @@ class BudgetInheritOperation(models.Model):
 
     # RELATED FIELDS
     # ----------------------------------------------------------
-    # company_currency_id exist in budget.core.budget already
+    # currency_id exist in budget.core.budget already
     # history_ids exist in budget.core.budget already
     cost_center_description = fields.Text(related='cost_center_id.description',
                                           string='Cost Center Description',
@@ -48,9 +48,9 @@ class BudgetInheritOperation(models.Model):
 
     # COMPUTE FIELDS
     # ----------------------------------------------------------
-    # company_currency_id exist in budget.core.budget
+    # currency_id exist in budget.core.budget
     accrued_amount = fields.Monetary(compute='_compute_accrued_amount',
-                                     currency_field='company_currency_id',
+                                     currency_field='currency_id',
                                      string='Accrued Amount',
                                      store=True)
 
