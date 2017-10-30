@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': "Budget Core",
-    'version': '0.2',
+    'version': '11.0.0.1',
     'summary': 'Budget Core Module',
     'sequence': 3,
     'description': """
@@ -71,12 +71,6 @@ Summary
         'views/budget_plan_inherit_project.xml',
 
         'views/contract_inherit.xml',
-
-        'views/menu.xml',
-
-        # WORKFLOWS
-        'workflows/budget_core_budget.xml'
-
     ],
     'demo': [
     ],

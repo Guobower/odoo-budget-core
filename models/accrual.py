@@ -21,12 +21,12 @@ class Accrual(models.Model):
 
     # BASIC FIELDS
     # ----------------------------------------------------------
+    active = fields.Boolean(default=True)
     state = fields.Selection(STATES, default='draft')
 
     is_reversal = fields.Boolean(string="Is Reversal")
     date = fields.Date(string="Date")
     remarks = fields.Text(string="Remarks")
-    active = fields.Boolean(default=True, help="Set active to false to hide the tax without removing it.")
 
     # RELATED FIELDS
     # ----------------------------------------------------------
