@@ -79,8 +79,7 @@
                                        groups="base.group_system"
                                        options="{'no_create': True, 'no_open': True}"/>
                                 <field name="investment_area"
-                                       options="{'no_create': True, 'no_open': True}"
-                                       attrs="{'invisible': [('is_project', '!=', True)]}"/>
+                                       options="{'no_create': True, 'no_open': True}"/>
                             </group>
 
                             <group name="col_right">
