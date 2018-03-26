@@ -19,7 +19,7 @@ class BudgetContractAllocation(models.Model):
     cost_per_year = fields.Monetary(string='Cost per Year', currency_field='currency_id')
     required_amount = fields.Monetary(currency_field='currency_id',
                                       string='Required Amount',
-                                      default=0.00)
+                                      help='The Total Amount Needed from the Budget for the Contract')
     expense_description = fields.Text(string='Expense Description')
 
     # RELATIONSHIPS

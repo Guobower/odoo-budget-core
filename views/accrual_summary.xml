@@ -25,6 +25,15 @@
                         <field name="state" widget="statusbar" statusbar_visible="draft,approved"/>
                     </header>
                     <sheet>
+                        <group groups="base.group_no_one">
+                        <!--Hidden Parameters Debug Mode Visible Only-->
+                            <group>
+                                <field name="create_date"/>
+                                <field name="write_date"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
                         <group attrs="{'invisible': [('write_date', '!=', False)]}">
                             <h4>
                                 Note:
@@ -66,10 +75,6 @@
                             </button>
                         </div>
                         <div class="oe_title">
-                            <group groups="base.group_system">
-                                <field name="create_date"/>
-                                <field name="write_date"/>
-                            </group>
                             <h1>
                                 <field name="name" default_focus="1" placeholder="Name"/>
                             </h1>
@@ -104,22 +109,6 @@
             </field>
         </record>
         <!--END VIEWS-->
-
-        <record id="accrual_verify_server_action" model="ir.actions.server">
-            <field name="name">Verify</field>
-            <field name="model_id" ref="model_budget_core_budget_accrual"/>
-            <field name="state">code</field>
-            <field name="code">records.set2verified()</field>
-        </record>
-
-        <!--<record id="run_accrual_verify_server_action" model="ir.values">-->
-            <!--<field name="name">Verify</field>-->
-            <!--<field name="model_id" ref="model_budget_core_budget_accrual"/>-->
-            <!--<field name="key">action</field>-->
-            <!--<field name="key2">client_action_multi</field>-->
-            <!--<field name="model">budget.core.budget.accrual</field>-->
-            <!--<field name="value" eval="'ir.actions.server,' + str(ref('accrual_verify_server_action'))"/>-->
-        <!--</record>-->
 
         <!--START ACTIONS-->
         <record model="ir.actions.act_window" id="action_budget_accrual_summary">

@@ -11,8 +11,7 @@
                 <xpath expr="//notebook[@name='bottom']" position="inside">
                     <page string="Budgets">
                         <field name="budget_contract_allocation_ids"
-                               context="{'is_opex': is_opex, 'is_capex': is_capex}">
-                            <form></form>
+                               context="{'is_opex': is_opex, 'is_capex': is_capex, 'default_required_amount': amount}">
                             <tree editable="bottom">
                                 <field name="contract_id"
                                        groups="base.group_system"
