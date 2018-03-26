@@ -9,7 +9,7 @@
             <field name="model">budget.core.budget.accrual</field>
             <field name="arch" type="xml">
                 <tree editable="bottom">
-                    <field name="is_record_lock" groups="base.group_system"/>
+                    <field name="is_record_lock" groups="base.group_no_one"/>
                     <field name="name" readonly="1"/>
                     <field name="date" readonly="1" required="1"/>
                     <field name="contract_id"
@@ -67,6 +67,14 @@
             </field>
         </record>
         <!--END SEARCH-->
+
+        <record id="accrual_verify_server_action" model="ir.actions.server">
+            <field name="name">Verify</field>
+            <field name="model_id" ref="model_budget_core_budget_accrual"/>
+            <field name="binding_model_id" ref="model_budget_core_budget_accrual"/>
+            <field name="state">code</field>
+            <field name="code">records.set2verified()</field>
+        </record>
 
         <!--START ACTIONS-->
         <!--Budget Action-->
