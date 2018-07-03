@@ -2,6 +2,21 @@
 
 <odoo>
     <data noupdate="0">
+        <record model="ir.module.category" id="category_tbpc_staff">
+            <field name="name">TBPC Staff</field>
+            <field name="description">Category for the TBPC Staff</field>
+        </record>
+
+        <record id="group_core_staff" model="res.groups">
+            <!-- MAIN GOAL OF THIS IS TO ONLY ALLOW VIEWING OF ODOO DEFAULT MODULES IF THEY ARE CORE STAFF -->
+            <!-- REMOVING THE EMLOYEE GROUP IN THE MENU SUCH AS DISCUSS AND LEAVE AND CHANGING WITH THIS -->
+            <field name="name">Core Staff (TBPC)</field>
+            <field name="category_id" ref="category_tbpc_staff"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+    </data>
+
+    <data noupdate="0">
         <!--BUDGET GROUP-->
         <record model="ir.module.category" id="category_budget">
             <field name="name">Budget Core</field>
@@ -11,19 +26,19 @@
         <record model="res.groups" id="group_budget_dependent">
             <field name="name">Budget Dependent</field>
             <field name="category_id" ref="category_budget"/>
-            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="implied_ids" eval="[(4, ref('group_core_staff'))]"/>
         </record>
 
         <record model="res.groups" id="group_budget_user">
             <field name="name">Budget User</field>
             <field name="category_id" ref="category_budget"/>
-            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="implied_ids" eval="[(4, ref('group_budget_dependent'))]"/>
         </record>
 
         <record model="res.groups" id="group_budget_manager">
             <field name="name">Budget Manager</field>
             <field name="category_id" ref="category_budget"/>
-            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="implied_ids" eval="[(4, ref('group_budget_user'))]"/>
         </record>
         <!--END BUDGET GROUP-->
 
