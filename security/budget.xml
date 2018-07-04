@@ -12,7 +12,7 @@
         <record model="res.groups" id="group_budget_dependent">
             <field name="name">Budget Dependent</field>
             <field name="category_id" ref="category_budget"/>
-            <field name="implied_ids" eval="[(4, ref('group_core_staff'))]"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
         </record>
 
         <record model="res.groups" id="group_budget_user">
@@ -68,5 +68,11 @@
         </record>
         <!--END BUDGET GROUP-->
 
+        <!-- END USER -->
+        <record model="res.groups" id="group_budget_end_user">
+            <field name="name">End User</field>
+            <field name="category_id" ref="category_budget"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
     </data>
 </odoo>
